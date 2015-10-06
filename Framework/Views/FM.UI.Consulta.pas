@@ -16,8 +16,6 @@ type
     PnlBotao: TPanel;
     BtnFechar: TBitBtn;
     BtnConfigurar: TBitBtn;
-    procedure BtnFecharClick(Sender: TObject);
-    procedure BtnConfigurarClick(Sender: TObject);
   end;
 
 
@@ -25,31 +23,6 @@ type
 implementation
 
 {$R *.dfm}
-
-procedure TConsultaFormView.BtnFecharClick(Sender: TObject);
-begin
-  oControlador.Fechar;
-end;
-
-
-
-procedure TConsultaFormView.BtnConfigurarClick(Sender: TObject);
-begin
-  oControlador.Configurar;
-end;
-
-
-
-{
-Versão do projeto: 2.17.08
-  Versão: 1.00
-  Desenvolvedor: Eliane Balbinotti
-  Data: 03/10/2012 15:40
-  Tarefa: 7767
-  Descrição: Classe base para criação de formulários.
-}
-
-
 
 end.
 
