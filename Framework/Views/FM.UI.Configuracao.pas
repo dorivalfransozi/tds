@@ -27,14 +27,14 @@ implementation
 
 
 
-procedure TPadraoVisualConfiguracao.BtnOkClick(Sender: TObject);
+procedure TConfiguracaoFormView.BtnOkClick(Sender: TObject);
 begin
 //  oControlador.Executar;
 end;
 
 
 
-procedure TPadraoVisualConfiguracao.BtnPadraoClick(Sender: TObject);
+procedure TConfiguracaoFormView.BtnPadraoClick(Sender: TObject);
 begin
 //  oControlador.UtilizarPadrao;
 end;

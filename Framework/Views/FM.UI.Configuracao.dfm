@@ -1,5 +1,7 @@
 inherited ConfiguracaoFormView: TConfiguracaoFormView
   Caption = 'PadraoVisualConfiguracao'
+  ExplicitWidth = 320
+  ExplicitHeight = 240
   PixelsPerInch = 96
   TextHeight = 13
   inherited PnlBotao: TPanel
@@ -9,6 +11,7 @@ inherited ConfiguracaoFormView: TConfiguracaoFormView
     inherited BtnConfigurar: TBitBtn
       Left = 205
       TabOrder = 2
+      ExplicitLeft = 205
     end
     object BtnOk: TBitBtn
       AlignWithMargins = True
