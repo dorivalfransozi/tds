@@ -6,11 +6,13 @@ uses
   M1.CadastroDemo.UI.Form in 'Comercial\M1.CadastroDemo.UI.Form.pas' {ViewCadastroDemo},
   M1.CadastroDemo.Controller in 'Comercial\M1.CadastroDemo.Controller.pas',
   M1.CadastroDemo.Model in 'Comercial\M1.CadastroDemo.Model.pas',
-  FM.Model.Base in '..\Framework\Models\FM.Model.Base.pas';
+  FM.Model.Base in '..\Framework\Models\FM.Model.Base.pas',
+  FM.UI.BaseForm in '..\Framework\Views\FM.UI.BaseForm.pas' {BaseFormView};
 
 {$R *.res}
 
 begin
+  ReportMemoryLeaksOnShutdown := true;
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TForm1, Form1);

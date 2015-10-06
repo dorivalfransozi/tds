@@ -4,10 +4,11 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, M1.CadastroDemo.Controller, M1.CadastroDemo.Model;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, M1.CadastroDemo.Controller, M1.CadastroDemo.Model,
+  FM.UI.BaseForm;
 
 type
-  TViewCadastroDemo = class(TForm)
+  TViewCadastroDemo = class(TBaseFormView)
     VCName: TEdit;
     Label1: TLabel;
     VCAge: TEdit;
