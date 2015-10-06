@@ -25,10 +25,10 @@ type
     procedure RefreshScreen(Sender: TObject);
     procedure ShowValidationResult(Sender: TObject);
   private
-    procedure DoInitialize;
-    function DoUpdateModel: Boolean;
-    function DoInternalValidate: Boolean;
-    procedure DoInternalSave;
+    procedure DoInitialize; override;
+    function DoUpdateModel: Boolean; override;
+    function DoInternalValidate: Boolean; override;
+    procedure DoInternalSave; override;
   public
     property Controller: TCadastroDemoController read FController write FController;
 

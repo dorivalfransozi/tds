@@ -11,10 +11,10 @@ type
   private
     FModel: TModelBase;
   public
-    procedure DoInitialize;
+    procedure DoInitialize; virtual;
     function DoUpdateModel: Boolean; virtual; abstract;
     function DoInternalValidate: Boolean; virtual; abstract;
-    procedure DoInternalSave;
+    procedure DoInternalSave; virtual;
   end;
 
 var
@@ -32,9 +32,11 @@ begin
    FModel := Controller.Model;}
 end;
 
-function TBaseFormView.DoInternalValidate: Boolean;
+
+procedure TBaseFormView.DoInternalSave;
 begin
 //  Controller.Save;
+
 end;
 
 end.
