@@ -114,6 +114,9 @@
             <Form>BaseFormView</Form>
         </DCCReference>
         <DCCReference Include="..\Framework\Controllers\FM.Controller.Base.pas"/>
+        <DCCReference Include="..\Framework\Views\FM.UI.Consulta.pas">
+            <Form>ConsultaFormView</Form>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -181,6 +184,12 @@
                 </VersionInfoKeys>
             </Delphi.Personality>
             <Deployment Version="2">
+                <DeployFile LocalName="Output\Modelo1.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>Modelo1.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="Output\Modelo1.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>Modelo1.exe</RemoteName>

@@ -8,7 +8,7 @@ uses
   M1.CadastroDemo.Model in 'Comercial\M1.CadastroDemo.Model.pas',
   FM.Model.Base in '..\Framework\Models\FM.Model.Base.pas',
   FM.UI.BaseForm in '..\Framework\Views\FM.UI.BaseForm.pas' {BaseFormView},
-  FM.Controller.Base in '..\Framework\Controllers\FM.Controller.Base.pas';
+  FM.Controller.Base in '..\Framework\Controllers\FM.Controller.Base.pas',
   FM.UI.Consulta in '..\Framework\Views\FM.UI.Consulta.pas' {ConsultaFormView};
 
 {$R *.res}
