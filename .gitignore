@@ -57,6 +57,7 @@ __history/
 *.stat
 
 Modelo1/Win32/
+Modelo1/Output/
 Modelo1/*.res
 Modelo1/Modelo1.dproj.local
 Modelo1/Modelo1.identcache
