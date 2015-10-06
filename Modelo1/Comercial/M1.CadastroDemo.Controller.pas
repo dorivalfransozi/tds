@@ -4,13 +4,15 @@ interface
 
 uses
  M1.CadastroDemo.Model,
+ FM.Controller.Base,
  Classes;
 
 type
-  TCadastroDemoController = class
+  TCadastroDemoController = class(TCRUDController)
+  protected
+    function GetModel: TModelBase; override;
   private
     FModel: TCadastroDemoModel;
-    function GetModel: TModelBase;
   public
     constructor Create;
     destructor Destroy; override;
@@ -18,9 +20,11 @@ type
     procedure FindCadastroDemo(const Name: string);
     procedure ListCadastroDemo;
 
-    function Validate: Boolean;
+    function Validate: Boolean; override;
 
-    procedure Save;
+    procedure New; override;
+    procedure Edit; override;
+    procedure Save; override;
   public
     property Model: TModelBase read GetModel;
   end;
@@ -28,7 +32,8 @@ type
 implementation
 
 uses
-  DDC.Notification.Service, System.SysUtils;
+  DDC.Notification.Service,
+  System.SysUtils;
 
 { TCadastroDemoController }
 
@@ -41,6 +46,12 @@ destructor TCadastroDemoController.Destroy;
 begin
   FModel.Free;
   inherited;
+end;
+
+procedure TCadastroDemoController.Edit;
+begin
+  inherited;
+
 end;
 
 procedure TCadastroDemoController.FindCadastroDemo(const Name: string);
@@ -63,6 +74,12 @@ procedure TCadastroDemoController.ListCadastroDemo;
 begin
  //Repassar para DAO busca e popular lista de objects
  //Em seguida notificar as views com a referencia dos itens retornados.
+end;
+
+procedure TCadastroDemoController.New;
+begin
+  inherited;
+
 end;
 
 procedure TCadastroDemoController.Save;
