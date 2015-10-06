@@ -2,7 +2,11 @@ unit M1.CadastroDemo.Model;
 
 interface
 
+uses
+  FM.Model.Base;
+
 type
+  TModelBase = FM.Model.Base.TModelBase;
 
   //Generalizar para mais de um cadastro
   TCadastroDemoViewlMsgs = class
@@ -14,11 +18,6 @@ type
   IValidation = interface
     function LastErrorMsg: string;
     function IsValid: Boolean;
-  end;
-
-  TModelBase = class
-  public
-    function New: TModelBase; virtual; abstract;
   end;
 
   TValidationInfo = class
