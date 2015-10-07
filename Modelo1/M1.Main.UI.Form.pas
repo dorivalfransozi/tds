@@ -9,7 +9,9 @@ uses
 type
   TForm1 = class(TForm)
     Button1: TButton;
+    Button2: TButton;
     procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -23,7 +25,10 @@ implementation
 
 {$R *.dfm}
 
-uses M1.CadastroDemo.Controller, M1.CadastroDemo.UI.Form;
+uses
+  M1.Forms.Factory,
+  M1.CadastroDemo.Controller,
+  M1.CadastroDemo.UI.Form;
 
 procedure TForm1.Button1Click(Sender: TObject);
 var
@@ -39,6 +44,16 @@ begin
   finally
     Controller.Free;
   end;
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+begin
+  ViewFactory.InvokeShow(TM1Forms.CadastroDemo,
+   procedure(View: TView)
+   begin
+    TCadastroDemoController(View.Controller).FindCadastroDemo('Diego');
+   end
+  );
 end;
 
 end.

@@ -14,7 +14,7 @@ type
   private
     FModel: TCadastroDemoModel;
   public
-    constructor Create;
+    constructor Create; override;
     destructor Destroy; override;
 
     procedure FindCadastroDemo(const Name: string);

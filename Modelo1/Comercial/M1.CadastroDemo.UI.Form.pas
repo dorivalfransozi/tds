@@ -19,19 +19,15 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure Button1Click(Sender: TObject);
   private
-    FModel: TModelBase;
-    FController: TCadastroDemoController;
+    function GetController: TCadastroDemoController;
 
     procedure RefreshScreen(Sender: TObject);
     procedure ShowValidationResult(Sender: TObject);
   private
-    procedure DoInitialize; override;
     function DoUpdateModel: Boolean; override;
     function DoInternalValidate: Boolean; override;
     procedure DoInternalSave; override;
   public
-    property Controller: TCadastroDemoController read FController write FController;
-
     class procedure Execute(Controller: TCadastroDemoController; AfterCreate: TProc = nil);
   end;
 
@@ -52,20 +48,14 @@ begin
     DoInternalSave;
 end;
 
-procedure TViewCadastroDemo.DoInitialize;
-begin
-  if Assigned(FController) then
-   FModel := Controller.Model;
-end;
-
 procedure TViewCadastroDemo.DoInternalSave;
 begin
-  Controller.Save;
+  GetController.Save;
 end;
 
 function TViewCadastroDemo.DoInternalValidate: Boolean;
 begin
-  Result := DoUpdateModel and Controller.Validate;
+  Result := DoUpdateModel and GetController.Validate;
 end;
 
 function TViewCadastroDemo.DoUpdateModel: Boolean;
@@ -117,6 +107,11 @@ procedure TViewCadastroDemo.FormDestroy(Sender: TObject);
 begin
   NotificationService.UnSubscribe(RefreshScreen);
   NotificationService.UnSubscribe(ShowValidationResult);
+end;
+
+function TViewCadastroDemo.GetController: TCadastroDemoController;
+begin
+  Result := FController as TCadastroDemoController;
 end;
 
 procedure TViewCadastroDemo.RefreshScreen(Sender: TObject);
