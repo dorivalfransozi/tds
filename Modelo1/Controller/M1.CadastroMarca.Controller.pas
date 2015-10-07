@@ -3,9 +3,9 @@ unit M1.CadastroMarca.Controller;
 interface
 
 uses
- M1.Marca.Model,
- FM.Controller.CRUD.Impl,
- Classes;
+  M1.Marca.Model,
+  FM.Controller.CRUD.Impl,
+  Classes;
 
 type
   TCadastroMarcaController = class(TCRUDController)
@@ -17,9 +17,6 @@ type
     constructor Create; override;
     destructor Destroy; override;
 
-    procedure FindCadastroDemo(const Name: string);
-    procedure ListCadastroDemo;
-
     function Validate: Boolean; override;
 
     procedure New; override;
@@ -29,22 +26,40 @@ type
     property Model: TModelBase read GetModel;
   end;
 
-
 implementation
 
+uses
+  System.SysUtils;
+
 { TCadastroMarcaController }
+
+
 
 constructor TCadastroMarcaController.Create;
 begin
   inherited;
 
+  FModel := TMarcaModel.Create;
 end;
+
+
 
 destructor TCadastroMarcaController.Destroy;
 begin
+  if (FModel <> nil) then
+    FreeAndNil(FModel);
 
   inherited;
 end;
+
+
+
+function TCadastroMarcaController.GetModel: TModelBase;
+begin
+  Result := FModel as TModelBase;
+end;
+
+
 
 procedure TCadastroMarcaController.Edit;
 begin
@@ -52,20 +67,7 @@ begin
 
 end;
 
-procedure TCadastroMarcaController.FindCadastroDemo(const Name: string);
-begin
 
-end;
-
-function TCadastroMarcaController.GetModel: TModelBase;
-begin
-
-end;
-
-procedure TCadastroMarcaController.ListCadastroDemo;
-begin
-
-end;
 
 procedure TCadastroMarcaController.New;
 begin
@@ -73,11 +75,15 @@ begin
 
 end;
 
+
+
 procedure TCadastroMarcaController.Save;
 begin
   inherited;
 
 end;
+
+
 
 function TCadastroMarcaController.Validate: Boolean;
 begin
