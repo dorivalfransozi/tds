@@ -9,10 +9,11 @@ uses
   FM.Model.Base in '..\Framework\Models\FM.Model.Base.pas',
   FM.UI.BaseForm in '..\Framework\Views\FM.UI.BaseForm.pas' {BaseFormView},
   FM.Controller.Base in '..\Framework\Controllers\FM.Controller.Base.pas',
-    FM.UI.Consulta in '..\Framework\Views\FM.UI.Consulta.pas' {ConsultaFormView},
+  FM.UI.Consulta in '..\Framework\Views\FM.UI.Consulta.pas' {ConsultaFormView},
   FM.UI.Cadastro in '..\Framework\Views\FM.UI.Cadastro.pas' {CadastroFormView},
   M1.Forms.Factory in 'Core\M1.Forms.Factory.pas',
-  FM.UI.View.Factory in '..\Framework\Views\FM.UI.View.Factory.pas';
+  FM.UI.View.Factory in '..\Framework\Views\FM.UI.View.Factory.pas',
+  FM.Security.Interceptor in '..\Framework\Core\FM.Security.Interceptor.pas';
 
 {$R *.res}
 
