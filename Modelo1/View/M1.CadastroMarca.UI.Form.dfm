@@ -9,8 +9,8 @@ inherited FormCadastroMarca: TFormCadastroMarca
   inherited PnlArea: TPanel
     Width = 522
     Height = 153
-    ExplicitWidth = 676
-    ExplicitHeight = 327
+    ExplicitWidth = 522
+    ExplicitHeight = 153
     object EdtDescrReduz: TEditText
       Left = 122
       Top = 81
@@ -58,36 +58,37 @@ inherited FormCadastroMarca: TFormCadastroMarca
   inherited PnlBotao: TPanel
     Top = 159
     Width = 528
-    ExplicitTop = 333
-    ExplicitWidth = 682
+    ExplicitTop = 159
+    ExplicitWidth = 528
     inherited BtnFechar: TBitBtn
       Left = 445
-      ExplicitLeft = 599
+      ExplicitLeft = 445
     end
     inherited BtnConfigurar: TBitBtn
       Left = 263
-      ExplicitLeft = 417
+      ExplicitLeft = 263
     end
     inherited BtnSalvar: TBitBtn
       Left = 91
-      ExplicitLeft = 245
+      Enabled = True
+      ExplicitLeft = 91
     end
     inherited BtnExcluir: TBitBtn
       Left = 177
-      ExplicitLeft = 331
+      ExplicitLeft = 177
     end
     inherited BtnRelatorio: TBitBtn
       Left = 349
-      ExplicitLeft = 503
+      ExplicitLeft = 349
     end
     inherited BtnEfetivar: TBitBtn
       Left = 5
       Visible = True
-      ExplicitLeft = 159
+      ExplicitLeft = 5
     end
     inherited BtnEditar: TBitBtn
       Left = -81
-      ExplicitLeft = 73
+      ExplicitLeft = -81
     end
   end
 end

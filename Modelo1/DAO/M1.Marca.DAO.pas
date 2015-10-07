@@ -11,29 +11,61 @@ type
 
   TDAOMarca = class(TDAOBase)
   private
-    function GetModel: TMarcaModel;
+    FModel: TMarcaModel;
+  protected
+    procedure SetModel(var AModel: TModelBase); override;
   public
+    property Model: TMarcaModel read FModel write FModel;
     procedure Save(var AModel: TModelBase); override;
     procedure Delete(var AModel: TModelBase); override;
-    function Find(var AModel: TModelBase): boolean; override;
+    function Find(var AModel: TModelBase; const ASetModel: boolean=true): boolean; override;
     function FindAll(var AListModel: TObjectList<TModelBase>): boolean; override;
   end;
 
 implementation
 
 uses
-  SysUtils;
+  SysUtils, DDC.Resource, System.Rtti,
+  DDC.Core.Reflection;
 
-
+const
+  M1MarcaDAOFind = 'M1MarcaDAOFind';
 
 { TDAOMarca }
 procedure TDAOMarca.Save(var AModel: TModelBase);
+
+  procedure Update;
+  begin
+    FUpdate.Limpar;
+    FUpdate.Add('DSC', FModel.Descricao);
+    FUpdate.Add('DSR', FModel.DescricaoReduzida);
+    FUpdate.Add('USR', FModel.Usuario);
+    FUpdate.Add('DTM', now);
+    FUpdate.AddWhere('COD', FModel.Codigo);
+    FUpdate.SetTabela('GCEMRC01');
+    FSqlConnection.Execute(FUpdate.SQL, FUpdate.Params);
+  end;
+
+  procedure Insert;
+  begin
+    FInsert.Limpar;
+    FInsert.Add('COD', FModel.Codigo);
+    FInsert.Add('DSC', FModel.Descricao);
+    FInsert.Add('DSR', FModel.DescricaoReduzida);
+    FInsert.Add('DTC', date);
+    FInsert.Add('DTM', date);
+    FInsert.Add('USR', FModel.Usuario);
+    FInsert.SetTabela('GCEMRC01');
+    FSqlConnection.Execute(FInsert.SQL, FInsert.Params);
+  end;
+
 begin
   inherited;
-  { TODO: find se existe...
-    update
-    else
-    insert }
+
+  if Find(AModel, false) then
+    Update
+  else
+    Insert;
 end;
 
 
@@ -48,25 +80,33 @@ end;
 
 
 
-function TDAOMarca.Find(var AModel: TModelBase): boolean;
+function TDAOMarca.Find(var AModel: TModelBase; const ASetModel: boolean=true): boolean;
 begin
-  { TODO -oDorival -cHelper : Trocar por um helper que abra o dataset }
+  inherited;
 
+  { TODO -oDorival -cHelper : Trocar por um helper que abra o dataset }
   FSQLDataSet.Close;
-  FSQLDataSet.CommandText := 'select COD, DSC, DSR, DTC, DTM, USR from GCEMRC01 where COD = ' + GetModel.Codigo.ToString;
+
+  FSQLDataSet.CommandText := TResource.ToString( M1MarcaDAOFind );
+  FSQLDataSet.Params.ParamValues['COD'] := FModel.Codigo;
+
   FSQLDataSet.Open;
-  result := not FSQLDataSet.IsEmpty;
+  result := not(FSQLDataSet.IsEmpty);
+
+  if not(ASetModel) then
+    exit;
+
   if result then
   begin
-    GetModel.Codigo            := FSQLDataSet.FieldByName('COD').AsInteger;
-    GetModel.Descricao         := FSQLDataSet.FieldByName('DSC').AsString;
-    GetModel.DescricaoReduzida := FSQLDataSet.FieldByName('DSR').AsString;
-    GetModel.DataCadatro       := FSQLDataSet.FieldByName('DTC').AsDateTime;
-    GetModel.DataManutencao    := FSQLDataSet.FieldByName('DTM').AsDateTime;
-    GetModel.Usuario           := FSQLDataSet.FieldByName('USR').AsInteger;
+    FModel.Codigo            := FSQLDataSet.FieldByName( 'COD' ).AsInteger;
+    FModel.Descricao         := FSQLDataSet.FieldByName( 'DSC' ).AsString;
+    FModel.DescricaoReduzida := FSQLDataSet.FieldByName( 'DSR' ).AsString;
+    FModel.DataCadatro       := FSQLDataSet.FieldByName( 'DTC' ).AsDateTime;
+    FModel.DataManutencao    := FSQLDataSet.FieldByName( 'DTM' ).AsDateTime;
+    FModel.Usuario           := FSQLDataSet.FieldByName( 'USR' ).AsInteger;
   end
   else
-    GetModel.ClearAll;
+    FModel.Clear;
 end;
 
 
@@ -78,9 +118,9 @@ end;
 
 
 
-function TDAOMarca.GetModel: TMarcaModel;
+procedure TDAOMarca.SetModel(var AModel: TModelBase);
 begin
-  result := TMarcaModel(FModel);
+  FModel := TMarcaModel(AModel);
 end;
 
 end.

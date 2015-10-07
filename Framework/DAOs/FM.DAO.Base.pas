@@ -11,7 +11,7 @@ type
   IDAO = interface
     procedure Save(var AModel: TModelBase);
     procedure Delete(var AModel: TModelBase);
-    function Find(var AModel: TModelBase): boolean;
+    function Find(var AModel: TModelBase; const ASetModel: boolean=true): boolean;
     function FindAll(var AListModel: TObjectList<TModelBase>): boolean;
   end;
 

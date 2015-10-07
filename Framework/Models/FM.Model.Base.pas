@@ -12,9 +12,17 @@ type
   TModelBase = class
   public
     function New: TModelBase; virtual; abstract;
+    procedure Clear;
   end;
 
 
 implementation
+
+{ TModelBase }
+
+procedure TModelBase.Clear;
+begin
+{ TODO -oDorival -cRTTI : Limpar atributos do metodo }
+end;
 
 end.

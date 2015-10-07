@@ -12,12 +12,8 @@ type
     EdtDescrReduz: TEditText;
     EdtDescricao: TEditText;
     EdtCodigo: TEditNum;
-    procedure BtnSalvarClick(Sender: TObject);
-    procedure BtnExcluirClick(Sender: TObject);
   private
-    { Private declarations }
-  public
-    { Public declarations }
+    function DoUpdateModel: Boolean; override;
   end;
 
 var
@@ -25,23 +21,29 @@ var
 
 implementation
 
+uses
+  M1.Marca.Model;
+
 {$R *.dfm}
 
-
-
-
-procedure TFormCadastroMarca.BtnExcluirClick(Sender: TObject);
+function TFormCadastroMarca.DoUpdateModel: Boolean;
 begin
-  inherited;
-  GetCRUDController.Delete;
+  Result := True;
+  try
+   (FModel as TMarcaModel).Codigo            := StrToIntDef(EdtCodigo.Text, 0);
+   (FModel as TMarcaModel).Descricao         := EdtDescricao.Text;
+   (FModel as TMarcaModel).DescricaoReduzida := EdtDescrReduz.Text;
+
+  except
+   //Criar Exception base para validações que já contenha o validation info.
+   on E: Exception do
+    begin
+     Result := False;
+     TValidationInfo.New(FModel, 'E.PropertyName', False, E.Message);
+    end;
+  end;
 end;
 
 
-
-procedure TFormCadastroMarca.BtnSalvarClick(Sender: TObject);
-begin
-  inherited;
-  GetCRUDController.Save;
-end;
 
 end.

@@ -3,26 +3,31 @@ unit FM.DAO.Base.Impl;
 interface
 
 uses
-  FM.DAO.Base, SysmoSQL,
-  System.Generics.Collections;
+  FM.DAO.Base, SysmoSQL, DDC.Attributes,
+  System.Generics.Collections,
+  Helper.HSQLBuilder;
 
 type
+  TFMTableName = DDC.Attributes.TFMTableName;
+  TFMCollumnName = DDC.Attributes.TFMCollumnName;
+  TFMVisible = DDC.Attributes.TFMVisible;
+
 
   TDAOBase = class(TInterfacedObject, IDAO)
   protected
-    FModel: TModelBase;
     FSqlConnection: TPSQLConnection;
     FSqlDataSet: TPSQLDataSet;
+    FInsert: TSQLBuilderInsert;
+    FUpdate: TSQLBuilderUpdate;
+    procedure SetModel(var AModel: TModelBase); virtual; abstract;
   public
-    property Model: TModelBase read FModel write FModel;
-
-    constructor Create(var AModel: TModelBase); overload; reintroduce;
+    constructor Create; overload;
     destructor Destroy; override;
 
-    procedure Save(var AModel: TModelBase); virtual; abstract;
-    procedure Delete(var AModel: TModelBase); virtual; abstract;
-    function Find(var AModel: TModelBase): boolean; virtual; abstract;
-    function FindAll(var AListModel: TObjectList<TModelBase>): boolean; virtual; abstract;
+    procedure Save(var AModel: TModelBase); virtual;
+    procedure Delete(var AModel: TModelBase); virtual;
+    function Find(var AModel: TModelBase; const ASetModel: boolean=true): boolean; virtual;
+    function FindAll(var AListModel: TObjectList<TModelBase>): boolean; virtual;
   end;
 
 
@@ -33,27 +38,49 @@ uses
 
 { TDAOBase }
 
-constructor TDAOBase.Create(var AModel: TModelBase);
+constructor TDAOBase.Create;
 begin
-  inherited;
-
+  inherited Create;
   FSqlConnection := TPSQLConnection.Create(nil);
   THlpConexao.Conectar(FSqlConnection);
   { TODO: testar se conexao funcionou...  }
 
+  FInsert := TSQLBuilderInsert.Create(FSqlConnection);
+  FUpdate := TSQLBuilderUpdate.Create(FSqlConnection);
+
   FSqlDataSet    := TPSQLDataSet.Create(nil);
   FSqlDataSet.SQLConnection := FSqlConnection;
   FSqlDataSet.GetMetadata := false;
+end;
 
-  FModel := AModel;
+procedure TDAOBase.Delete(var AModel: TModelBase);
+begin
+  SetModel(AModel);
 end;
 
 destructor TDAOBase.Destroy;
 begin
+  FUpdate.Free;
+  FInsert.Free;
   FSqlDataSet.Free;
   FSqlConnection.Free;
 
   inherited;
+end;
+
+function TDAOBase.Find(var AModel: TModelBase;
+  const ASetModel: boolean): boolean;
+begin
+  SetModel(AModel);
+end;
+
+function TDAOBase.FindAll(var AListModel: TObjectList<TModelBase>): boolean;
+begin
+end;
+
+procedure TDAOBase.Save(var AModel: TModelBase);
+begin
+  SetModel(AModel);
 end;
 
 end.

@@ -51,7 +51,7 @@ end;
 
 function TFormCadastro.GetCRUDController: ICRUDController;
 begin
-  result := ICRUDController(Controller);
+  result := Controller as ICRUDController;
 end;
 
 end.

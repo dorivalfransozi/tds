@@ -8,6 +8,7 @@ uses
 type
   TModelBase = FM.Model.Base.TModelBase;
 
+  [TFMTableName('GCEMRC01')]
   TMarcaModel = class(TModelBase)
   private
     FCodigo: integer;
@@ -23,11 +24,17 @@ type
     procedure SetDataManutencao(const Value: TDateTime);
     procedure SetUsuario(const Value: integer);
   public
+    [TFMCollumnName('COD'), TFMVisible(True)]
     property Codigo: integer read FCodigo write SetCodigo;
+    [TFMCollumnName('DSC'), TFMVisible(True)]
     property Descricao: string read FDescricao write SetDescricao;
+    [TFMCollumnName('DSR'), TFMVisible(True)]
     property DescricaoReduzida: string read FDescricaoReduzida write SetDescricaoReduzida;
+    [TFMCollumnName('DTC'), TFMVisible(True)]
     property DataCadatro: TDateTime read FDataCadatro write SetDataCadatro;
+    [TFMCollumnName('DTM'), TFMVisible(False)]
     property DataManutencao: TDateTime read FDataManutencao write SetDataManutencao;
+    [TFMCollumnName('USR'), TFMVisible(False)]
     property Usuario: integer read FUsuario write SetUsuario;
 
     function New: TModelBase; override;
