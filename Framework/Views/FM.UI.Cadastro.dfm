@@ -19,6 +19,7 @@ inherited FormCadastro: TFormCadastro
     inherited BtnConfigurar: TBitBtn
       Left = 390
       TabOrder = 4
+      OnClick = BtnConfigurarClick
       ExplicitLeft = 390
     end
     object BtnSalvar: TBitBtn
@@ -146,7 +147,6 @@ inherited FormCadastro: TFormCadastro
         FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
         FFFF00FFFF00FFFF00FFFF00FFFF00FF0000}
       TabOrder = 5
-      OnClick = BtnRelatorioClick
     end
     object BtnEfetivar: TBitBtn
       AlignWithMargins = True
@@ -180,7 +180,6 @@ inherited FormCadastro: TFormCadastro
       NumGlyphs = 2
       TabOrder = 1
       Visible = False
-      OnClick = BtnEfetivarClick
     end
     object BtnEditar: TBitBtn
       AlignWithMargins = True
@@ -247,7 +246,6 @@ inherited FormCadastro: TFormCadastro
       NumGlyphs = 2
       TabOrder = 0
       Visible = False
-      OnClick = BtnEditarClick
     end
   end
 end

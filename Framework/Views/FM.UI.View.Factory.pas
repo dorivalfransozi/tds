@@ -8,7 +8,7 @@ uses
   Vcl.Controls,
   Vcl.Forms,
   FM.UI.BaseForm,
-  FM.Controller.Base,
+  FM.Controller.Base.Impl,
   DDC.Singleton;
 
 const

@@ -7,7 +7,7 @@ uses
   M1.CadastroDemo.Controller in 'Comercial\M1.CadastroDemo.Controller.pas',
   M1.CadastroDemo.Model in 'Comercial\M1.CadastroDemo.Model.pas',
   FM.Model.Base in '..\Framework\Models\FM.Model.Base.pas',
-  FM.Controller.Base in '..\Framework\Controllers\FM.Controller.Base.pas',
+  FM.Controller.Base.Impl in '..\Framework\Controllers\FM.Controller.Base.Impl.pas',
   M1.Forms.Factory in 'Core\M1.Forms.Factory.pas',
   FM.UI.BaseForm in '..\Framework\Views\FM.UI.BaseForm.pas' {BaseFormView},
   FM.UI.Cadastro in '..\Framework\Views\FM.UI.Cadastro.pas' {FormCadastro},
@@ -17,7 +17,19 @@ uses
   FM.UI.Processo.CRUD in '..\Framework\Views\FM.UI.Processo.CRUD.pas' {FormProcessoCRUD},
   FM.UI.Processo in '..\Framework\Views\FM.UI.Processo.pas' {FormProcesso},
   FM.UI.Relatorio in '..\Framework\Views\FM.UI.Relatorio.pas' {FormRelatorio},
-  FM.UI.View.Factory in '..\Framework\Views\FM.UI.View.Factory.pas';
+  FM.UI.View.Factory in '..\Framework\Views\FM.UI.View.Factory.pas',
+  M1.CadastroMarca.UI.Form in 'View\M1.CadastroMarca.UI.Form.pas' {FormCadastroMarca},
+  M1.CadastroMarca.Controller in 'Controller\M1.CadastroMarca.Controller.pas',
+  M1.Marca.Model in 'Model\M1.Marca.Model.pas',
+  M1.Exceptions in 'Core\M1.Exceptions.pas',
+  M1.ResourceStrings in 'Core\M1.ResourceStrings.pas',
+  FM.Controller.CRUD.Impl in '..\Framework\Controllers\FM.Controller.CRUD.Impl.pas',
+  FM.Controller.CRUD in '..\Framework\Controllers\FM.Controller.CRUD.pas',
+  FM.Controller.Find.Impl in '..\Framework\Controllers\FM.Controller.Find.Impl.pas',
+  FM.Controller.Find in '..\Framework\Controllers\FM.Controller.Find.pas',
+  FM.Controller.Process.Impl in '..\Framework\Controllers\FM.Controller.Process.Impl.pas',
+  FM.Controller.Process in '..\Framework\Controllers\FM.Controller.Process.pas',
+  FM.Controller.Base in '..\Framework\Controllers\FM.Controller.Base.pas';
 
 {$R *.res}
 
