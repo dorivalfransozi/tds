@@ -1,4 +1,4 @@
-inherited FormularioInternoFormView: TFormularioInternoFormView
+inherited FormFormularioInterno: TFormFormularioInterno
   AlignWithMargins = True
   Margins.Left = 0
   Margins.Top = 0

@@ -7,27 +7,52 @@ unit FM.UI.Cadastro;
 interface
 
 uses
-  Vcl.Forms, Vcl.Controls, Vcl.StdCtrls, Vcl.Buttons, Classes, Vcl.ExtCtrls, FM.UI.Consulta;
+  Vcl.Forms, Vcl.Controls, Vcl.StdCtrls, Vcl.Buttons, Classes, Vcl.ExtCtrls, FM.UI.Consulta,
+  FM.Controller.CRUD;
 
 type
-  TCadastroFormView = class(TConsultaFormView)
+  TFormCadastro = class(TFormConsulta)
     BtnSalvar: TBitBtn;
     BtnExcluir: TBitBtn;
     BtnRelatorio: TBitBtn;
     BtnEfetivar: TBitBtn;
     BtnEditar: TBitBtn;
+    procedure BtnSalvarClick(Sender: TObject);
+    procedure BtnExcluirClick(Sender: TObject);
+    procedure BtnConfigurarClick(Sender: TObject);
   public
-    procedure BtnSalvarClick(Sender: TObject); virtual; abstract;
-    procedure BtnExcluirClick(Sender: TObject); virtual; abstract;
-    procedure BtnRelatorioClick(Sender: TObject); virtual; abstract;
-    procedure BtnEfetivarClick(Sender: TObject); virtual; abstract;
-    procedure BtnEditarClick(Sender: TObject); virtual; abstract;
+    function GetCRUDController: ICRUDController;
   end;
 
 implementation
 
 
 {$R *.dfm}
+
+{ TFormCadastro }
+
+procedure TFormCadastro.BtnConfigurarClick(Sender: TObject);
+begin
+  inherited;
+  GetCRUDController.Delete;
+end;
+
+procedure TFormCadastro.BtnExcluirClick(Sender: TObject);
+begin
+  inherited;
+  GetCRUDController.Delete;
+end;
+
+procedure TFormCadastro.BtnSalvarClick(Sender: TObject);
+begin
+  inherited;
+  GetCRUDController.Save;
+end;
+
+function TFormCadastro.GetCRUDController: ICRUDController;
+begin
+  result := ICRUDController(Controller);
+end;
 
 end.
 

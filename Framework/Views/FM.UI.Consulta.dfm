@@ -1,5 +1,5 @@
-inherited ConsultaFormView: TConsultaFormView
-  Caption = 'ConsultaFormView'
+inherited FormConsulta: TFormConsulta
+  Caption = 'FormConsulta'
   ClientHeight = 274
   ClientWidth = 460
   OldCreateOrder = True
@@ -56,6 +56,7 @@ inherited ConsultaFormView: TConsultaFormView
         0000}
       NumGlyphs = 2
       TabOrder = 1
+      OnClick = BtnFecharClick
     end
     object BtnConfigurar: TBitBtn
       AlignWithMargins = True

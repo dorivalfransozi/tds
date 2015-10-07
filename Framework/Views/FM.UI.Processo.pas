@@ -10,7 +10,7 @@ uses
   SysUtils, Vcl.Forms, Vcl.StdCtrls, Vcl.Buttons, Classes, Vcl.Controls, Vcl.ExtCtrls, FM.UI.Consulta;
 
 type
-  TProcessoFormView = class(TConsultaFormView)
+  TFormProcesso = class(TFormConsulta)
     BtnOk: TBitBtn;
     BtnAgendar: TBitBtn;
     BtnRelatorio: TBitBtn;
@@ -30,35 +30,35 @@ implementation
 
 
 
-procedure TProcessoFormView.BtnAgendarClick(Sender: TObject);
+procedure TFormProcesso.BtnAgendarClick(Sender: TObject);
 begin
 //  oControlador.Agendar;
 end;
 
 
 
-procedure TProcessoFormView.BtnEfetivarClick(Sender: TObject);
+procedure TFormProcesso.BtnEfetivarClick(Sender: TObject);
 begin
 //  oControlador.Efetivar;
 end;
 
 
 
-procedure TProcessoFormView.BtnImportarClick(Sender: TObject);
+procedure TFormProcesso.BtnImportarClick(Sender: TObject);
 begin
 //  oControlador.Importar;
 end;
 
 
 
-procedure TProcessoFormView.BtnOkClick(Sender: TObject);
+procedure TFormProcesso.BtnOkClick(Sender: TObject);
 begin
 //  oControlador.Executar;
 end;
 
 
 
-procedure TProcessoFormView.BtnRelatorioClick(Sender: TObject);
+procedure TFormProcesso.BtnRelatorioClick(Sender: TObject);
 begin
 //  oControlador.ImprimirRelatorio;
 end;

@@ -11,7 +11,7 @@ uses
   Vcl.Controls, Vcl.ExtCtrls;
 
 type
-  TConfiguracaoFormView = class(TConsultaFormView)
+  TFormConfiguracao = class(TFormConsulta)
     BtnOk: TBitBtn;
     BtnPadrao: TBitBtn;
     procedure BtnOkClick(Sender: TObject);
@@ -27,14 +27,14 @@ implementation
 
 
 
-procedure TConfiguracaoFormView.BtnOkClick(Sender: TObject);
+procedure TFormConfiguracao.BtnOkClick(Sender: TObject);
 begin
 //  oControlador.Executar;
 end;
 
 
 
-procedure TConfiguracaoFormView.BtnPadraoClick(Sender: TObject);
+procedure TFormConfiguracao.BtnPadraoClick(Sender: TObject);
 begin
 //  oControlador.UtilizarPadrao;
 end;

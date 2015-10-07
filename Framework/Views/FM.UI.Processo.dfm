@@ -1,21 +1,30 @@
-inherited ProcessoFormView: TProcessoFormView
+inherited FormProcesso: TFormProcesso
   Caption = 'PadraoVisualProcesso'
-  ExplicitWidth = 468
-  ExplicitHeight = 301
+  ClientHeight = 312
+  ClientWidth = 748
+  ExplicitWidth = 764
+  ExplicitHeight = 350
   PixelsPerInch = 96
   TextHeight = 13
+  inherited PnlArea: TPanel
+    Width = 742
+    Height = 265
+  end
   inherited PnlBotao: TPanel
+    Top = 271
+    Width = 748
     inherited BtnFechar: TBitBtn
+      Left = 665
       TabOrder = 6
     end
     inherited BtnConfigurar: TBitBtn
-      Left = 195
+      Left = 483
       TabOrder = 4
       ExplicitLeft = 195
     end
     object BtnOk: TBitBtn
       AlignWithMargins = True
-      Left = 23
+      Left = 311
       Top = 8
       Width = 80
       Height = 25
@@ -43,10 +52,11 @@ inherited ProcessoFormView: TProcessoFormView
       NumGlyphs = 2
       TabOrder = 2
       OnClick = BtnOkClick
+      ExplicitLeft = 23
     end
     object BtnAgendar: TBitBtn
       AlignWithMargins = True
-      Left = 109
+      Left = 397
       Top = 8
       Width = 80
       Height = 25
@@ -110,10 +120,11 @@ inherited ProcessoFormView: TProcessoFormView
       TabOrder = 3
       Visible = False
       OnClick = BtnAgendarClick
+      ExplicitLeft = 109
     end
     object BtnRelatorio: TBitBtn
       AlignWithMargins = True
-      Left = 281
+      Left = 569
       Top = 8
       Width = 90
       Height = 25
@@ -174,10 +185,11 @@ inherited ProcessoFormView: TProcessoFormView
       TabOrder = 5
       Visible = False
       OnClick = BtnRelatorioClick
+      ExplicitLeft = 281
     end
     object BtnEfetivar: TBitBtn
       AlignWithMargins = True
-      Left = -63
+      Left = 225
       Top = 8
       Width = 80
       Height = 25
@@ -208,10 +220,11 @@ inherited ProcessoFormView: TProcessoFormView
       TabOrder = 1
       Visible = False
       OnClick = BtnEfetivarClick
+      ExplicitLeft = -63
     end
     object BtnImportar: TBitBtn
       AlignWithMargins = True
-      Left = -149
+      Left = 139
       Top = 8
       Width = 80
       Height = 25
@@ -224,6 +237,7 @@ inherited ProcessoFormView: TProcessoFormView
       TabOrder = 0
       Visible = False
       OnClick = BtnImportarClick
+      ExplicitLeft = -149
     end
   end
 end

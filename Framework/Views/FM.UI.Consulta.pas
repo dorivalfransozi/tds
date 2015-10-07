@@ -11,11 +11,12 @@ uses
   FM.UI.BaseForm;
 
 type
-  TConsultaFormView = class(TBaseFormView)
+  TFormConsulta = class(TBaseFormView)
     PnlArea: TPanel;
     PnlBotao: TPanel;
     BtnFechar: TBitBtn;
     BtnConfigurar: TBitBtn;
+    procedure BtnFecharClick(Sender: TObject);
   end;
 
 
@@ -23,6 +24,12 @@ type
 implementation
 
 {$R *.dfm}
+
+
+procedure TFormConsulta.BtnFecharClick(Sender: TObject);
+begin
+  Close;
+end;
 
 end.
 

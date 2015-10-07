@@ -26,7 +26,6 @@ type
   private
     function DoUpdateModel: Boolean; override;
     function DoInternalValidate: Boolean; override;
-    procedure DoInternalSave; override;
   public
     class procedure Execute(Controller: TCadastroDemoController; AfterCreate: TProc = nil);
   end;
@@ -44,13 +43,8 @@ uses
 
 procedure TViewCadastroDemo.Button1Click(Sender: TObject);
 begin
-  if DoInternalValidate then
-    DoInternalSave;
-end;
-
-procedure TViewCadastroDemo.DoInternalSave;
-begin
-  GetController.Save;
+  if DoUpdateModel then
+    GetController.Save;
 end;
 
 function TViewCadastroDemo.DoInternalValidate: Boolean;

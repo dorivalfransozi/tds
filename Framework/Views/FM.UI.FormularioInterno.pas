@@ -11,7 +11,7 @@ uses
   FM.UI.BaseForm;
 
 type
-  TFormularioInternoFormView = class(TBaseFormView)
+  TFormFormularioInterno = class(TBaseFormView)
     PnlArea: TPanel;
   public
     constructor Create(AOwner: TComponent; AComponentePai: TWinControl); reintroduce;
@@ -25,7 +25,7 @@ implementation
 
 
 
-constructor TFormularioInternoFormView.Create(AOwner: TComponent;
+constructor TFormFormularioInterno.Create(AOwner: TComponent;
   AComponentePai: TWinControl);
 begin
   inherited Create(AOwner);

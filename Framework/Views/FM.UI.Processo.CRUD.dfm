@@ -1,29 +1,25 @@
-inherited ProcessoCRUDFormView: TProcessoCRUDFormView
+inherited FormProcessoCRUD: TFormProcessoCRUD
   Caption = 'PadraoVisualProcessoCRUD'
-  ExplicitWidth = 600
-  ExplicitHeight = 403
+  ClientWidth = 654
+  ExplicitWidth = 670
   PixelsPerInch = 96
   TextHeight = 13
   inherited PnlArea: TPanel
-    ExplicitWidth = 578
-    ExplicitHeight = 318
+    Width = 648
   end
   inherited PnlBotao: TPanel
-    ExplicitTop = 324
-    ExplicitWidth = 584
+    Width = 654
     inherited BtnFechar: TBitBtn
-      Left = 501
+      Left = 571
       TabOrder = 5
-      ExplicitLeft = 501
     end
     inherited BtnConfigurar: TBitBtn
-      Left = 415
+      Left = 485
       TabOrder = 4
-      ExplicitLeft = 319
     end
     object BtnIniciar: TBitBtn
       AlignWithMargins = True
-      Left = 61
+      Left = 131
       Top = 8
       Width = 80
       Height = 25
@@ -51,10 +47,11 @@ inherited ProcessoCRUDFormView: TProcessoCRUDFormView
       NumGlyphs = 2
       TabOrder = 0
       OnClick = BtnIniciarClick
+      ExplicitLeft = -63
     end
     object BtnAgendar: TBitBtn
       AlignWithMargins = True
-      Left = 147
+      Left = 217
       Top = 8
       Width = 80
       Height = 25
@@ -118,10 +115,11 @@ inherited ProcessoCRUDFormView: TProcessoCRUDFormView
       TabOrder = 1
       Visible = False
       OnClick = BtnAgendarClick
+      ExplicitLeft = 23
     end
     object BtnRelatorio: TBitBtn
       AlignWithMargins = True
-      Left = 319
+      Left = 389
       Top = 8
       Width = 90
       Height = 25
@@ -182,11 +180,11 @@ inherited ProcessoCRUDFormView: TProcessoCRUDFormView
       TabOrder = 3
       Visible = False
       OnClick = BtnRelatorioClick
-      ExplicitLeft = 293
+      ExplicitLeft = 195
     end
     object BtnExcluir: TBitBtn
       AlignWithMargins = True
-      Left = 233
+      Left = 303
       Top = 8
       Width = 80
       Height = 25
@@ -215,6 +213,7 @@ inherited ProcessoCRUDFormView: TProcessoCRUDFormView
       NumGlyphs = 2
       TabOrder = 2
       OnClick = BtnExcluirClick
+      ExplicitLeft = 109
     end
   end
 end

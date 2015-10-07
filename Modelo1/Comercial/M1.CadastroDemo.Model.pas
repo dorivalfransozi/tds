@@ -79,7 +79,7 @@ end;
 procedure TCadastroDemoModel.SetName(const Value: string);
 begin
   if Value <> 'Diego' then
-   raise Exception.Create('Valor invalido!');
+   raise ExceptionValidation.Create('Valor invalido!');
 
   FName := Value;
 end;

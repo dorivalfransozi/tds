@@ -31,19 +31,8 @@ uses
   M1.CadastroDemo.UI.Form;
 
 procedure TForm1.Button1Click(Sender: TObject);
-var
- Controller: TCadastroDemoController;
 begin
-  Controller := TCadastroDemoController.Create;
-  try
-    TViewCadastroDemo.Execute(Controller,
-      procedure
-      begin
-       Controller.FindCadastroDemo('Diego');
-      end);
-  finally
-    Controller.Free;
-  end;
+  ViewFactory.InvokeShow(TM1Forms.CadastroMarca);
 end;
 
 procedure TForm1.Button2Click(Sender: TObject);

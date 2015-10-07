@@ -1,8 +1,7 @@
-inherited CadastroFormView: TCadastroFormView
-  Caption = 'CadastroFormView'
+inherited FormCadastro: TFormCadastro
+  Caption = 'FormCadastro'
   ClientWidth = 655
-  ExplicitWidth = 661
-  ExplicitHeight = 403
+  ExplicitWidth = 671
   PixelsPerInch = 96
   TextHeight = 13
   inherited PnlArea: TPanel
@@ -20,6 +19,7 @@ inherited CadastroFormView: TCadastroFormView
     inherited BtnConfigurar: TBitBtn
       Left = 390
       TabOrder = 4
+      OnClick = BtnConfigurarClick
       ExplicitLeft = 390
     end
     object BtnSalvar: TBitBtn
@@ -147,7 +147,6 @@ inherited CadastroFormView: TCadastroFormView
         FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
         FFFF00FFFF00FFFF00FFFF00FFFF00FF0000}
       TabOrder = 5
-      OnClick = BtnRelatorioClick
     end
     object BtnEfetivar: TBitBtn
       AlignWithMargins = True
@@ -181,7 +180,6 @@ inherited CadastroFormView: TCadastroFormView
       NumGlyphs = 2
       TabOrder = 1
       Visible = False
-      OnClick = BtnEfetivarClick
     end
     object BtnEditar: TBitBtn
       AlignWithMargins = True
@@ -248,7 +246,6 @@ inherited CadastroFormView: TCadastroFormView
       NumGlyphs = 2
       TabOrder = 0
       Visible = False
-      OnClick = BtnEditarClick
     end
   end
 end

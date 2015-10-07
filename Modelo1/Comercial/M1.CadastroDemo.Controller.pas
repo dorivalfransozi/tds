@@ -4,7 +4,7 @@ interface
 
 uses
  M1.CadastroDemo.Model,
- FM.Controller.Base,
+ FM.Controller.CRUD, FM.Controller.CRUD.Impl,
  Classes;
 
 type

@@ -1,4 +1,4 @@
-inherited RelatorioFormView: TRelatorioFormView
+inherited FormRelatorio: TFormRelatorio
   Caption = 'PadraoVisualRelatorio'
   PixelsPerInch = 96
   TextHeight = 13
@@ -9,6 +9,7 @@ inherited RelatorioFormView: TRelatorioFormView
     inherited BtnConfigurar: TBitBtn
       Left = 205
       TabOrder = 2
+      ExplicitLeft = 205
     end
     object BtnOk: TBitBtn
       AlignWithMargins = True
