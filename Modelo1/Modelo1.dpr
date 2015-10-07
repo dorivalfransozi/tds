@@ -1,5 +1,7 @@
 program Modelo1;
 
+{$R *.dres}
+
 uses
   Vcl.Forms,
   M1.Main.UI.Form in 'M1.Main.UI.Form.pas' {Form1},
@@ -29,7 +31,10 @@ uses
   FM.Controller.Find in '..\Framework\Controllers\FM.Controller.Find.pas',
   FM.Controller.Process.Impl in '..\Framework\Controllers\FM.Controller.Process.Impl.pas',
   FM.Controller.Process in '..\Framework\Controllers\FM.Controller.Process.pas',
-  FM.Controller.Base in '..\Framework\Controllers\FM.Controller.Base.pas';
+  FM.Controller.Base in '..\Framework\Controllers\FM.Controller.Base.pas',
+  M1.Marca.DAO in 'DAO\M1.Marca.DAO.pas',
+  FM.DAO.Base in '..\Framework\DAOs\FM.DAO.Base.pas',
+  FM.DAO.Base.Impl in '..\Framework\DAOs\FM.DAO.Base.Impl.pas';
 
 {$R *.res}
 

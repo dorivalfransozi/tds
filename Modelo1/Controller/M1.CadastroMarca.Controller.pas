@@ -54,7 +54,6 @@ end;
 
 procedure TCadastroMarcaController.FindCadastroDemo(const Name: string);
 begin
-
 end;
 
 function TCadastroMarcaController.GetModel: TModelBase;
