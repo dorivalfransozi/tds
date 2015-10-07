@@ -10,7 +10,7 @@ uses
   Vcl.Forms, Vcl.Controls, Vcl.StdCtrls, Vcl.Buttons, Classes, Vcl.ExtCtrls, FM.UI.Consulta;
 
 type
-  TCadastroFormView = class(TConsultaFormView)
+  TFormCadastro = class(TFormConsulta)
     BtnSalvar: TBitBtn;
     BtnExcluir: TBitBtn;
     BtnRelatorio: TBitBtn;

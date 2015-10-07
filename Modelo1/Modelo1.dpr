@@ -10,13 +10,13 @@ uses
   FM.Controller.Base in '..\Framework\Controllers\FM.Controller.Base.pas',
   M1.Forms.Factory in 'Core\M1.Forms.Factory.pas',
   FM.UI.BaseForm in '..\Framework\Views\FM.UI.BaseForm.pas' {BaseFormView},
-  FM.UI.Cadastro in '..\Framework\Views\FM.UI.Cadastro.pas' {CadastroFormView},
-  FM.UI.Configuracao in '..\Framework\Views\FM.UI.Configuracao.pas' {ConfiguracaoFormView},
-  FM.UI.Consulta in '..\Framework\Views\FM.UI.Consulta.pas' {ConsultaFormView},
-  FM.UI.FormularioInterno in '..\Framework\Views\FM.UI.FormularioInterno.pas' {FormularioInternoFormView},
-  FM.UI.Processo.CRUD in '..\Framework\Views\FM.UI.Processo.CRUD.pas' {ProcessoCRUDFormView},
-  FM.UI.Processo in '..\Framework\Views\FM.UI.Processo.pas' {ProcessoFormView},
-  FM.UI.Relatorio in '..\Framework\Views\FM.UI.Relatorio.pas' {RelatorioFormView},
+  FM.UI.Cadastro in '..\Framework\Views\FM.UI.Cadastro.pas' {FormCadastro},
+  FM.UI.Configuracao in '..\Framework\Views\FM.UI.Configuracao.pas' {FormConfiguracao},
+  FM.UI.Consulta in '..\Framework\Views\FM.UI.Consulta.pas' {FormConsulta},
+  FM.UI.FormularioInterno in '..\Framework\Views\FM.UI.FormularioInterno.pas' {FormFormularioInterno},
+  FM.UI.Processo.CRUD in '..\Framework\Views\FM.UI.Processo.CRUD.pas' {FormProcessoCRUD},
+  FM.UI.Processo in '..\Framework\Views\FM.UI.Processo.pas' {FormProcesso},
+  FM.UI.Relatorio in '..\Framework\Views\FM.UI.Relatorio.pas' {FormRelatorio},
   FM.UI.View.Factory in '..\Framework\Views\FM.UI.View.Factory.pas';
 
 {$R *.res}

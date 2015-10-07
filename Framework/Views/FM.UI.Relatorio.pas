@@ -11,7 +11,7 @@ uses
   FM.UI.Consulta;
 
 type
-  TRelatorioFormView = class(TConsultaFormView)
+  TFormRelatorio = class(TFormConsulta)
     BtnOk: TBitBtn;
     BtnAgendar: TBitBtn;
     procedure BtnOkClick(Sender: TObject);
@@ -28,14 +28,14 @@ implementation
 
 
 
-procedure TRelatorioFormView.BtnAgendarClick(Sender: TObject);
+procedure TFormRelatorio.BtnAgendarClick(Sender: TObject);
 begin
 //  oControlador.Agendar;
 end;
 
 
 
-procedure TRelatorioFormView.BtnOkClick(Sender: TObject);
+procedure TFormRelatorio.BtnOkClick(Sender: TObject);
 begin
 //  oControlador.Executar;
 end;

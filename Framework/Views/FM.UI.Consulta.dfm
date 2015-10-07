@@ -1,5 +1,5 @@
-inherited ConsultaFormView: TConsultaFormView
-  Caption = 'ConsultaFormView'
+inherited FormConsulta: TFormConsulta
+  Caption = 'FormConsulta'
   ClientHeight = 274
   ClientWidth = 460
   OldCreateOrder = True

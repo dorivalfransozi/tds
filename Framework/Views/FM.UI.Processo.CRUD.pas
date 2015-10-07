@@ -11,7 +11,7 @@ uses
   FM.UI.Consulta;
 
 type
-  TProcessoCRUDFormView = class(TConsultaFormView)
+  TFormProcessoCRUD = class(TFormConsulta)
     BtnIniciar: TBitBtn;
     BtnAgendar: TBitBtn;
     BtnRelatorio: TBitBtn;
@@ -30,28 +30,28 @@ implementation
 
 
 
-procedure TProcessoCRUDFormView.BtnAgendarClick(Sender: TObject);
+procedure TFormProcessoCRUD.BtnAgendarClick(Sender: TObject);
 begin
 //  oControlador.Agendar;
 end;
 
 
 
-procedure TProcessoCRUDFormView.BtnExcluirClick(Sender: TObject);
+procedure TFormProcessoCRUD.BtnExcluirClick(Sender: TObject);
 begin
 //  oControlador.Excluir;
 end;
 
 
 
-procedure TProcessoCRUDFormView.BtnIniciarClick(Sender: TObject);
+procedure TFormProcessoCRUD.BtnIniciarClick(Sender: TObject);
 begin
 //  oControlador.Executar;
 end;
 
 
 
-procedure TProcessoCRUDFormView.BtnRelatorioClick(Sender: TObject);
+procedure TFormProcessoCRUD.BtnRelatorioClick(Sender: TObject);
 begin
 //  oControlador.ImprimirRelatorio;
 end;
