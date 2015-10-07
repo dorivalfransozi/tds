@@ -56,6 +56,7 @@ inherited ConsultaFormView: TConsultaFormView
         0000}
       NumGlyphs = 2
       TabOrder = 1
+      OnClick = BtnFecharClick
     end
     object BtnConfigurar: TBitBtn
       AlignWithMargins = True

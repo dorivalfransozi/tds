@@ -16,6 +16,7 @@ type
     PnlBotao: TPanel;
     BtnFechar: TBitBtn;
     BtnConfigurar: TBitBtn;
+    procedure BtnFecharClick(Sender: TObject);
   end;
 
 
@@ -23,6 +24,12 @@ type
 implementation
 
 {$R *.dfm}
+
+
+procedure TConsultaFormView.BtnFecharClick(Sender: TObject);
+begin
+  Close;
+end;
 
 end.
 

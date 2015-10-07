@@ -16,7 +16,6 @@ type
     procedure DoInitialize; virtual;
     function DoUpdateModel: Boolean; virtual; abstract;
     function DoInternalValidate: Boolean; virtual; abstract;
-    procedure DoInternalSave; virtual;
   public
     property Controller: IControllerBase read FController write SetController;
   end;
@@ -36,12 +35,6 @@ procedure TBaseFormView.DoInitialize;
 begin
   if Assigned(FController) then
    FModel := FController.Model;
-end;
-
-
-procedure TBaseFormView.DoInternalSave;
-begin
-//  Controller.Save;
 end;
 
 procedure TBaseFormView.SetController(const Value: IControllerBase);

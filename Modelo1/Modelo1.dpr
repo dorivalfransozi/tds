@@ -7,11 +7,16 @@ uses
   M1.CadastroDemo.Controller in 'Comercial\M1.CadastroDemo.Controller.pas',
   M1.CadastroDemo.Model in 'Comercial\M1.CadastroDemo.Model.pas',
   FM.Model.Base in '..\Framework\Models\FM.Model.Base.pas',
-  FM.UI.BaseForm in '..\Framework\Views\FM.UI.BaseForm.pas' {BaseFormView},
   FM.Controller.Base in '..\Framework\Controllers\FM.Controller.Base.pas',
-    FM.UI.Consulta in '..\Framework\Views\FM.UI.Consulta.pas' {ConsultaFormView},
-  FM.UI.Cadastro in '..\Framework\Views\FM.UI.Cadastro.pas' {CadastroFormView},
   M1.Forms.Factory in 'Core\M1.Forms.Factory.pas',
+  FM.UI.BaseForm in '..\Framework\Views\FM.UI.BaseForm.pas' {BaseFormView},
+  FM.UI.Cadastro in '..\Framework\Views\FM.UI.Cadastro.pas' {CadastroFormView},
+  FM.UI.Configuracao in '..\Framework\Views\FM.UI.Configuracao.pas' {ConfiguracaoFormView},
+  FM.UI.Consulta in '..\Framework\Views\FM.UI.Consulta.pas' {ConsultaFormView},
+  FM.UI.FormularioInterno in '..\Framework\Views\FM.UI.FormularioInterno.pas' {FormularioInternoFormView},
+  FM.UI.Processo.CRUD in '..\Framework\Views\FM.UI.Processo.CRUD.pas' {ProcessoCRUDFormView},
+  FM.UI.Processo in '..\Framework\Views\FM.UI.Processo.pas' {ProcessoFormView},
+  FM.UI.Relatorio in '..\Framework\Views\FM.UI.Relatorio.pas' {RelatorioFormView},
   FM.UI.View.Factory in '..\Framework\Views\FM.UI.View.Factory.pas';
 
 {$R *.res}
