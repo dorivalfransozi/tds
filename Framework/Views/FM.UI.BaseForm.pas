@@ -12,6 +12,8 @@ type
     FModel: TModelBase;
     FController: IControllerBase;
     procedure SetController(const Value: IControllerBase); virtual;
+  private
+    procedure ShowValidationResult(Sender: TObject);
   protected
     procedure DoInitialize; virtual;
     function DoUpdateModel: Boolean; virtual; abstract;
@@ -26,6 +28,9 @@ var
   BaseFormView: TBaseFormView;
 
 implementation
+
+uses
+  DDC.ValidationInfo;
 
 {$R *.dfm}
 
@@ -42,5 +47,22 @@ begin
   FController := Value;
   DoInitialize;
 end;
+
+procedure TBaseFormView.ShowValidationResult(Sender: TObject);
+var
+ ValidationInfo: TValidationInfo;
+begin
+ ValidationInfo := TValidationInfo(Sender);
+
+ if FModel = ValidationInfo.Model then
+  begin
+   if Assigned(ValidationInfo) then
+    begin
+      if not ValidationInfo.Valid then
+        Application.MessageBox('Ocorreu um erro na validação!', 'Erro...', mb_ok + mb_iconerror );
+    end;
+  end;
+end;
+
 
 end.

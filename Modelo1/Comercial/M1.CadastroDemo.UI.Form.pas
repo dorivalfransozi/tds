@@ -67,7 +67,7 @@ begin
    on E: Exception do
     begin
      Result := False;
-     TValidationInfo.New(FModel, 'E.PropertyName', False, E.Message);
+     //TValidationInfo.New(FModel, 'E.PropertyName', False, E.Message);
     end;
   end;
 end;
@@ -138,10 +138,10 @@ begin
 end;
 
 procedure TViewCadastroDemo.ShowValidationResult(Sender: TObject);
-var
- ValidationInfo: TValidationInfo;
+{var
+ ValidationInfo: TValidationInfo;}
 begin
- ValidationInfo := TValidationInfo(Sender);
+{ ValidationInfo := TValidationInfo(Sender);
 
  if FModel = ValidationInfo.Model then
   begin
@@ -150,7 +150,7 @@ begin
       if not ValidationInfo.Valid then
         Application.MessageBox('Ocorreu um erro na validação!', 'Erro...', mb_ok + mb_iconerror );
     end;
-  end;
+  end;}
 end;
 
 end.

@@ -22,7 +22,7 @@ var
 implementation
 
 uses
-  M1.Marca.Model;
+  M1.Marca.Model, DDC.ValidationInfo;
 
 {$R *.dfm}
 

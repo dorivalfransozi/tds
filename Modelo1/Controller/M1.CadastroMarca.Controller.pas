@@ -77,7 +77,7 @@ end;
 
 function TCadastroMarcaController.GetModel: TModelBase;
 begin
-
+  result := FModel;
 end;
 
 procedure TCadastroMarcaController.ListCadastroDemo;
@@ -94,12 +94,18 @@ end;
 procedure TCadastroMarcaController.Save;
 begin
   inherited;
-  FDAO.Save( TModelBase(FModel) );
+  if Validate then
+    FDAO.Save( TModelBase(FModel) );
 end;
 
 function TCadastroMarcaController.Validate: Boolean;
 begin
+  {
+  TODO: definir se a validacao ficará aqui ou no modelo. ver TFindMarca
 
+  if FModel.Descricao.IsBlank then
+    raise ExceptionValidation.Create('Erro ');
+  }
 end;
 
 end.

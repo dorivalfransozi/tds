@@ -117,9 +117,9 @@ function TCadastroDemoController.Validate: Boolean;
 begin
   Result := FModel.Age > GetValidAge;
 
-  if Result then
+{  if Result then
     TValidationInfo.New(FModel, 'Age', False, 'Idade informada não é valida.');
-
+}
 
 
   // ValidationInfo := TValidationInfo.New(Model, 'Name', False, E.Message);
