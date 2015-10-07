@@ -18,6 +18,4 @@ type
 
 implementation
 
-{ TControllerBase }
-
 end.

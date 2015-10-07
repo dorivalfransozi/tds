@@ -40,25 +40,35 @@ uses
 
 { TMarcaModel }
 
+
+
 function TMarcaModel.New: TModelBase;
 begin
   Result := TMarcaModel.Create;
 end;
+
+
 
 procedure TMarcaModel.SetCodigo(const Value: integer);
 begin
   FCodigo := Value;
 end;
 
+
+
 procedure TMarcaModel.SetDataCadatro(const Value: TDateTime);
 begin
   FDataCadatro := Value;
 end;
 
+
+
 procedure TMarcaModel.SetDataManutencao(const Value: TDateTime);
 begin
   FDataManutencao := Value;
 end;
+
+
 
 procedure TMarcaModel.SetDescricao(const Value: string);
 begin
@@ -67,10 +77,14 @@ begin
   FDescricao := Value;
 end;
 
+
+
 procedure TMarcaModel.SetDescricaoReduzida(const Value: string);
 begin
   FDescricaoReduzida := Value;
 end;
+
+
 
 procedure TMarcaModel.SetUsuario(const Value: integer);
 begin
