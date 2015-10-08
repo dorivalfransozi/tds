@@ -4,7 +4,7 @@ interface
 
 type
 
-  TViewlMsgs = class
+  TViewMsgs = class
   public
     const
       RefreshView: TGUID = '{C7C2A617-39FD-4CED-A18D-9BB09C2C794A}';

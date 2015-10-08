@@ -41,7 +41,7 @@ begin
     ValidationInfo.Valid             := Valid;
     ValidationInfo.ValidationMessage := ValidationMessage;
 
-    NotificationService.SendMessage(ValidationInfo, TViewlMsgs.ShowValidationResult);
+    NotificationService.SendMessage(ValidationInfo, TViewMsgs.ShowValidationResult);
   finally
     ValidationInfo.Free;
   end;
