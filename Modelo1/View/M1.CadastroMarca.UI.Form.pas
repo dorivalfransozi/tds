@@ -31,20 +31,12 @@ uses
 
 function TFormCadastroMarca.DoUpdateModel: Boolean;
 begin
-  Result := True;
-  try
-    (FModel as TMarcaModel).Codigo            := StrToIntDef(EdtCodigo.Text, 0);
-    (FModel as TMarcaModel).Descricao         := EdtDescricao.Text;
-    (FModel as TMarcaModel).DescricaoReduzida := EdtDescrReduz.Text;
+  // removida a exception pq se der erro ao setar o model deve cair no stack
+  (FModel as TMarcaModel).Codigo            := StrToIntDef(EdtCodigo.Text, 0);
+  (FModel as TMarcaModel).Descricao         := EdtDescricao.Text;
+  (FModel as TMarcaModel).DescricaoReduzida := EdtDescrReduz.Text;
 
-  except
-    // Criar Exception base para validações que já contenha o validation info.
-    on E: ExceptionValidation do
-    begin
-      Result := False;
-      TValidationInfo.New(FModel, 'E.PropertyName', False, E.Message, MB_ICONERROR);
-    end;
-  end;
+  Result := True;
 end;
 
 end.

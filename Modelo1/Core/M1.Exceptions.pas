@@ -7,9 +7,9 @@ uses
 
 type
 
-  ExceptionValidation = class(Exception);
-  ExceptionValidationError = class(ExceptionValidation);
-  ExceptionValidationInfo = class(ExceptionValidation);
+  ExceptionValidationWarning = class(Exception);
+  ExceptionValidationError = class(Exception);
+  ExceptionValidationInfo = class(Exception);
 
 implementation
 

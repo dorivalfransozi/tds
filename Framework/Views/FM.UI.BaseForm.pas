@@ -80,7 +80,8 @@ begin
     if Assigned(ValidationInfo) then
     begin
       if not ValidationInfo.Valid then
-        Application.MessageBox(PWideChar(ValidationInfo.ValidationMessage), 'Erro...', mb_ok + ValidationInfo.TypeMessage);
+        Application.MessageBox(PWideChar(ValidationInfo.ValidationMessage), 'Erro...',
+          mb_ok + ValidationInfo.TypeMessage);
     end;
   end;
 end;

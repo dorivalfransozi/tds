@@ -33,10 +33,10 @@ begin
   try
     result := Validate;
   except
-    on E: ExceptionValidation do
-      TValidationInfo.New(Model, 'E.PropertyName', False, E.Message, MB_ICONERROR);
-    on E: ExceptionValidation do
+    on E: ExceptionValidationInfo do
       TValidationInfo.New(Model, 'E.PropertyName', False, E.Message, MB_ICONEXCLAMATION);
+    on E: ExceptionValidationError do
+      TValidationInfo.New(Model, 'E.PropertyName', False, E.Message, MB_ICONERROR);
 
   end;
 end;
