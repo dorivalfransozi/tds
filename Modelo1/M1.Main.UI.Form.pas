@@ -25,24 +25,29 @@ implementation
 
 {$R *.dfm}
 
+
 uses
   M1.Forms.Factory,
   M1.CadastroDemo.Controller,
   M1.CadastroDemo.UI.Form;
+
+
 
 procedure TForm1.Button1Click(Sender: TObject);
 begin
   ViewFactory.InvokeShow(TM1Forms.CadastroMarca);
 end;
 
+
+
 procedure TForm1.Button2Click(Sender: TObject);
 begin
   ViewFactory.InvokeShow(TM1Forms.CadastroDemo,
-   procedure(View: TView)
-   begin
-    TCadastroDemoController(View.Controller).FindCadastroDemo('Diego');
-   end
-  );
+    procedure(View: TView)
+    begin
+      TCadastroDemoController(View.Controller).FindCadastroDemo('Diego');
+    end
+    );
 end;
 
 end.

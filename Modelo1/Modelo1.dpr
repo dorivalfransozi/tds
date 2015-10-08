@@ -1,7 +1,16 @@
 program Modelo1;
 
+{$R *.dres}
+
 uses
+  madExcept,
+  madLinkDisAsm,
+  madListHardware,
+  madListProcesses,
+  madListModules,
   Vcl.Forms,
+  DBXDevartInterbase,
+  DBXDevArtPostgresql,
   M1.Main.UI.Form in 'M1.Main.UI.Form.pas' {Form1},
   M1.CadastroDemo.UI.Form in 'Comercial\M1.CadastroDemo.UI.Form.pas' {ViewCadastroDemo},
   M1.CadastroDemo.Controller in 'Comercial\M1.CadastroDemo.Controller.pas',
@@ -29,7 +38,16 @@ uses
   FM.Controller.Find in '..\Framework\Controllers\FM.Controller.Find.pas',
   FM.Controller.Process.Impl in '..\Framework\Controllers\FM.Controller.Process.Impl.pas',
   FM.Controller.Process in '..\Framework\Controllers\FM.Controller.Process.pas',
-  FM.Controller.Base in '..\Framework\Controllers\FM.Controller.Base.pas';
+  FM.Controller.Base in '..\Framework\Controllers\FM.Controller.Base.pas',
+  M1.Marca.DAO in 'DAO\M1.Marca.DAO.pas',
+  FM.DAO.Base in '..\Framework\DAOs\FM.DAO.Base.pas',
+  FM.DAO.Base.Impl in '..\Framework\DAOs\FM.DAO.Base.Impl.pas',
+  DDC.Resource in '..\Framework\Libs\DDC.Resource.pas',
+  DDC.Attributes in '..\Framework\Libs\DDC.Attributes.pas',
+  DDC.Core.Detour in '..\Framework\Libs\DDC.Core.Detour.pas',
+  DDC.Core.Reflection in '..\Framework\Libs\DDC.Core.Reflection.pas',
+  DDC.ValidationInfo in '..\Framework\Libs\DDC.ValidationInfo.pas',
+  DDC.ViewMessages in '..\Framework\Libs\DDC.ViewMessages.pas';
 
 {$R *.res}
 

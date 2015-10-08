@@ -11,6 +11,8 @@ uses
   FM.Controller.CRUD;
 
 type
+
+
   TFormCadastro = class(TFormConsulta)
     BtnSalvar: TBitBtn;
     BtnExcluir: TBitBtn;
@@ -46,12 +48,13 @@ end;
 procedure TFormCadastro.BtnSalvarClick(Sender: TObject);
 begin
   inherited;
+  DoUpdateModel;
   GetCRUDController.Save;
 end;
 
 function TFormCadastro.GetCRUDController: ICRUDController;
 begin
-  result := ICRUDController(Controller);
+  result := Controller as ICRUDController;
 end;
 
 end.

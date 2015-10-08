@@ -8,6 +8,8 @@ uses
 
 type
   TBaseFormView = class(TForm)
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   protected
     FModel: TModelBase;
     FController: IControllerBase;
@@ -16,6 +18,7 @@ type
     procedure DoInitialize; virtual;
     function DoUpdateModel: Boolean; virtual; abstract;
     function DoInternalValidate: Boolean; virtual; abstract;
+    procedure ShowValidationResult(Sender: TObject); virtual;
   public
     property Controller: IControllerBase read FController write SetController;
   end;
@@ -27,6 +30,9 @@ var
 
 implementation
 
+uses
+  DDC.ValidationInfo, DDC.Notification.Service, DDC.ViewMessages;
+
 {$R *.dfm}
 
 { TBaseFormView }
@@ -37,10 +43,39 @@ begin
    FModel := FController.Model;
 end;
 
+procedure TBaseFormView.FormCreate(Sender: TObject);
+begin
+  NotificationService.Subscribe(ShowValidationResult, TViewMsgs.ShowValidationResult);
+end;
+
+procedure TBaseFormView.FormDestroy(Sender: TObject);
+begin
+  NotificationService.UnSubscribe(ShowValidationResult);
+end;
+
 procedure TBaseFormView.SetController(const Value: IControllerBase);
 begin
   FController := Value;
   DoInitialize;
 end;
+
+procedure TBaseFormView.ShowValidationResult(Sender: TObject);
+var
+  ValidationInfo: TValidationInfo;
+begin
+  ValidationInfo := TValidationInfo(Sender);
+
+  if FModel = ValidationInfo.Model then
+  begin
+   if Assigned(ValidationInfo) then
+    begin
+      if not ValidationInfo.Valid then
+        Application.MessageBox('Ocorreu um erro na validação!', 'Erro...', mb_ok + mb_iconerror );
+    end;
+  end;
+end;
+
+
+
 
 end.
