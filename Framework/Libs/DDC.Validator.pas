@@ -170,8 +170,7 @@ begin
 
   for oExtendValidation in FExtendValidationList.Keys do
   begin
-    oAnonymousExtendValidator := FExtendValidationList.Items[oExtendValidation];
-    Result                    := oAnonymousExtendValidator(oExtendValidation.Value);
+    Result := FExtendValidationList.Items[oExtendValidation].Invoke(oExtendValidation.Value);
     if (not(Result)) then
       raise ExceptionValidationInfo.Create(Format(oExtendValidation.ErrorMessage, [oExtendValidation.Value]));
   end;
