@@ -26,26 +26,25 @@ uses
 
 {$R *.dfm}
 
+
+
+
 function TFormCadastroMarca.DoUpdateModel: Boolean;
 begin
   Result := True;
   try
-   (FModel as TMarcaModel).Codigo            := StrToIntDef(EdtCodigo.Text, 0);
-   (FModel as TMarcaModel).Descricao         := EdtDescricao.Text;
-   (FModel as TMarcaModel).DescricaoReduzida := EdtDescrReduz.Text;
+    (FModel as TMarcaModel).Codigo            := StrToIntDef(EdtCodigo.Text, 0);
+    (FModel as TMarcaModel).Descricao         := EdtDescricao.Text;
+    (FModel as TMarcaModel).DescricaoReduzida := EdtDescrReduz.Text;
 
   except
-   //Criar Exception base para validações que já contenha o validation info.
-   on E: ExceptionValidation do
+    // Criar Exception base para validações que já contenha o validation info.
+    on E: ExceptionValidation do
     begin
-     Result := False;
-     TValidationInfo.New(FModel, 'E.PropertyName', False, E.Message);
+      Result := False;
+      TValidationInfo.New(FModel, 'E.PropertyName', False, E.Message, MB_ICONERROR);
     end;
   end;
 end;
-
-
-
-
 
 end.

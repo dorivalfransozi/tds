@@ -177,7 +177,7 @@ begin
     oAnonymousExtendValidator := FExtendValidationList.Items[oExtendValidation];
     Result                    := oAnonymousExtendValidator(oExtendValidation.Value);
     if (not(Result)) then
-      raise Exception.Create(Format(oExtendValidation.ErrorMessage, [oExtendValidation.Value]));
+      raise ExceptionValidationInfo.Create(Format(oExtendValidation.ErrorMessage, [oExtendValidation.Value]));
   end;
 
 end;

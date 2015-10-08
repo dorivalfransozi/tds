@@ -3,12 +3,13 @@ unit M1.Marca.Model;
 interface
 
 uses
-  FM.Model.Base;
+  FM.Model.Base,
+  DDC.Validator;
 
 type
   TModelBase = FM.Model.Base.TModelBase;
 
-  [TFMTableName('GCEMRC01')]
+  // [TFMTableName('GCEMRC01')]
   TMarcaModel = class(TModelBase)
   private
     FCodigo: integer;
@@ -24,17 +25,26 @@ type
     procedure SetDataManutencao(const Value: TDateTime);
     procedure SetUsuario(const Value: integer);
   public
-    [TFMCollumnName('COD'), TFMVisible(True)]
+    // [TFMCollumnName('COD'), TFMVisible(True)]
+    [
+
+      TMinLength(10, 'Código', 'Teste Mensagem MinLength'),
+      TMaxLength(100, 'Código', 'Teste Mensagem MinLength'),
+      TMaxValue(100, 'Código', 'Teste Mensagem MaxValue'),
+      TMinValue(0, 'Código', 'O campo código é inválido.')
+
+      ]
+    // <-- validações
     property Codigo: integer read FCodigo write SetCodigo;
-    [TFMCollumnName('DSC'), TFMVisible(True)]
+    // [TFMCollumnName('DSC'), TFMVisible(True)]
     property Descricao: string read FDescricao write SetDescricao;
-    [TFMCollumnName('DSR'), TFMVisible(True)]
+    // [TFMCollumnName('DSR'), TFMVisible(True)]
     property DescricaoReduzida: string read FDescricaoReduzida write SetDescricaoReduzida;
-    [TFMCollumnName('DTC'), TFMVisible(True)]
+    // [TFMCollumnName('DTC'), TFMVisible(True)]
     property DataCadatro: TDateTime read FDataCadatro write SetDataCadatro;
-    [TFMCollumnName('DTM'), TFMVisible(False)]
+    // [TFMCollumnName('DTM'), TFMVisible(False)]
     property DataManutencao: TDateTime read FDataManutencao write SetDataManutencao;
-    [TFMCollumnName('USR'), TFMVisible(False)]
+    // [TFMCollumnName('USR'), TFMVisible(False)]
     property Usuario: integer read FUsuario write SetUsuario;
 
     function New: TModelBase; override;
@@ -79,8 +89,8 @@ end;
 
 procedure TMarcaModel.SetDescricao(const Value: string);
 begin
-  {if Value.IsEmpty then
-    raise ExceptionValidation.Create(TResourceStrings.RSConteudoInvalido); sai daqui pois sera no controller}
+  { if Value.IsEmpty then
+    raise ExceptionValidation.Create(TResourceStrings.RSConteudoInvalido); sai daqui pois sera no controller }
   FDescricao := Value;
 end;
 

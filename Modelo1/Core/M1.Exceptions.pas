@@ -8,6 +8,8 @@ uses
 type
 
   ExceptionValidation = Exception;
+  ExceptionValidationError = ExceptionValidation;
+  ExceptionValidationInfo = ExceptionValidation;
 
 implementation
 

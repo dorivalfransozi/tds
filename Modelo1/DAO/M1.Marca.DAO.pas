@@ -18,20 +18,25 @@ type
     property Model: TMarcaModel read FModel write FModel;
     procedure Save(var AModel: TModelBase); override;
     procedure Delete(var AModel: TModelBase); override;
-    function Find(var AModel: TModelBase; const ASetModel: boolean=true): boolean; override;
+    function Find(var AModel: TModelBase; const ASetModel: boolean = true): boolean; override;
     function FindAll(var AListModel: TObjectList<TModelBase>): boolean; override;
   end;
 
 implementation
 
 uses
-  SysUtils, DDC.Resource, System.Rtti,
-  DDC.Core.Reflection;
+  SysUtils,
+  DDC.Resource,
+  System.Rtti,
+  DDC.Core.Reflection,
+  Data.DB;
 
 const
   M1MarcaDAOFind = 'M1MarcaDAOFind';
 
-{ TDAOMarca }
+
+
+  { TDAOMarca }
 procedure TDAOMarca.Save(var AModel: TModelBase);
 
   procedure Update;
@@ -59,6 +64,8 @@ procedure TDAOMarca.Save(var AModel: TModelBase);
     FSqlConnection.Execute(FInsert.SQL, FInsert.Params);
   end;
 
+
+
 begin
   inherited;
 
@@ -80,14 +87,14 @@ end;
 
 
 
-function TDAOMarca.Find(var AModel: TModelBase; const ASetModel: boolean=true): boolean;
+function TDAOMarca.Find(var AModel: TModelBase; const ASetModel: boolean = true): boolean;
 begin
   inherited;
 
   { TODO -oDorival -cHelper : Trocar por um helper que abra o dataset }
   FSQLDataSet.Close;
 
-  FSQLDataSet.CommandText := TResource.ToString( M1MarcaDAOFind );
+  FSQLDataSet.CommandText               := TResource.ToString(M1MarcaDAOFind);
   FSQLDataSet.Params.ParamValues['COD'] := FModel.Codigo;
 
   FSQLDataSet.Open;
@@ -98,12 +105,12 @@ begin
 
   if result then
   begin
-    FModel.Codigo            := FSQLDataSet.FieldByName( 'COD' ).AsInteger;
-    FModel.Descricao         := FSQLDataSet.FieldByName( 'DSC' ).AsString;
-    FModel.DescricaoReduzida := FSQLDataSet.FieldByName( 'DSR' ).AsString;
-    FModel.DataCadatro       := FSQLDataSet.FieldByName( 'DTC' ).AsDateTime;
-    FModel.DataManutencao    := FSQLDataSet.FieldByName( 'DTM' ).AsDateTime;
-    FModel.Usuario           := FSQLDataSet.FieldByName( 'USR' ).AsInteger;
+    FModel.Codigo            := FSQLDataSet.FieldByName('COD').AsInteger;
+    FModel.Descricao         := FSQLDataSet.FieldByName('DSC').AsString;
+    FModel.DescricaoReduzida := FSQLDataSet.FieldByName('DSR').AsString;
+    FModel.DataCadatro       := FSQLDataSet.FieldByName('DTC').AsDateTime;
+    FModel.DataManutencao    := FSQLDataSet.FieldByName('DTM').AsDateTime;
+    FModel.Usuario           := FSQLDataSet.FieldByName('USR').AsInteger;
   end
   else
     FModel.Clear;

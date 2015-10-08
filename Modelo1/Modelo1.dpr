@@ -3,11 +3,6 @@ program Modelo1;
 {$R *.dres}
 
 uses
-  madExcept,
-  madLinkDisAsm,
-  madListHardware,
-  madListProcesses,
-  madListModules,
   Vcl.Forms,
   DBXDevartInterbase,
   DBXDevArtPostgresql,
@@ -47,7 +42,8 @@ uses
   DDC.Core.Detour in '..\Framework\Libs\DDC.Core.Detour.pas',
   DDC.Core.Reflection in '..\Framework\Libs\DDC.Core.Reflection.pas',
   DDC.ValidationInfo in '..\Framework\Libs\DDC.ValidationInfo.pas',
-  DDC.ViewMessages in '..\Framework\Libs\DDC.ViewMessages.pas';
+  DDC.ViewMessages in '..\Framework\Libs\DDC.ViewMessages.pas',
+  DDC.Validator in '..\Framework\Libs\DDC.Validator.pas';
 
 {$R *.res}
 
