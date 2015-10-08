@@ -141,7 +141,9 @@ begin
       result := AValue <> 1;
     end
     );
-  result := oValidator.Validate(FModel);
+
+  Result := oValidator.Validate(FModel);
+
 
   // NotificationService.SendMessage(FModel, TViewlMsgs.RefreshView);
 end;

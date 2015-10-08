@@ -102,7 +102,7 @@ type
   IValidator<T> = interface
     ['{A3A5A5A9-899D-4D1D-BD29-CC2FE3A50585}']
     function Validate(const AModel: T): Boolean;
-    procedure AddExtend(const AValue: Variant; const ACustomErrorMessage: String;
+    procedure AddExtend(const AValue: Variant; const AErrorMessage: String;
       const AValidator: TAnonymousExtendValidator);
   end;
 
@@ -111,17 +111,18 @@ type
   TExtendValidation = record
     Value: Variant;
     ErrorMessage: string;
+    constructor Create(const AValue: Variant; const AErrorMessage: String);
   end;
 
   TValidator<T> = class(TInterfacedObject, IValidator<T>)
   private
-    FExtendValidationList: TDictionary<PExtendValidation, TAnonymousExtendValidator>;
+    FExtendValidationList: TDictionary<TExtendValidation, TAnonymousExtendValidator>;
   public
     constructor Create; reintroduce;
     destructor Destroy; override;
 
     function Validate(const AModel: T): Boolean;
-    procedure AddExtend(const AValue: Variant; const ACustomErrorMessage: String;
+    procedure AddExtend(const AValue: Variant; const AErrorMessage: String;
       const AValidator: TAnonymousExtendValidator);
   end;
 
@@ -136,22 +137,17 @@ uses
 
 
 
-procedure TValidator<T>.AddExtend(const AValue: Variant; const ACustomErrorMessage: String;
+procedure TValidator<T>.AddExtend(const AValue: Variant; const AErrorMessage: String;
   const AValidator: TAnonymousExtendValidator);
-var
-  oExtendValidation: PExtendValidation;
 begin
-  System.New(oExtendValidation);
-  oExtendValidation.Value        := AValue;
-  oExtendValidation.ErrorMessage := ACustomErrorMessage;
-  FExtendValidationList.Add(oExtendValidation, AValidator);
+  FExtendValidationList.Add(TExtendValidation.Create(AValue, AErrorMessage), AValidator);
 end;
 
 
 
 constructor TValidator<T>.Create;
 begin
-  FExtendValidationList := TDictionary<PExtendValidation, TAnonymousExtendValidator>.Create;
+  FExtendValidationList := TDictionary<TExtendValidation, TAnonymousExtendValidator>.Create;
 end;
 
 
@@ -167,7 +163,7 @@ end;
 
 function TValidator<T>.Validate(const AModel: T): Boolean;
 var
-  oExtendValidation: PExtendValidation;
+  oExtendValidation: TExtendValidation;
   oAnonymousExtendValidator: TAnonymousExtendValidator;
 begin
   { TODO -oDev -cDesenvolver : Passar com rtti pelo modelo aplicando os validators }
@@ -406,6 +402,17 @@ end;
 function TExactLength.isValid(const AValue: Variant): Boolean;
 begin
   Result := Length(VarToStrDef(AValue, EmptyStr)) = FExactLength;
+end;
+
+{ TExtendValidation }
+
+
+
+constructor TExtendValidation.Create(const AValue: Variant;
+  const AErrorMessage: String);
+begin
+  Value        := AValue;
+  ErrorMessage := AErrorMessage
 end;
 
 end.
