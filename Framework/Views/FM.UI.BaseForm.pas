@@ -8,16 +8,17 @@ uses
 
 type
   TBaseFormView = class(TForm)
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   protected
     FModel: TModelBase;
     FController: IControllerBase;
     procedure SetController(const Value: IControllerBase); virtual;
-  private
-    procedure ShowValidationResult(Sender: TObject);
   protected
     procedure DoInitialize; virtual;
     function DoUpdateModel: Boolean; virtual; abstract;
     function DoInternalValidate: Boolean; virtual; abstract;
+    procedure ShowValidationResult(Sender: TObject); virtual;
   public
     property Controller: IControllerBase read FController write SetController;
   end;
@@ -30,7 +31,7 @@ var
 implementation
 
 uses
-  DDC.ValidationInfo;
+  DDC.ValidationInfo, DDC.Notification.Service, DDC.ViewMessages;
 
 {$R *.dfm}
 
@@ -42,6 +43,16 @@ begin
    FModel := FController.Model;
 end;
 
+procedure TBaseFormView.FormCreate(Sender: TObject);
+begin
+  NotificationService.Subscribe(ShowValidationResult, TViewMsgs.ShowValidationResult);
+end;
+
+procedure TBaseFormView.FormDestroy(Sender: TObject);
+begin
+  NotificationService.UnSubscribe(ShowValidationResult);
+end;
+
 procedure TBaseFormView.SetController(const Value: IControllerBase);
 begin
   FController := Value;
@@ -50,11 +61,11 @@ end;
 
 procedure TBaseFormView.ShowValidationResult(Sender: TObject);
 var
- ValidationInfo: TValidationInfo;
+  ValidationInfo: TValidationInfo;
 begin
- ValidationInfo := TValidationInfo(Sender);
+  ValidationInfo := TValidationInfo(Sender);
 
- if FModel = ValidationInfo.Model then
+  if FModel = ValidationInfo.Model then
   begin
    if Assigned(ValidationInfo) then
     begin
@@ -63,6 +74,8 @@ begin
     end;
   end;
 end;
+
+
 
 
 end.

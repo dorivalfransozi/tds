@@ -32,7 +32,7 @@ type
 implementation
 
 uses
-  DDC.Notification.Service,
+  DDC.Notification.Service, DDC.ValidationInfo,
   System.SysUtils;
 
 { TCadastroDemoController }

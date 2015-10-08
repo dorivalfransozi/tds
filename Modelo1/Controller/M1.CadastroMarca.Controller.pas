@@ -38,7 +38,7 @@ type
 implementation
 
 uses
-  M1.Marca.DAO;
+  M1.Marca.DAO, SysUtils, M1.Exceptions, DDC.ValidationInfo;
 
 { TCadastroMarcaController }
 
@@ -94,7 +94,7 @@ end;
 procedure TCadastroMarcaController.Save;
 begin
   inherited;
-  if Validate then
+  if DoInternalValidate then
     FDAO.Save( TModelBase(FModel) );
 end;
 
@@ -102,10 +102,13 @@ function TCadastroMarcaController.Validate: Boolean;
 begin
   {
   TODO: definir se a validacao ficará aqui ou no modelo. ver TFindMarca
-
-  if FModel.Descricao.IsBlank then
-    raise ExceptionValidation.Create('Erro ');
   }
+
+    if FModel.Descricao.IsEmpty then
+      raise ExceptionValidation.Create('Erro ');
+
+
+  //NotificationService.SendMessage(FModel, TViewlMsgs.RefreshView);
 end;
 
 end.

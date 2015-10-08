@@ -22,7 +22,7 @@ var
 implementation
 
 uses
-  M1.Marca.Model, DDC.ValidationInfo;
+  M1.Marca.Model, DDC.ValidationInfo, M1.Exceptions;
 
 {$R *.dfm}
 
@@ -36,13 +36,15 @@ begin
 
   except
    //Criar Exception base para validações que já contenha o validation info.
-   on E: Exception do
+   on E: ExceptionValidation do
     begin
      Result := False;
      TValidationInfo.New(FModel, 'E.PropertyName', False, E.Message);
     end;
   end;
 end;
+
+
 
 
 

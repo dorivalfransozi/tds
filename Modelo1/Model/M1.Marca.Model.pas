@@ -79,8 +79,8 @@ end;
 
 procedure TMarcaModel.SetDescricao(const Value: string);
 begin
-  if Value.IsEmpty then
-    raise ExceptionValidation.Create(TResourceStrings.RSConteudoInvalido);
+  {if Value.IsEmpty then
+    raise ExceptionValidation.Create(TResourceStrings.RSConteudoInvalido); sai daqui pois sera no controller}
   FDescricao := Value;
 end;
 
