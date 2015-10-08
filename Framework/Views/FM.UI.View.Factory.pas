@@ -74,7 +74,7 @@ function ViewRegistry: TViewRegistry;
 implementation
 
 uses
-  DDC.Notification.Service;
+  DDC.Notification.Service, FM.Security.Interceptor;
 
 resourcestring
   SCreateFormEventNotAssigned = 'ViewRegistry.OnCreateForm not Assigned.';
@@ -131,6 +131,8 @@ begin
       Result := ViewClass.Create(Application);
 
     Result.Controller := ControllerClass.Create;
+
+    TSecurityInterceptor.Apply(Result);
   end;
 end;
 
