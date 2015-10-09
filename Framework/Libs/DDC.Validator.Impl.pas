@@ -22,7 +22,9 @@ uses
   DDC.Validate.Required,
   DDC.Validate.IsNatural,
   DDC.Validate.IsNaturalNoZero,
-  DDC.Validate.IsInteger;
+  DDC.Validate.IsInteger,
+  DDC.Validate.Regex,
+  DDC.Validate.ValidEmail;
 
 type
   TExtendValidation = DDC.Validator.Extend.TExtendValidation;
@@ -39,6 +41,8 @@ type
   TIsNatural = DDC.Validate.IsNatural.TIsNatural;
   TIsNaturalNoZero = DDC.Validate.IsNaturalNoZero.TIsNaturalNoZero;
   TIsInteger = DDC.Validate.IsInteger.TIsInteger;
+  TRegexValidate = DDC.Validate.Regex.TRegexValidate;
+  TValidEmail = DDC.Validate.ValidEmail.TValidEmail;
 
   TValidator<T: class> = class(TInterfacedObject, IValidator<T>)
   private

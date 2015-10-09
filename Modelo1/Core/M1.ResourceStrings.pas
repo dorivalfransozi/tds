@@ -19,6 +19,8 @@ type
     RSValidation_MinValue = 'O campo %s deve conter um número maior que %s.';
     RSValidation_MaxLength = 'O campo %s deve ter no máximo %s caracteres.';
     RSValidation_MinLength = 'O campo %s deve ter no mínimo %s caracteres.';
+    RSValidation_RegexValidate = 'O formato do valor para o campo %s é inválido.';
+    RSValidation_ValidEmail = 'O campo %s deve conter um email válido.';
 
   end;
 

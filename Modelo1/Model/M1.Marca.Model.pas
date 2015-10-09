@@ -24,7 +24,7 @@ type
     property Codigo: integer read FCodigo write FCodigo;
 
     // [TFMCollumnName('DSC'), TFMVisible(True)]
-    [TRequired('Descrição'), TMinLength(10, 'Descrição'), TMaxLength(30, 'Descrição')] // <-- validações
+    [TRequired('Descrição'), TMinLength(10, 'Descrição'), TMaxLength(30, 'Descrição'), TRegexValidate('^\s*[-+]?[0-9]*\.?[0-9]+\s*$', 'Descrição'), TValidEmail] // <-- validações
     property Descricao: string read FDescricao write FDescricao;
 
     // [TFMCollumnName('DSR'), TFMVisible(True)]

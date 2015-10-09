@@ -56,7 +56,9 @@ uses
   DDC.Validate.IsNaturalNoZero in '..\Framework\Libs\DDC.Validate.IsNaturalNoZero.pas',
   DDC.Validator in '..\Framework\Libs\DDC.Validator.pas',
   DDC.Validator.Extend in '..\Framework\Libs\DDC.Validator.Extend.pas',
-  DDC.Validate.IsInteger in '..\Framework\Libs\DDC.Validate.IsInteger.pas';
+  DDC.Validate.IsInteger in '..\Framework\Libs\DDC.Validate.IsInteger.pas',
+  DDC.Validate.Regex in '..\Framework\Libs\DDC.Validate.Regex.pas',
+  DDC.Validate.ValidEmail in '..\Framework\Libs\DDC.Validate.ValidEmail.pas';
 
 {$R *.res}
 
