@@ -4,7 +4,7 @@ interface
 
 uses
   FM.Model.Base,
-  DDC.Validator;
+  DDC.Validator.Impl;
 
 type
   TModelBase = FM.Model.Base.TModelBase;
@@ -20,18 +20,15 @@ type
     FUsuario: integer;
   public
     // [TFMCollumnName('COD'), TFMVisible(True)]
-    [TIsNaturalNoZero('Código'), TMaxValue(100, 'Código'), TMinValue(1, 'Código')]
-    // <-- validações
+    [TIsNaturalNoZero('Código'), TMaxValue(100, 'Código'), TMinValue(1, 'Código')] // <-- validações
     property Codigo: integer read FCodigo write FCodigo;
 
     // [TFMCollumnName('DSC'), TFMVisible(True)]
-    [TRequired('Descrição'), TMinLength(10, 'Descrição'), TMaxLength(30, 'Descrição')]
-    // <-- validações
+    [TRequired('Descrição'), TMinLength(10, 'Descrição'), TMaxLength(30, 'Descrição')] // <-- validações
     property Descricao: string read FDescricao write FDescricao;
 
     // [TFMCollumnName('DSR'), TFMVisible(True)]
-    [TRequired('Descrição reduzida'), TMinLength(5, 'Descrição reduzida'), TMaxLength(10, 'Descrição reduzida')]
-    // <-- validações
+    [TRequired('Descrição reduzida'), TMinLength(5, 'Descrição reduzida'), TMaxLength(10, 'Descrição reduzida')] // <-- validações
     property DescricaoReduzida: string read FDescricaoReduzida write FDescricaoReduzida;
 
     // [TFMCollumnName('DTC'), TFMVisible(True)]

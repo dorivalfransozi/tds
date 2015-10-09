@@ -37,8 +37,12 @@ type
 implementation
 
 uses
-  M1.Marca.DAO, SysUtils, M1.Exceptions, DDC.ValidationInfo, DDC.Validator,
-  System.Rtti;
+  M1.Marca.DAO,
+  SysUtils,
+  M1.Exceptions,
+  DDC.ValidationInfo,
+  System.Rtti,
+  DDC.Validator.Impl, DDC.Validator;
 
 { TCadastroMarcaController }
 

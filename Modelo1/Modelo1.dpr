@@ -43,7 +43,19 @@ uses
   DDC.Core.Reflection in '..\Framework\Libs\DDC.Core.Reflection.pas',
   DDC.ValidationInfo in '..\Framework\Libs\DDC.ValidationInfo.pas',
   DDC.ViewMessages in '..\Framework\Libs\DDC.ViewMessages.pas',
-  DDC.Validator in '..\Framework\Libs\DDC.Validator.pas';
+  DDC.Validator.Impl in '..\Framework\Libs\DDC.Validator.Impl.pas',
+  DDC.Validate in '..\Framework\Libs\DDC.Validate.pas',
+  DDC.Validate.CustomAttribute in '..\Framework\Libs\DDC.Validate.CustomAttribute.pas',
+  DDC.Validate.MinLength in '..\Framework\Libs\DDC.Validate.MinLength.pas',
+  DDC.Validate.MaxLength in '..\Framework\Libs\DDC.Validate.MaxLength.pas',
+  DDC.Validate.MinValue in '..\Framework\Libs\DDC.Validate.MinValue.pas',
+  DDC.Validate.MaxValue in '..\Framework\Libs\DDC.Validate.MaxValue.pas',
+  DDC.Validate.ExactLength in '..\Framework\Libs\DDC.Validate.ExactLength.pas',
+  DDC.Validate.Required in '..\Framework\Libs\DDC.Validate.Required.pas',
+  DDC.Validate.IsNatural in '..\Framework\Libs\DDC.Validate.IsNatural.pas',
+  DDC.Validate.IsNaturalNoZero in '..\Framework\Libs\DDC.Validate.IsNaturalNoZero.pas',
+  DDC.Validator in '..\Framework\Libs\DDC.Validator.pas',
+  DDC.Validator.Extend in '..\Framework\Libs\DDC.Validator.Extend.pas';
 
 {$R *.res}
 
