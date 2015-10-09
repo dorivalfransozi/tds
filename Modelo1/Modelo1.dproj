@@ -175,6 +175,7 @@
         <DCCReference Include="..\Framework\Libs\DDC.Validate.IsNaturalNoZero.pas"/>
         <DCCReference Include="..\Framework\Libs\DDC.Validator.pas"/>
         <DCCReference Include="..\Framework\Libs\DDC.Validator.Extend.pas"/>
+        <DCCReference Include="..\Framework\Libs\DDC.Validate.IsInteger.pas"/>
         <RcItem Include="DAO\SQL\M1.Marca.DAO.Find.sql">
             <ContainerId>ResourceItem</ContainerId>
             <ResourceType>RCDATA</ResourceType>

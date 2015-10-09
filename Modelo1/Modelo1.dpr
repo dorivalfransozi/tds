@@ -55,7 +55,8 @@ uses
   DDC.Validate.IsNatural in '..\Framework\Libs\DDC.Validate.IsNatural.pas',
   DDC.Validate.IsNaturalNoZero in '..\Framework\Libs\DDC.Validate.IsNaturalNoZero.pas',
   DDC.Validator in '..\Framework\Libs\DDC.Validator.pas',
-  DDC.Validator.Extend in '..\Framework\Libs\DDC.Validator.Extend.pas';
+  DDC.Validator.Extend in '..\Framework\Libs\DDC.Validator.Extend.pas',
+  DDC.Validate.IsInteger in '..\Framework\Libs\DDC.Validate.IsInteger.pas';
 
 {$R *.res}
 

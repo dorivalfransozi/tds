@@ -21,7 +21,8 @@ uses
   DDC.Validate.ExactLength,
   DDC.Validate.Required,
   DDC.Validate.IsNatural,
-  DDC.Validate.IsNaturalNoZero;
+  DDC.Validate.IsNaturalNoZero,
+  DDC.Validate.IsInteger;
 
 type
   TExtendValidation = DDC.Validator.Extend.TExtendValidation;
@@ -37,6 +38,7 @@ type
   TRequired = DDC.Validate.Required.TRequired;
   TIsNatural = DDC.Validate.IsNatural.TIsNatural;
   TIsNaturalNoZero = DDC.Validate.IsNaturalNoZero.TIsNaturalNoZero;
+  TIsInteger = DDC.Validate.IsInteger.TIsInteger;
 
   TValidator<T: class> = class(TInterfacedObject, IValidator<T>)
   private
