@@ -142,7 +142,7 @@ begin
 
   result := oValidator.Make(FModel).Fails;
   if (result) then
-    raise ExceptionValidationInfo.Create(oValidator.ValidationErrors.Text);
+    raise ExceptionValidationInfo.Create(oValidator.ErrorMessages.Text);
 end;
 
 end.

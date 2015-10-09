@@ -54,7 +54,7 @@ type
 
     function Make(const AModel: T; const AExitOnFirstError: Boolean = False): IValidator<T>;
     function Fails: Boolean;
-    function ValidationErrors: TStringList;
+    function ErrorMessages: TStringList;
     procedure AddExtend(const AValue: TValue; const AErrorMessage: String; const AValidator: TAnonymousExtendValidator);
   end;
 
@@ -185,7 +185,7 @@ end;
 
 
 
-function TValidator<T>.ValidationErrors: TStringList;
+function TValidator<T>.ErrorMessages: TStringList;
 begin
   Result := FErrorList;
 end;
