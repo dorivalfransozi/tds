@@ -24,11 +24,11 @@ type
     property Codigo: integer read FCodigo write FCodigo;
 
     // [TFMCollumnName('DSC'), TFMVisible(True)]
-    [TRequired('Descrição'), TMinLength(10, 'Descrição'), TMaxLength(30, 'Descrição'), TRegexValidate('^\s*[-+]?[0-9]*\.?[0-9]+\s*$', 'Descrição'), TValidEmail] // <-- validações
+    [TRequired('Descrição'), TMinLength(10, 'Descrição'), TMaxLength(30, 'Descrição'), TValidEmail('Descrição')] // <-- validações
     property Descricao: string read FDescricao write FDescricao;
 
     // [TFMCollumnName('DSR'), TFMVisible(True)]
-    [TRequired('Descrição reduzida'), TMinLength(5, 'Descrição reduzida'), TMaxLength(10, 'Descrição reduzida')] // <-- validações
+    [TRequired('Descrição reduzida'), TMinLength(5, 'Descrição reduzida'), TMaxLength(10, 'Descrição reduzida'), TRegexValidate('^\s*[-+]?[0-9]*\.?[0-9]+\s*$', 'Descrição'), ] // <-- validações
     property DescricaoReduzida: string read FDescricaoReduzida write FDescricaoReduzida;
 
     // [TFMCollumnName('DTC'), TFMVisible(True)]
@@ -38,6 +38,7 @@ type
     property DataManutencao: TDateTime read FDataManutencao write FDataManutencao;
 
     // [TFMCollumnName('USR'), TFMVisible(False)]
+    [TExists('sgrusr01', 'cod')]
     property Usuario: integer read FUsuario write FUsuario;
 
     function New: TModelBase; override;
