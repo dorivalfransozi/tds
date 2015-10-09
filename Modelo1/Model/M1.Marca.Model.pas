@@ -26,24 +26,23 @@ type
     procedure SetUsuario(const Value: integer);
   public
     // [TFMCollumnName('COD'), TFMVisible(True)]
-    [
-
-      TMinLength(10, 'Código', 'Teste Mensagem MinLength'),
-      TMaxLength(100, 'Código', 'Teste Mensagem MinLength'),
-      TMaxValue(100, 'Código', 'Teste Mensagem MaxValue'),
-      TMinValue(0, 'Código', 'O campo código é inválido.')
-
-      ]
-    // <-- validações
+    [TIsNaturalNoZero('Código'), TMaxValue(100, 'Código'), TMinValue(1, 'Código')] // <-- validações
     property Codigo: integer read FCodigo write SetCodigo;
+
     // [TFMCollumnName('DSC'), TFMVisible(True)]
+    [TRequired('Descrição'), TMinLength(10, 'Descrição'), TMaxLength(30, 'Descrição')] // <-- validações
     property Descricao: string read FDescricao write SetDescricao;
+
     // [TFMCollumnName('DSR'), TFMVisible(True)]
+    [TRequired('Descrição reduzida'), TMinLength(5, 'Descrição reduzida'), TMaxLength(10, 'Descrição reduzida')] // <-- validações
     property DescricaoReduzida: string read FDescricaoReduzida write SetDescricaoReduzida;
+
     // [TFMCollumnName('DTC'), TFMVisible(True)]
     property DataCadatro: TDateTime read FDataCadatro write SetDataCadatro;
+
     // [TFMCollumnName('DTM'), TFMVisible(False)]
     property DataManutencao: TDateTime read FDataManutencao write SetDataManutencao;
+
     // [TFMCollumnName('USR'), TFMVisible(False)]
     property Usuario: integer read FUsuario write SetUsuario;
 

@@ -37,7 +37,8 @@ type
 implementation
 
 uses
-  M1.Marca.DAO, SysUtils, M1.Exceptions, DDC.ValidationInfo, DDC.Validator;
+  M1.Marca.DAO, SysUtils, M1.Exceptions, DDC.ValidationInfo, DDC.Validator,
+  System.Rtti;
 
 { TCadastroMarcaController }
 
@@ -127,25 +128,17 @@ begin
     TODO: definir se a validacao ficará aqui ou no modelo. ver TFindMarca
   }
 
-  // if FModel.Descricao.IsEmpty then
-  // raise ExceptionValidation.Create('Erro ');
-
-  {
-    TODO: definir se a validacao ficará aqui ou no modelo. ver TFindMarca
-  }
-
   oValidator := TValidator<TMarcaModel>.Create;
-  oValidator.AddExtend(FModel.Codigo, 'Campo código:  %s = 1.',
-    function(const AValue: Variant): Boolean
+  oValidator.AddExtend(FModel.Codigo, 'Teste extend: valor informado %s  é igual a 2.',
+    function(const AValue: TValue): Boolean
     begin
-      result := AValue <> 1;
+      result := AValue.AsInteger <> 2;
     end
     );
 
-  Result := oValidator.Validate(FModel);
-
-
-  // NotificationService.SendMessage(FModel, TViewlMsgs.RefreshView);
+  result := oValidator.Make(FModel).Fails;
+  if (result) then
+    raise ExceptionValidationInfo.Create(oValidator.ValidationErrors.Text);
 end;
 
 end.

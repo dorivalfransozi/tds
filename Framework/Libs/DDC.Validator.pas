@@ -5,12 +5,14 @@ interface
 uses
   System.StrUtils,
   System.Generics.Collections,
-  System.Classes;
+  System.Classes,
+  FM.Model.Base,
+  System.Rtti;
 
 type
   IValidate = interface
     ['{BEC53519-B865-4283-ADEA-A5D72BF0703B}']
-    function isValid(const AValue: Variant): Boolean;
+    function isValid(const AValue: TValue): Boolean;
     function GetErrorMessage: string;
   end;
 
@@ -18,6 +20,7 @@ type
   private
     FCustomErrorMessage: String;
     FColumnTitle: String;
+    FValue: TValue;
   protected
     function QueryInterface(const IID: TGUID; out Obj): HResult; stdcall;
     function _AddRef: Integer; stdcall;
@@ -25,12 +28,13 @@ type
 
     property CustomErrorMessage: String read FCustomErrorMessage write FCustomErrorMessage;
     property ColumnTitle: String read FColumnTitle write FColumnTitle;
+    property Value: TValue read FValue write FValue;
   end;
 
   TMinLength = class(TMyCustomAttribute, IValidate)
   private
     const
-    ERROR_MESSAGE: String = 'O campo %s deve ter no mínimo %s caracteres.';
+    ERROR_MESSAGE: String = TResourceStrings.RSValidation_MinLength;
   private
     FMinLength: Integer;
   public
@@ -38,13 +42,13 @@ type
     constructor Create(const AMinLength: Integer; const AColumnTitle: String); overload;
     constructor Create(const AMinLength: Integer; const AColumnTitle, ACustomErrorMessage: String); overload;
     function GetErrorMessage: string;
-    function isValid(const AValue: Variant): Boolean;
+    function isValid(const AValue: TValue): Boolean;
   end;
 
   TMaxLength = class(TMyCustomAttribute, IValidate)
   private
     const
-    ERROR_MESSAGE: String = 'O campo %s deve ter no máximo %s caracteres.';
+    ERROR_MESSAGE: String = TResourceStrings.RSValidation_MaxLength;
   private
     FMaxLength: Integer;
   public
@@ -52,13 +56,13 @@ type
     constructor Create(const AMaxLength: Integer; const AColumnTitle: String); overload;
     constructor Create(const AMaxLength: Integer; const AColumnTitle, ACustomErrorMessage: String); overload;
     function GetErrorMessage: string;
-    function isValid(const AValue: Variant): Boolean;
+    function isValid(const AValue: TValue): Boolean;
   end;
 
   TMinValue = class(TMyCustomAttribute, IValidate)
   private
     const
-    ERROR_MESSAGE: String = 'O campo %s deve conter um número maior que %s.';
+    ERROR_MESSAGE: String = TResourceStrings.RSValidation_MinValue;
   private
     FMinValue: Integer;
   public
@@ -66,13 +70,13 @@ type
     constructor Create(const AMinValue: Integer; const AColumnTitle: String); overload;
     constructor Create(const AMinValue: Integer; const AColumnTitle, ACustomErrorMessage: String); overload;
     function GetErrorMessage: string;
-    function isValid(const AValue: Variant): Boolean;
+    function isValid(const AValue: TValue): Boolean;
   end;
 
   TMaxValue = class(TMyCustomAttribute, IValidate)
   private
     const
-    ERROR_MESSAGE: String = 'O campo %s deve conter um número menor que %s.';
+    ERROR_MESSAGE: String = TResourceStrings.RSValidation_MaxValue;
   private
     FMaxValue: Integer;
   public
@@ -80,13 +84,13 @@ type
     constructor Create(const AMaxValue: Integer; const AColumnTitle: String); overload;
     constructor Create(const AMaxValue: Integer; const AColumnTitle, ACustomErrorMessage: String); overload;
     function GetErrorMessage: string;
-    function isValid(const AValue: Variant): Boolean;
+    function isValid(const AValue: TValue): Boolean;
   end;
 
   TExactLength = class(TMyCustomAttribute, IValidate)
   private
     const
-    ERROR_MESSAGE: String = 'O campo %s deve ter exatamente %s caracteres.';
+    ERROR_MESSAGE: String = TResourceStrings.RSValidation_ExactLength;
   private
     FExactLength: Integer;
   public
@@ -94,36 +98,74 @@ type
     constructor Create(const AExactLength: Integer; const AColumnTitle: String); overload;
     constructor Create(const AExactLength: Integer; const AColumnTitle, ACustomErrorMessage: String); overload;
     function GetErrorMessage: string;
-    function isValid(const AValue: Variant): Boolean;
+    function isValid(const AValue: TValue): Boolean;
   end;
 
-  TAnonymousExtendValidator = reference to function(const AValue: Variant): Boolean;
+  TRequired = class(TMyCustomAttribute, IValidate)
+  private
+    const
+    ERROR_MESSAGE: String = TResourceStrings.RSValidation_Required;
+  public
+    constructor Create(const AColumnTitle: String); overload;
+    constructor Create(const AColumnTitle, ACustomErrorMessage: String); overload;
+    function GetErrorMessage: string;
+    function isValid(const AValue: TValue): Boolean;
+  end;
 
-  IValidator<T> = interface
+  TIsNatural = class(TMyCustomAttribute, IValidate)
+  private
+    const
+    ERROR_MESSAGE: String = TResourceStrings.RSValidation_IsNatural;
+  public
+    constructor Create(const AColumnTitle: String); overload;
+    constructor Create(const AColumnTitle, ACustomErrorMessage: String); overload;
+    function GetErrorMessage: string;
+    function isValid(const AValue: TValue): Boolean;
+  end;
+
+  TIsNaturalNoZero = class(TMyCustomAttribute, IValidate)
+  private
+    const
+    ERROR_MESSAGE: String = TResourceStrings.RSValidation_IsNaturalNoZero;
+  public
+    constructor Create(const AColumnTitle: String); overload;
+    constructor Create(const AColumnTitle, ACustomErrorMessage: String); overload;
+    function GetErrorMessage: string;
+    function isValid(const AValue: TValue): Boolean;
+  end;
+
+  TAnonymousExtendValidator = reference to function(const AValue: TValue): Boolean;
+
+  IValidator<T: class> = interface
     ['{A3A5A5A9-899D-4D1D-BD29-CC2FE3A50585}']
-    function Validate(const AModel: T): Boolean;
-    procedure AddExtend(const AValue: Variant; const AErrorMessage: String;
-      const AValidator: TAnonymousExtendValidator);
+    function Make(const AModel: T; const AExitOnFirstError: Boolean = False): IValidator<T>;
+    function Fails: Boolean;
+    function ValidationErrors: TStringList;
+    procedure AddExtend(const AValue: TValue; const AErrorMessage: String; const AValidator: TAnonymousExtendValidator);
   end;
-
-  PExtendValidation = ^TExtendValidation;
 
   TExtendValidation = record
-    Value: Variant;
+    Value: TValue;
     ErrorMessage: string;
-    constructor Create(const AValue: Variant; const AErrorMessage: String);
+    constructor Create(const AValue: TValue; const AErrorMessage: String);
   end;
 
-  TValidator<T> = class(TInterfacedObject, IValidator<T>)
+  TValidator<T: class> = class(TInterfacedObject, IValidator<T>)
   private
     FExtendValidationList: TDictionary<TExtendValidation, TAnonymousExtendValidator>;
+    FErrorList: TStringList;
+    FFails: Boolean;
+
+    procedure InternalValidateModel(const AModel: T; const AExitOnFirstError: Boolean);
+    procedure InternalValidateExtend(const AExitOnFirstError: Boolean);
   public
     constructor Create; reintroduce;
     destructor Destroy; override;
 
-    function Validate(const AModel: T): Boolean;
-    procedure AddExtend(const AValue: Variant; const AErrorMessage: String;
-      const AValidator: TAnonymousExtendValidator);
+    function Make(const AModel: T; const AExitOnFirstError: Boolean = False): IValidator<T>;
+    function Fails: Boolean;
+    function ValidationErrors: TStringList;
+    procedure AddExtend(const AValue: TValue; const AErrorMessage: String; const AValidator: TAnonymousExtendValidator);
   end;
 
 implementation
@@ -131,13 +173,13 @@ implementation
 uses
   M1.Exceptions,
   System.Variants,
-  System.SysUtils;
+  System.SysUtils, System.TypInfo;
 
 { TValidator<T> }
 
 
 
-procedure TValidator<T>.AddExtend(const AValue: Variant; const AErrorMessage: String;
+procedure TValidator<T>.AddExtend(const AValue: TValue; const AErrorMessage: String;
   const AValidator: TAnonymousExtendValidator);
 begin
   FExtendValidationList.Add(TExtendValidation.Create(AValue, AErrorMessage), AValidator);
@@ -148,6 +190,7 @@ end;
 constructor TValidator<T>.Create;
 begin
   FExtendValidationList := TDictionary<TExtendValidation, TAnonymousExtendValidator>.Create;
+  FErrorList            := TStringList.Create;
 end;
 
 
@@ -155,26 +198,105 @@ end;
 destructor TValidator<T>.Destroy;
 begin
   FExtendValidationList.Free;
+  FErrorList.Free;
 
   inherited;
 end;
 
 
 
-function TValidator<T>.Validate(const AModel: T): Boolean;
+function TValidator<T>.Fails: Boolean;
+begin
+  Result := FFails;
+end;
+
+
+
+procedure TValidator<T>.InternalValidateExtend(const AExitOnFirstError: Boolean);
 var
   oExtendValidation: TExtendValidation;
-  oAnonymousExtendValidator: TAnonymousExtendValidator;
+  oSuccess: Boolean;
 begin
-  { TODO -oDev -cDesenvolver : Passar com rtti pelo modelo aplicando os validators }
-
   for oExtendValidation in FExtendValidationList.Keys do
   begin
-    Result := FExtendValidationList.Items[oExtendValidation].Invoke(oExtendValidation.Value);
-    if (not(Result)) then
-      raise ExceptionValidationInfo.Create(Format(oExtendValidation.ErrorMessage, [oExtendValidation.Value]));
+    oSuccess := FExtendValidationList.Items[oExtendValidation].Invoke(oExtendValidation.Value);
+    if (not(oSuccess)) then
+    begin
+      FErrorList.Add(Format(oExtendValidation.ErrorMessage, [oExtendValidation.Value.AsVariant]));
+      if (AExitOnFirstError) then
+        Exit;
+    end;
   end;
+end;
 
+
+
+procedure TValidator<T>.InternalValidateModel(const AModel: T; const AExitOnFirstError: Boolean);
+const
+  METHOD_IS_VALID: String = 'isValid';
+  METHOD_GET_ERROR: String = 'GetErrorMessage';
+var
+  oRttiCtx: TRttiContext;
+  oRttiTp: TRttiType;
+  oRttiProp: TRttiProperty;
+  oCstAttr: TCustomAttribute;
+  oRttiMetIsValid: TRttiMethod;
+  oRttiMetGetErrorMessage: TRttiMethod;
+  Args: Array Of TValue;
+  oSuccess: Boolean;
+begin
+  oRttiCtx := TRttiContext.Create.Create;
+  try
+    oRttiTp := oRttiCtx.GetType(AModel.ClassType);
+    for oRttiProp in oRttiTp.GetProperties do
+      for oCstAttr in oRttiProp.GetAttributes do
+      begin
+        oRttiMetIsValid := oRttiCtx.GetType(oCstAttr.ClassInfo).GetMethod(METHOD_IS_VALID);
+        if (oRttiMetIsValid = nil) then
+          raise Exception.Create(Format(TResourceStrings.RSClasseNaoImplementaMetodo,
+            [oCstAttr.ClassName, METHOD_IS_VALID]));
+
+        SetLength(Args, 1);
+        Args[0]  := oRttiProp.GetValue(Pointer(AModel));
+        oSuccess := oRttiMetIsValid.Invoke(oCstAttr, Args).AsBoolean;
+        if (not(oSuccess)) then
+        begin
+          oRttiMetGetErrorMessage := oRttiCtx.GetType(oCstAttr.ClassInfo).GetMethod(METHOD_GET_ERROR);
+          if (oRttiMetGetErrorMessage = nil) then
+            raise Exception.Create(Format(TResourceStrings.RSClasseNaoImplementaMetodo,
+              [oCstAttr.ClassName, METHOD_GET_ERROR]));
+
+          FErrorList.Add(oRttiMetGetErrorMessage.Invoke(oCstAttr, []).AsString);
+          if (AExitOnFirstError) then
+            Exit;
+        end;
+      end;
+  finally
+    oRttiCtx.Free;
+  end;
+end;
+
+
+
+function TValidator<T>.Make(const AModel: T; const AExitOnFirstError: Boolean = False): IValidator<T>;
+begin
+  InternalValidateModel(AModel, AExitOnFirstError);
+  FFails := FErrorList.Count > 0;
+
+  if ((AExitOnFirstError) and (FFails)) then
+    Exit(Self);
+
+  InternalValidateExtend(AExitOnFirstError);
+  FFails := FErrorList.Count > 0;
+
+  Result := Self;
+end;
+
+
+
+function TValidator<T>.ValidationErrors: TStringList;
+begin
+  Result := FErrorList;
 end;
 
 { TMinLength }
@@ -207,14 +329,21 @@ end;
 
 function TMinLength.GetErrorMessage: string;
 begin
-  Result := ifThen(CustomErrorMessage.IsEmpty, ERROR_MESSAGE, CustomErrorMessage);
+  Result := Format(ifThen(CustomErrorMessage = EmptyStr, ERROR_MESSAGE, CustomErrorMessage), [ColumnTitle, FMinLength.ToString]);
 end;
 
 
 
-function TMinLength.isValid(const AValue: Variant): Boolean;
+function TMinLength.isValid(const AValue: TValue): Boolean;
 begin
-  Result := Length(VarToStrDef(AValue, EmptyStr)) <= FMinLength;
+  Self.Value := AValue;
+  case AValue.Kind of
+    tkString, tkChar, tkWChar, tkLString, tkWString, tkUString:
+      Result := Length(AValue.AsString) >= FMinLength;
+  else
+    // não aplica validação em outros tipos
+    Result := False;
+  end;
 end;
 
 { TMyCustomAttribute }
@@ -273,14 +402,25 @@ end;
 
 function TMaxValue.GetErrorMessage: string;
 begin
-  Result := ifThen(CustomErrorMessage.IsEmpty, ERROR_MESSAGE, CustomErrorMessage);
+  Result := Format(ifThen(CustomErrorMessage = EmptyStr, ERROR_MESSAGE, CustomErrorMessage), [ColumnTitle, FMaxValue.ToString]);
 end;
 
 
 
-function TMaxValue.isValid(const AValue: Variant): Boolean;
+function TMaxValue.isValid(const AValue: TValue): Boolean;
 begin
-  Result := StrToInt(VarToStrDef(AValue, '0')) <= FMaxValue;
+  Self.Value := AValue;
+  case AValue.Kind of
+    tkInteger:
+      Result := AValue.AsInteger <= FMaxValue;
+    tkInt64:
+      Result := AValue.AsInt64 <= FMaxValue;
+    tkFloat:
+      Result := AValue.AsExtended <= FMaxValue;
+  else
+    // não aplica validação em outros tipos
+    Result := False;
+  end;
 end;
 
 { TMinValue }
@@ -313,14 +453,25 @@ end;
 
 function TMinValue.GetErrorMessage: string;
 begin
-  Result := ifThen(CustomErrorMessage.IsEmpty, ERROR_MESSAGE, CustomErrorMessage);
+  Result := Format(ifThen(CustomErrorMessage = EmptyStr, ERROR_MESSAGE, CustomErrorMessage), [ColumnTitle, FMinValue.ToString]);
 end;
 
 
 
-function TMinValue.isValid(const AValue: Variant): Boolean;
+function TMinValue.isValid(const AValue: TValue): Boolean;
 begin
-  Result := StrToInt(VarToStrDef(AValue, '0')) >= FMinValue;
+  Self.Value := AValue;
+  case AValue.Kind of
+    tkInteger:
+      Result := AValue.AsInteger >= FMinValue;
+    tkInt64:
+      Result := AValue.AsInt64 >= FMinValue;
+    tkFloat:
+      Result := AValue.AsExtended >= FMinValue;
+  else
+    // não aplica validação em outros tipos
+    Result := False;
+  end;
 end;
 
 { TMaxLength }
@@ -353,14 +504,21 @@ end;
 
 function TMaxLength.GetErrorMessage: string;
 begin
-  Result := ifThen(CustomErrorMessage.IsEmpty, ERROR_MESSAGE, CustomErrorMessage);
+  Result := Format(ifThen(CustomErrorMessage = EmptyStr, ERROR_MESSAGE, CustomErrorMessage), [ColumnTitle, FMaxLength.ToString]);
 end;
 
 
 
-function TMaxLength.isValid(const AValue: Variant): Boolean;
+function TMaxLength.isValid(const AValue: TValue): Boolean;
 begin
-  Result := Length(VarToStrDef(AValue, EmptyStr)) <= FMaxLength;
+  Self.Value := AValue;
+  case AValue.Kind of
+    tkString, tkChar, tkWChar, tkLString, tkWString, tkUString:
+      Result := Length(AValue.AsString) <= FMaxLength;
+  else
+    // não aplica validação em outros tipos
+    Result := False;
+  end;
 end;
 
 { TExactLength }
@@ -393,25 +551,151 @@ end;
 
 function TExactLength.GetErrorMessage: string;
 begin
-  Result := ifThen(CustomErrorMessage.IsEmpty, ERROR_MESSAGE, CustomErrorMessage);
+  Result := Format(ifThen(CustomErrorMessage = EmptyStr, ERROR_MESSAGE, CustomErrorMessage), [ColumnTitle, FExactLength.ToString]);
 end;
 
 
 
-function TExactLength.isValid(const AValue: Variant): Boolean;
+function TExactLength.isValid(const AValue: TValue): Boolean;
 begin
-  Result := Length(VarToStrDef(AValue, EmptyStr)) = FExactLength;
+  Self.Value := AValue;
+  case AValue.Kind of
+    tkString, tkChar, tkWChar, tkLString, tkWString, tkUString:
+      Result := Length(AValue.AsString) = FExactLength;
+  else
+    // não aplica validação em outros tipos
+    Result := False;
+  end;
 end;
 
 { TExtendValidation }
 
 
 
-constructor TExtendValidation.Create(const AValue: Variant;
+constructor TExtendValidation.Create(const AValue: TValue;
   const AErrorMessage: String);
 begin
   Value        := AValue;
   ErrorMessage := AErrorMessage
+end;
+
+{ TRequired }
+
+
+
+constructor TRequired.Create(const AColumnTitle: String);
+begin
+  ColumnTitle := AColumnTitle;
+end;
+
+
+
+constructor TRequired.Create(const AColumnTitle, ACustomErrorMessage: String);
+begin
+  ColumnTitle        := AColumnTitle;
+  CustomErrorMessage := ACustomErrorMessage;
+end;
+
+
+
+function TRequired.GetErrorMessage: string;
+begin
+  Result := Format(ifThen(CustomErrorMessage = EmptyStr, ERROR_MESSAGE, CustomErrorMessage), [ColumnTitle]);
+end;
+
+
+
+function TRequired.isValid(const AValue: TValue): Boolean;
+begin
+  Self.Value := AValue;
+  case AValue.Kind of
+    tkString, tkChar, tkWChar, tkLString, tkWString, tkUString:
+      Result := trim(AValue.AsString) <> EmptyStr;
+  else
+    // não aplica validação em outros tipos
+    Result := False;
+  end;
+end;
+
+{ TIsNatural }
+
+
+
+constructor TIsNatural.Create(const AColumnTitle: String);
+begin
+  ColumnTitle := AColumnTitle;
+end;
+
+
+
+constructor TIsNatural.Create(const AColumnTitle, ACustomErrorMessage: String);
+begin
+  ColumnTitle        := AColumnTitle;
+  CustomErrorMessage := ACustomErrorMessage;
+end;
+
+
+
+function TIsNatural.GetErrorMessage: string;
+begin
+  Result := Format(ifThen(CustomErrorMessage = EmptyStr, ERROR_MESSAGE, CustomErrorMessage), [ColumnTitle]);
+end;
+
+
+
+function TIsNatural.isValid(const AValue: TValue): Boolean;
+begin
+  Self.Value := AValue;
+  case AValue.Kind of
+    tkInteger:
+      Result := AValue.AsInteger > -1;
+    tkInt64:
+      Result := AValue.AsInt64 > -1;
+  else
+    // não aplica validação em outros tipos
+    Result := False;
+  end;
+end;
+
+{ TIsNaturalNoZero }
+
+
+
+constructor TIsNaturalNoZero.Create(const AColumnTitle: String);
+begin
+  ColumnTitle := AColumnTitle;
+end;
+
+
+
+constructor TIsNaturalNoZero.Create(const AColumnTitle,
+  ACustomErrorMessage: String);
+begin
+  ColumnTitle        := AColumnTitle;
+  CustomErrorMessage := ACustomErrorMessage;
+end;
+
+
+
+function TIsNaturalNoZero.GetErrorMessage: string;
+begin
+  Result := Format(ifThen(CustomErrorMessage = EmptyStr, ERROR_MESSAGE, CustomErrorMessage), [ColumnTitle]);
+end;
+
+
+
+function TIsNaturalNoZero.isValid(const AValue: TValue): Boolean;
+begin
+  Self.Value := AValue;
+  case AValue.Kind of
+    tkInteger:
+      Result := AValue.AsInteger > 0;
+    tkInt64:
+      Result := AValue.AsInt64 > 0;
+  else
+    // não aplica validação em outros tipos
+    Result := False;
+  end;
 end;
 
 end.
