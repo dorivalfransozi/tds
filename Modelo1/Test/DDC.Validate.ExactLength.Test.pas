@@ -25,6 +25,9 @@ type
   strict private
     FExactLength: TExactLength;
   public
+    const
+    COLUMN_NAME: String = 'MyProp';
+  public
     procedure SetUp; override;
     procedure TearDown; override;
   published
@@ -36,12 +39,14 @@ type
 
 implementation
 
+uses
+  System.SysUtils, M1.ResourceStrings;
 
 
 
 procedure TestTExactLength.SetUp;
 begin
-  FExactLength := TExactLength.Create(5, 'MyProp');
+  FExactLength := TExactLength.Create(5, COLUMN_NAME);
 end;
 
 
@@ -56,8 +61,8 @@ end;
 
 procedure TestTExactLength.GetErrorMessage;
 begin
-  CheckTrue(FExactLength.GetErrorMessage = 'O campo MyProp deve ter exatamente 5 caracteres.',
-    'Erro formatar mensagem');
+  CheckFalse(FExactLength.GetErrorMessage = Format(TResourceStrings.RSValidation_IsInteger, [COLUMN_NAME]),
+    'Erro ao formatar mensagem');
 end;
 
 

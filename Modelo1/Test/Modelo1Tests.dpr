@@ -20,7 +20,9 @@ uses
   M1.ResourceStrings in '..\Core\M1.ResourceStrings.pas',
   DDC.Validate in '..\..\Framework\Libs\DDC.Validate.pas',
   DDC.Validate.CustomAttribute in '..\..\Framework\Libs\DDC.Validate.CustomAttribute.pas',
-  DDC.Validate.ExactLength in '..\..\Framework\Libs\DDC.Validate.ExactLength.pas';
+  DDC.Validate.ExactLength in '..\..\Framework\Libs\DDC.Validate.ExactLength.pas',
+  DDC.Validate.IsInteger.Test in 'DDC.Validate.IsInteger.Test.pas',
+  DDC.Validate.IsInteger in '..\..\Framework\Libs\DDC.Validate.IsInteger.pas';
 
 {R *.RES}
 
