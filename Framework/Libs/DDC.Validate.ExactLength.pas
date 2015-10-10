@@ -5,8 +5,8 @@ interface
 uses
   DDC.Validate.CustomAttribute,
   DDC.Validate,
-  FM.Model.Base,
-  System.Rtti;
+  System.Rtti,
+  M1.ResourceStrings;
 
 type
   TExactLength = class(TValidateCustomAttribute, IValidate)
