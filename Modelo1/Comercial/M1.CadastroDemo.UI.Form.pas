@@ -22,8 +22,8 @@ type
     function GetController: TCadastroDemoController;
 
     procedure RefreshScreen(Sender: TObject);
-    procedure ShowValidationResult(Sender: TObject);
-  private
+  protected
+    procedure ShowValidationResult(Sender: TObject); override;
     function DoUpdateModel: Boolean; override;
     function DoInternalValidate: Boolean; override;
   public
@@ -141,6 +141,7 @@ procedure TViewCadastroDemo.ShowValidationResult(Sender: TObject);
 {var
  ValidationInfo: TValidationInfo;}
 begin
+  inherited;
 { ValidationInfo := TValidationInfo(Sender);
 
  if FModel = ValidationInfo.Model then

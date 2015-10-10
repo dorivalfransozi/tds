@@ -3,13 +3,13 @@ unit M1.CadastroMarca.Controller;
 interface
 
 uses
- M1.Marca.Model,
- FM.Controller.CRUD.Impl,
- FM.DAO.Base,
- Classes;
+  M1.Marca.Model,
+  FM.Controller.CRUD.Impl,
+  FM.DAO.Base,
+  Classes;
 
 type
-  TCadastroMarcaController = class(TCRUDController) //, ICRUDController, IFindController)
+  TCadastroMarcaController = class(TCRUDController) // , ICRUDController, IFindController)
   protected
     function GetModel: TModelBase; override;
   private
@@ -34,30 +34,42 @@ type
     property Model: TModelBase read GetModel;
   end;
 
-
 implementation
 
 uses
-  M1.Marca.DAO, SysUtils, M1.Exceptions, DDC.ValidationInfo;
+  M1.Marca.DAO,
+  SysUtils,
+  M1.Exceptions,
+  DDC.ValidationInfo,
+  System.Rtti,
+  DDC.Validator.Impl, DDC.Validator;
 
 { TCadastroMarcaController }
+
+
 
 procedure TCadastroMarcaController.Config;
 begin
 
 end;
 
+
+
 constructor TCadastroMarcaController.Create;
 begin
   inherited;
   FModel := TMarcaModel.Create;
-  FDAO := TDAOMarca.Create; { TODO -oDorival -cDI : Remover dependencia e colocar injeção de dependencia }
+  FDAO   := TDAOMarca.Create; { TODO -oDorival -cDI : Remover dependencia e colocar injeção de dependencia }
 end;
+
+
 
 procedure TCadastroMarcaController.Delete;
 begin
 
 end;
+
+
 
 destructor TCadastroMarcaController.Destroy;
 begin
@@ -65,31 +77,43 @@ begin
   inherited;
 end;
 
+
+
 procedure TCadastroMarcaController.Edit;
 begin
   inherited;
 
 end;
 
+
+
 procedure TCadastroMarcaController.FindCadastroDemo(const Name: string);
 begin
 end;
+
+
 
 function TCadastroMarcaController.GetModel: TModelBase;
 begin
   result := FModel;
 end;
 
+
+
 procedure TCadastroMarcaController.ListCadastroDemo;
 begin
 
 end;
+
+
 
 procedure TCadastroMarcaController.New;
 begin
   inherited;
 
 end;
+
+
 
 procedure TCadastroMarcaController.Save;
 begin
@@ -98,17 +122,27 @@ begin
     FDAO.Save( FModel );
 end;
 
+
+
 function TCadastroMarcaController.Validate: Boolean;
+var
+  oValidator: IValidator<TMarcaModel>;
 begin
   {
-  TODO: definir se a validacao ficará aqui ou no modelo. ver TFindMarca
+    TODO: definir se a validacao ficará aqui ou no modelo. ver TFindMarca
   }
 
-    if FModel.Descricao.IsEmpty then
-      raise ExceptionValidation.Create('Erro ');
+  oValidator := TValidator<TMarcaModel>.Create;
+  oValidator.AddExtend(FModel.Codigo, 'Teste extend: valor informado %s  é igual a 2.',
+    function(const AValue: TValue): Boolean
+    begin
+      result := AValue.AsInteger <> 2;
+    end
+    );
 
-
-  //NotificationService.SendMessage(FModel, TViewlMsgs.RefreshView);
+  result := oValidator.Make(FModel).Fails;
+  if (result) then
+    raise ExceptionValidationInfo.Create(oValidator.ErrorMessages.Text);
 end;
 
 end.

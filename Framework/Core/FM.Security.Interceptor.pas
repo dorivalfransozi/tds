@@ -27,9 +27,6 @@ implementation
 uses
   FM.UI.Cadastro;
 
-var
- _CRUDInterceptor: TVirtualMethodInterceptor;
-
 { TSecurityInterceptor }
 
 const

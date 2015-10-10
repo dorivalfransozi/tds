@@ -81,7 +81,6 @@
         <DCC_RemoteDebug>true</DCC_RemoteDebug>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <DCC_Define>madExcept;LeakChecking;$(DCC_Define)</DCC_Define>
         <DCC_MapFile>3</DCC_MapFile>
         <DCC_ExeOutput>c:\sysmovs</DCC_ExeOutput>
         <VerInfo_Locale>1033</VerInfo_Locale>
@@ -164,6 +163,22 @@
         <DCCReference Include="..\Framework\Libs\DDC.ValidationInfo.pas"/>
         <DCCReference Include="..\Framework\Libs\DDC.ViewMessages.pas"/>
         <DCCReference Include="..\Framework\Core\FM.Security.Interceptor.pas"/>
+        <DCCReference Include="..\Framework\Libs\DDC.Validator.Impl.pas"/>
+        <DCCReference Include="..\Framework\Libs\DDC.Validate.pas"/>
+        <DCCReference Include="..\Framework\Libs\DDC.Validate.CustomAttribute.pas"/>
+        <DCCReference Include="..\Framework\Libs\DDC.Validate.MinLength.pas"/>
+        <DCCReference Include="..\Framework\Libs\DDC.Validate.MaxLength.pas"/>
+        <DCCReference Include="..\Framework\Libs\DDC.Validate.MinValue.pas"/>
+        <DCCReference Include="..\Framework\Libs\DDC.Validate.MaxValue.pas"/>
+        <DCCReference Include="..\Framework\Libs\DDC.Validate.ExactLength.pas"/>
+        <DCCReference Include="..\Framework\Libs\DDC.Validate.Required.pas"/>
+        <DCCReference Include="..\Framework\Libs\DDC.Validate.IsNatural.pas"/>
+        <DCCReference Include="..\Framework\Libs\DDC.Validate.IsNaturalNoZero.pas"/>
+        <DCCReference Include="..\Framework\Libs\DDC.Validator.pas"/>
+        <DCCReference Include="..\Framework\Libs\DDC.Validator.Extend.pas"/>
+        <DCCReference Include="..\Framework\Libs\DDC.Validate.IsInteger.pas"/>
+        <DCCReference Include="..\Framework\Libs\DDC.Validate.Regex.pas"/>
+        <DCCReference Include="..\Framework\Libs\DDC.Validate.ValidEmail.pas"/>
         <RcItem Include="DAO\SQL\M1.Marca.DAO.Find.sql">
             <ContainerId>ResourceItem</ContainerId>
             <ResourceType>RCDATA</ResourceType>
@@ -235,13 +250,18 @@
                 </VersionInfoKeys>
             </Delphi.Personality>
             <Deployment Version="2">
+                <DeployFile LocalName="c:\sysmovs\Modelo1.rsm" Configuration="Debug" Class="DebugSymbols">
+                    <Platform Name="Win32">
+                        <RemoteName>Modelo1.rsm</RemoteName>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="c:\sysmovs\Modelo1.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>Modelo1.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Output\Modelo1.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="Win32\Debug\Modelo1.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>Modelo1.exe</RemoteName>
                         <Overwrite>true</Overwrite>
@@ -283,6 +303,9 @@
                     <Platform Name="Win32">
                         <RemoteDir>Contents\MacOS</RemoteDir>
                         <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
                     </Platform>
                     <Platform Name="iOSSimulator">
                         <Operation>1</Operation>
@@ -342,12 +365,17 @@
                     </Platform>
                 </DeployClass>
                 <DeployClass Name="iPhone_Launch640">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                    </Platform>
                     <Platform Name="iOSSimulator">
                         <Operation>1</Operation>
                     </Platform>
                     <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
                     </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Launch640">
                     <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
                     </Platform>
@@ -380,13 +408,13 @@
                     </Platform>
                 </DeployClass>
                 <DeployClass Name="iPhone_Launch320">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                    </Platform>
                     <Platform Name="iOSSimulator">
                         <Operation>1</Operation>
                     </Platform>
                     <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
@@ -449,12 +477,17 @@
                     </Platform>
                 </DeployClass>
                 <DeployClass Name="iPhone_Launch640x1136">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                    </Platform>
                     <Platform Name="iOSSimulator">
                         <Operation>1</Operation>
                     </Platform>
                     <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
                     </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_Launch1024">
                     <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
                     </Platform>
@@ -494,13 +527,13 @@
                     </Platform>
                 </DeployClass>
                 <DeployClass Name="iPad_Launch2048">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                    </Platform>
                     <Platform Name="iOSSimulator">
                         <Operation>1</Operation>
                     </Platform>
                     <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
@@ -637,16 +670,23 @@
                 </DeployClass>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
-                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
             </Deployment>
             <Platforms>
                 <Platform value="Win32">True</Platform>
                 <Platform value="Win64">False</Platform>
             </Platforms>
+            <UnitTesting>
+                <TestProjectName>D:\Meus Documentos\Users\Eurides\Documents\RAD Studio\Projects\consultoria-delphi-github\tds\Modelo1\Test\Modelo1Tests.dproj</TestProjectName>
+            </UnitTesting>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>
     </ProjectExtensions>

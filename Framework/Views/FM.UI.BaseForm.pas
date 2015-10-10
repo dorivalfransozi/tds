@@ -37,27 +37,37 @@ uses
 
 { TBaseFormView }
 
+
+
 procedure TBaseFormView.DoInitialize;
 begin
   if Assigned(FController) then
-   FModel := FController.Model;
+    FModel := FController.Model;
 end;
+
+
 
 procedure TBaseFormView.FormCreate(Sender: TObject);
 begin
   NotificationService.Subscribe(ShowValidationResult, TViewMsgs.ShowValidationResult);
 end;
 
+
+
 procedure TBaseFormView.FormDestroy(Sender: TObject);
 begin
   NotificationService.UnSubscribe(ShowValidationResult);
 end;
+
+
 
 procedure TBaseFormView.SetController(const Value: IControllerBase);
 begin
   FController := Value;
   DoInitialize;
 end;
+
+
 
 procedure TBaseFormView.ShowValidationResult(Sender: TObject);
 var
@@ -67,15 +77,13 @@ begin
 
   if FModel = ValidationInfo.Model then
   begin
-   if Assigned(ValidationInfo) then
+    if Assigned(ValidationInfo) then
     begin
       if not ValidationInfo.Valid then
-        Application.MessageBox('Ocorreu um erro na validação!', 'Erro...', mb_ok + mb_iconerror );
+        Application.MessageBox(PWideChar(ValidationInfo.ValidationMessage), 'Erro...',
+          mb_ok + ValidationInfo.TypeMessage);
     end;
   end;
 end;
-
-
-
 
 end.

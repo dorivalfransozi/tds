@@ -10,6 +10,8 @@ uses
 type
 
   TDAOMarca = class(TDAOBase<TMarcaModel>)
+  protected
+    procedure SetModel(var AModel: TMarcaModel); override;
   public
     procedure Save(var AModel: TMarcaModel); override;
     procedure Delete(var AModel: TMarcaModel); override;
@@ -20,13 +22,18 @@ type
 implementation
 
 uses
-  SysUtils, DDC.Resource, System.Rtti,
-  DDC.Core.Reflection;
+  SysUtils,
+  DDC.Resource,
+  System.Rtti,
+  DDC.Core.Reflection,
+  Data.DB;
 
 const
   M1MarcaDAOFind = 'M1MarcaDAOFind';
 
-{ TDAOMarca }
+
+
+  { TDAOMarca }
 
 {$IFDEF USE_SYSMO_LIBS}
 procedure TDAOMarca.Save(var AModel: TModelBase);
@@ -55,6 +62,8 @@ procedure TDAOMarca.Save(var AModel: TModelBase);
     FSqlConnection.Execute(FInsert.SQL, FInsert.Params);
   end;
 
+
+
 begin
   inherited;
 
@@ -68,6 +77,12 @@ procedure TDAOMarca.Save(var AModel: TMarcaModel);
 begin
 
 end;
+procedure TDAOMarca.SetModel(var AModel: TMarcaModel);
+begin
+  inherited;
+  FModel := AModel;
+end;
+
 {$ENDIF}
 
 
@@ -90,7 +105,7 @@ begin
   { TODO -oDorival -cHelper : Trocar por um helper que abra o dataset }
   FSQLDataSet.Close;
 
-  FSQLDataSet.CommandText := TResource.ToString( M1MarcaDAOFind );
+  FSQLDataSet.CommandText               := TResource.ToString(M1MarcaDAOFind);
   FSQLDataSet.Params.ParamValues['COD'] := FModel.Codigo;
 
   FSQLDataSet.Open;
@@ -101,15 +116,17 @@ begin
 
   if result then
   begin
-    FModel.Codigo            := FSQLDataSet.FieldByName( 'COD' ).AsInteger;
-    FModel.Descricao         := FSQLDataSet.FieldByName( 'DSC' ).AsString;
-    FModel.DescricaoReduzida := FSQLDataSet.FieldByName( 'DSR' ).AsString;
-    FModel.DataCadatro       := FSQLDataSet.FieldByName( 'DTC' ).AsDateTime;
-    FModel.DataManutencao    := FSQLDataSet.FieldByName( 'DTM' ).AsDateTime;
-    FModel.Usuario           := FSQLDataSet.FieldByName( 'USR' ).AsInteger;
+    FModel.Codigo            := FSQLDataSet.FieldByName('COD').AsInteger;
+    FModel.Descricao         := FSQLDataSet.FieldByName('DSC').AsString;
+    FModel.DescricaoReduzida := FSQLDataSet.FieldByName('DSR').AsString;
+    FModel.DataCadatro       := FSQLDataSet.FieldByName('DTC').AsDateTime;
+    FModel.DataManutencao    := FSQLDataSet.FieldByName('DTM').AsDateTime;
+    FModel.Usuario           := FSQLDataSet.FieldByName('USR').AsInteger;
   end
   else
     FModel.Clear;
+{$ELSE}
+  Result := False;
 {$ENDIF}
 end;
 
@@ -118,6 +135,7 @@ end;
 function TDAOMarca.FindAll(var AListModel: TObjectList<TMarcaModel>): boolean;
 begin
   { TODO: fazer o find all }
+  Result := False;
 end;
 
 
