@@ -26,7 +26,13 @@ uses
   DDC.Validate.IsNatural.Test in 'DDC.Validate.IsNatural.Test.pas',
   DDC.Validate.IsNatural in '..\..\Framework\Libs\DDC.Validate.IsNatural.pas',
   DDC.Validate.IsNaturalNoZero.Test in 'DDC.Validate.IsNaturalNoZero.Test.pas',
-  DDC.Validate.IsNaturalNoZero in '..\..\Framework\Libs\DDC.Validate.IsNaturalNoZero.pas';
+  DDC.Validate.IsNaturalNoZero in '..\..\Framework\Libs\DDC.Validate.IsNaturalNoZero.pas',
+  DDC.Validate.MaxLength.Test in 'DDC.Validate.MaxLength.Test.pas',
+  DDC.Validate.MaxLength in '..\..\Framework\Libs\DDC.Validate.MaxLength.pas',
+  DDC.Validate.MaxValue.Test in 'DDC.Validate.MaxValue.Test.pas',
+  DDC.Validate.MaxValue in '..\..\Framework\Libs\DDC.Validate.MaxValue.pas',
+  DDC.Validate.MinLength.Test in 'DDC.Validate.MinLength.Test.pas',
+  DDC.Validate.MinLength in '..\..\Framework\Libs\DDC.Validate.MinLength.pas';
 
 {R *.RES}
 
