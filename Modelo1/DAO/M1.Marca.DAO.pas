@@ -9,17 +9,12 @@ uses
 
 type
 
-  TDAOMarca = class(TDAOBase)
-  private
-    FModel: TMarcaModel;
-  protected
-    procedure SetModel(var AModel: TModelBase); override;
+  TDAOMarca = class(TDAOBase<TMarcaModel>)
   public
-    property Model: TMarcaModel read FModel write FModel;
-    procedure Save(var AModel: TModelBase); override;
-    procedure Delete(var AModel: TModelBase); override;
-    function Find(var AModel: TModelBase; const ASetModel: boolean=true): boolean; override;
-    function FindAll(var AListModel: TObjectList<TModelBase>): boolean; override;
+    procedure Save(var AModel: TMarcaModel); override;
+    procedure Delete(var AModel: TMarcaModel); override;
+    function Find(var AModel: TMarcaModel; const ASetModel: boolean=true): boolean; override;
+    function FindAll(var AListModel: TObjectList<TMarcaModel>): boolean; override;
   end;
 
 implementation
@@ -32,8 +27,9 @@ const
   M1MarcaDAOFind = 'M1MarcaDAOFind';
 
 { TDAOMarca }
-procedure TDAOMarca.Save(var AModel: TModelBase);
 
+{$IFDEF USE_SYSMO_LIBS}
+procedure TDAOMarca.Save(var AModel: TModelBase);
   procedure Update;
   begin
     FUpdate.Limpar;
@@ -67,10 +63,17 @@ begin
   else
     Insert;
 end;
+{$ELSE}
+procedure TDAOMarca.Save(var AModel: TMarcaModel);
+begin
+
+end;
+{$ENDIF}
 
 
 
-procedure TDAOMarca.Delete(var AModel: TModelBase);
+
+procedure TDAOMarca.Delete(var AModel: TMarcaModel);
 begin
   inherited;
   { TODO: find se existe...
@@ -80,10 +83,10 @@ end;
 
 
 
-function TDAOMarca.Find(var AModel: TModelBase; const ASetModel: boolean=true): boolean;
+function TDAOMarca.Find(var AModel: TMarcaModel; const ASetModel: boolean=true): boolean;
 begin
   inherited;
-
+{$IFDEF USE_SYSMO_LIBS}
   { TODO -oDorival -cHelper : Trocar por um helper que abra o dataset }
   FSQLDataSet.Close;
 
@@ -107,20 +110,15 @@ begin
   end
   else
     FModel.Clear;
+{$ENDIF}
 end;
 
 
 
-function TDAOMarca.FindAll(var AListModel: TObjectList<TModelBase>): boolean;
+function TDAOMarca.FindAll(var AListModel: TObjectList<TMarcaModel>): boolean;
 begin
   { TODO: fazer o find all }
 end;
 
-
-
-procedure TDAOMarca.SetModel(var AModel: TModelBase);
-begin
-  FModel := TMarcaModel(AModel);
-end;
 
 end.

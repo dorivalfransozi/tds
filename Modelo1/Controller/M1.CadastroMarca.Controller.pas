@@ -14,7 +14,7 @@ type
     function GetModel: TModelBase; override;
   private
     FModel: TMarcaModel;
-    FDAO: IDAO;
+    FDAO: IDAO<TMarcaModel>;
   public
     constructor Create; override;
     destructor Destroy; override;
@@ -95,7 +95,7 @@ procedure TCadastroMarcaController.Save;
 begin
   inherited;
   if DoInternalValidate then
-    FDAO.Save( TModelBase(FModel) );
+    FDAO.Save( FModel );
 end;
 
 function TCadastroMarcaController.Validate: Boolean;

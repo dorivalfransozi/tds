@@ -8,11 +8,11 @@ uses
 type
   TModelBase = FM.Model.Base.TModelBase;
 
-  IDAO = interface
-    procedure Save(var AModel: TModelBase);
-    procedure Delete(var AModel: TModelBase);
-    function Find(var AModel: TModelBase; const ASetModel: boolean=true): boolean;
-    function FindAll(var AListModel: TObjectList<TModelBase>): boolean;
+  IDAO<T: class> = interface
+    procedure Save(var AModel: T);
+    procedure Delete(var AModel: T);
+    function Find(var AModel: T; const ASetModel: boolean=true): boolean;
+    function FindAll(var AListModel: TObjectList<T>): boolean;
   end;
 
 implementation

@@ -11,49 +11,6 @@ inherited FormCadastroMarca: TFormCadastroMarca
     Height = 153
     ExplicitWidth = 522
     ExplicitHeight = 153
-    object EdtDescrReduz: TEditText
-      Left = 122
-      Top = 81
-      Width = 104
-      Height = 21
-      CharCase = ecUpperCase
-      Enabled = True
-      MaxLength = 10
-      TabOrder = 2
-      BtnConsult = False
-      BtnRegist = False
-      Caption = 'Descri'#231#227'o reduzida:'
-    end
-    object EdtDescricao: TEditText
-      Left = 122
-      Top = 52
-      Width = 264
-      Height = 21
-      CharCase = ecUpperCase
-      Enabled = True
-      MaxLength = 30
-      TabOrder = 1
-      BtnConsult = False
-      BtnRegist = False
-      Caption = 'Descri'#231#227'o:'
-    end
-    object EdtCodigo: TEditNum
-      Left = 122
-      Top = 25
-      Width = 54
-      Height = 21
-      Alignment = enaLeftJustify
-      CharCase = ecUpperCase
-      Enabled = True
-      MaxLength = 4
-      TabOrder = 0
-      Text = ' '
-      BtnConsult = True
-      BtnRegist = False
-      Caption = ' &1 - C'#243'digo:'
-      Decimals = 0
-      ValMax = 99999999.000000000000000000
-    end
   end
   inherited PnlBotao: TPanel
     Top = 159

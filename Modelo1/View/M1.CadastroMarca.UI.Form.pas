@@ -5,13 +5,13 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, FM.UI.Cadastro, Vcl.StdCtrls,
-  Vcl.Buttons, Vcl.ExtCtrls, editnum;
+  Vcl.Buttons, Vcl.ExtCtrls;
 
 type
   TFormCadastroMarca = class(TFormCadastro)
-    EdtDescrReduz: TEditText;
-    EdtDescricao: TEditText;
-    EdtCodigo: TEditNum;
+    EdtDescrReduz: TEdit;
+    EdtDescricao: TEdit;
+    EdtCodigo: TEdit;
   private
     function DoUpdateModel: Boolean; override;
   end;
