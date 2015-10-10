@@ -41,7 +41,8 @@ type
 implementation
 
 uses
-  M1.ResourceStrings, System.SysUtils;
+  M1.ResourceStrings,
+  System.SysUtils;
 
 
 

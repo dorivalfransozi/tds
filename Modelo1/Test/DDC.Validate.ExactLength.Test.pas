@@ -40,7 +40,8 @@ type
 implementation
 
 uses
-  System.SysUtils, M1.ResourceStrings;
+  System.SysUtils,
+  M1.ResourceStrings;
 
 
 

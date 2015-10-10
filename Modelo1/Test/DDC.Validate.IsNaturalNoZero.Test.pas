@@ -12,8 +12,12 @@ unit DDC.Validate.IsNaturalNoZero.Test;
 interface
 
 uses
-  TestFramework, DDC.Validate, DDC.Validate.CustomAttribute, M1.ResourceStrings,
-  DDC.Validate.IsNaturalNoZero, System.Rtti;
+  TestFramework,
+  DDC.Validate,
+  DDC.Validate.CustomAttribute,
+  M1.ResourceStrings,
+  DDC.Validate.IsNaturalNoZero,
+  System.Rtti;
 
 type
   // Test methods for class TIsNaturalNoZero
