@@ -35,6 +35,7 @@ type
   published
     procedure GetErrorMessage;
     procedure IsValidStringGreat;
+    procedure IsValidStringEqual;
     procedure IsValidStringLittle;
     procedure IsValidCurrency;
     procedure IsValidInteger;
@@ -90,6 +91,16 @@ end;
 
 
 
+procedure TestTMaxLength.IsValidStringEqual;
+var
+  AValue: TValue;
+begin
+  AValue := 'abcd';
+  CheckTrue(FMaxLength.isValid(AValue), 'A erro ao validar a string ' + AValue.ToString);
+end;
+
+
+
 procedure TestTMaxLength.IsValidStringGreat;
 var
   AValue: TValue;
@@ -104,7 +115,7 @@ procedure TestTMaxLength.IsValidStringLittle;
 var
   AValue: TValue;
 begin
-  AValue := 'abcd';
+  AValue := 'abc';
   CheckTrue(FMaxLength.isValid(AValue), 'A erro ao validar a string ' + AValue.ToString);
 end;
 

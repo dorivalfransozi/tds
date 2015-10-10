@@ -45,11 +45,15 @@
         <Base>true</Base>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
+        <VerInfo_Locale>1046</VerInfo_Locale>
+        <Manifest_File>None</Manifest_File>
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <DCC_DcpOutput>..\Output\Dcp</DCC_DcpOutput>
         <DCC_UnitSearchPath>$(BDS)\Source\DUnit\src;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <DCC_Define>_CONSOLE_TESTRUNNER;$(DCC_Define)</DCC_Define>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
-        <DCC_DcuOutput>.</DCC_DcuOutput>
-        <DCC_ExeOutput>.\$(Platform)\$(Config)</DCC_ExeOutput>
+        <DCC_DcuOutput>..\Output\Dcu</DCC_DcuOutput>
+        <DCC_ExeOutput>c:\sysmovs\</DCC_ExeOutput>
         <DCC_E>false</DCC_E>
         <DCC_N>false</DCC_N>
         <DCC_S>false</DCC_S>
@@ -77,6 +81,10 @@
         <DCC_RemoteDebug>true</DCC_RemoteDebug>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <DCC_ExeOutput>c:\sysmovs\</DCC_ExeOutput>
+        <DCC_DcpOutput>..\Output\Dcp</DCC_DcpOutput>
+        <Manifest_File>None</Manifest_File>
+        <VerInfo_Locale>1033</VerInfo_Locale>
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
@@ -102,6 +110,10 @@
         <DCCReference Include="..\..\Framework\Libs\DDC.Validate.IsNaturalNoZero.pas"/>
         <DCCReference Include="DDC.Validate.MaxLength.Test.pas"/>
         <DCCReference Include="..\..\Framework\Libs\DDC.Validate.MaxLength.pas"/>
+        <DCCReference Include="DDC.Validate.MaxValue.Test.pas"/>
+        <DCCReference Include="..\..\Framework\Libs\DDC.Validate.MaxValue.pas"/>
+        <DCCReference Include="DDC.Validate.MinLength.Test.pas"/>
+        <DCCReference Include="..\..\Framework\Libs\DDC.Validate.MinLength.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -163,6 +175,9 @@
                 <Source>
                     <Source Name="MainSource">Modelo1Tests.dpr</Source>
                 </Source>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp180.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                </Excluded_Packages>
             </Delphi.Personality>
             <Deployment/>
             <Platforms>
