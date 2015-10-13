@@ -22,7 +22,7 @@ uses
 type
   // Test methods for class TIsNaturalNoZero
 
-  TestTIsNaturalNoZeroNoZero = class(TTestCase)
+  TestTIsNaturalNoZero = class(TTestCase)
   strict private
     FIsNaturalNoZero: TIsNaturalNoZero;
   public
@@ -46,14 +46,14 @@ uses
 
 
 
-procedure TestTIsNaturalNoZeroNoZero.SetUp;
+procedure TestTIsNaturalNoZero.SetUp;
 begin
   FIsNaturalNoZero := TIsNaturalNoZero.Create(COLUMN_NAME);
 end;
 
 
 
-procedure TestTIsNaturalNoZeroNoZero.TearDown;
+procedure TestTIsNaturalNoZero.TearDown;
 begin
   FIsNaturalNoZero.Free;
   FIsNaturalNoZero := nil;
@@ -61,7 +61,7 @@ end;
 
 
 
-procedure TestTIsNaturalNoZeroNoZero.GetErrorMessage;
+procedure TestTIsNaturalNoZero.GetErrorMessage;
 begin
   CheckTrue(FIsNaturalNoZero.GetErrorMessage = Format(TResourceStrings.RSValidation_IsNaturalNoZero, [COLUMN_NAME]),
     'Erro ao formatar mensagem');
@@ -69,7 +69,7 @@ end;
 
 
 
-procedure TestTIsNaturalNoZeroNoZero.IsValidCurrency;
+procedure TestTIsNaturalNoZero.IsValidCurrency;
 var
   AValue: TValue;
 begin
@@ -79,7 +79,7 @@ end;
 
 
 
-procedure TestTIsNaturalNoZeroNoZero.IsValidInteger;
+procedure TestTIsNaturalNoZero.IsValidInteger;
 var
   AValue: TValue;
 begin
@@ -89,7 +89,7 @@ end;
 
 
 
-procedure TestTIsNaturalNoZeroNoZero.IsValidString;
+procedure TestTIsNaturalNoZero.IsValidString;
 var
   AValue: TValue;
 begin
@@ -99,7 +99,7 @@ end;
 
 
 
-procedure TestTIsNaturalNoZeroNoZero.IsValidZero;
+procedure TestTIsNaturalNoZero.IsValidZero;
 var
   AValue: TValue;
 begin
@@ -110,6 +110,6 @@ end;
 initialization
 
 // Register any test cases with the test runner
-RegisterTest(TestTIsNaturalNoZeroNoZero.Suite);
+RegisterTest(TestTIsNaturalNoZero.Suite);
 
 end.
