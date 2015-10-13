@@ -30,7 +30,7 @@ type
   TExtendValidation = DDC.Validator.Extend.TExtendValidation;
   IValidate = DDC.Validate.IValidate;
 
-  TValidatorCustomAttribute = TValidateCustomAttribute;
+  TValidatorCustomAttribute = DDC.Validate.CustomAttribute.TValidateCustomAttribute;
 
   TMinLength = DDC.Validate.MinLength.TMinLength;
   TMaxLength = DDC.Validate.MaxLength.TMaxLength;
