@@ -97,10 +97,14 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="DDC.Validate.ExactLength.Test.pas"/>
+        <DCCReference Include="..\..\Framework\Models\FM.Model.Base.pas"/>
+        <DCCReference Include="..\Core\M1.Exceptions.pas"/>
         <DCCReference Include="..\Core\M1.ResourceStrings.pas"/>
         <DCCReference Include="..\..\Framework\Libs\DDC.Validate.pas"/>
+        <DCCReference Include="..\..\Framework\Libs\DDC.Validator.pas"/>
         <DCCReference Include="..\..\Framework\Libs\DDC.Validate.CustomAttribute.pas"/>
+        <DCCReference Include="..\..\Framework\Libs\DDC.Validator.Extend.pas"/>
+        <DCCReference Include="DDC.Validate.ExactLength.Test.pas"/>
         <DCCReference Include="..\..\Framework\Libs\DDC.Validate.ExactLength.pas"/>
         <DCCReference Include="DDC.Validate.IsInteger.Test.pas"/>
         <DCCReference Include="..\..\Framework\Libs\DDC.Validate.IsInteger.pas"/>
@@ -122,6 +126,8 @@
         <DCCReference Include="..\..\Framework\Libs\DDC.Validate.Required.pas"/>
         <DCCReference Include="DDC.Validate.ValidEmail.Test.pas"/>
         <DCCReference Include="..\..\Framework\Libs\DDC.Validate.ValidEmail.pas"/>
+        <DCCReference Include="DDC.Validator.Impl.Test.pas"/>
+        <DCCReference Include="..\..\Framework\Libs\DDC.Validator.Impl.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

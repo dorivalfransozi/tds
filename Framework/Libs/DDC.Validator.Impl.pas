@@ -6,7 +6,6 @@ uses
   System.StrUtils,
   System.Generics.Collections,
   System.Classes,
-  FM.Model.Base,
   System.Rtti,
 
   DDC.Validator.Extend,
@@ -65,7 +64,6 @@ type
 implementation
 
 uses
-  M1.Exceptions,
   System.Variants,
   System.SysUtils,
   System.TypInfo;
@@ -127,9 +125,6 @@ end;
 
 
 procedure TValidator<T>.InternalValidateModel(const AModel: T; const AExitOnFirstError: Boolean);
-const
-  METHOD_IS_VALID: String = 'isValid';
-  METHOD_GET_ERROR: String = 'GetErrorMessage';
 var
   oRttiCtx: TRttiContext;
   oRttiTp: TRttiType;
@@ -137,8 +132,7 @@ var
   oCstAttr: TCustomAttribute;
   oRttiMetIsValid: TRttiMethod;
   oRttiMetGetErrorMessage: TRttiMethod;
-  Args: Array Of TValue;
-  oSuccess: Boolean;
+  oValidate: IValidate;
 begin
   oRttiCtx := TRttiContext.Create.Create;
   try
@@ -146,22 +140,12 @@ begin
     for oRttiProp in oRttiTp.GetProperties do
       for oCstAttr in oRttiProp.GetAttributes do
       begin
-        oRttiMetIsValid := oRttiCtx.GetType(oCstAttr.ClassInfo).GetMethod(METHOD_IS_VALID);
-        if (oRttiMetIsValid = nil) then
-          raise Exception.Create(Format(TResourceStrings.RSClasseNaoImplementaMetodo,
-            [oCstAttr.ClassName, METHOD_IS_VALID]));
+        if not(Supports(oCstAttr, IValidate, oValidate)) then
+          Continue;
 
-        SetLength(Args, 1);
-        Args[0]  := oRttiProp.GetValue(Pointer(AModel));
-        oSuccess := oRttiMetIsValid.Invoke(oCstAttr, Args).AsBoolean;
-        if (not(oSuccess)) then
+        if (not(oValidate.isValid(oRttiProp.GetValue(Pointer(AModel))))) then
         begin
-          oRttiMetGetErrorMessage := oRttiCtx.GetType(oCstAttr.ClassInfo).GetMethod(METHOD_GET_ERROR);
-          if (oRttiMetGetErrorMessage = nil) then
-            raise Exception.Create(Format(TResourceStrings.RSClasseNaoImplementaMetodo,
-              [oCstAttr.ClassName, METHOD_GET_ERROR]));
-
-          FErrorList.Add(oRttiMetGetErrorMessage.Invoke(oCstAttr, []).AsString);
+          FErrorList.Add(oValidate.GetErrorMessage);
           if (AExitOnFirstError) then
             Exit;
         end;
