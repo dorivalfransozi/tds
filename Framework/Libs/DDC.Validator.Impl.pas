@@ -56,6 +56,7 @@ type
     destructor Destroy; override;
 
     function Make(const AModel: T; const AExitOnFirstError: Boolean = False): IValidator<T>;
+    function MakeAttribute(const AModelAttribute: Pointer; const AExitOnFirstError: Boolean = False): IValidator<T>;
     function Fails: Boolean;
     function ErrorMessages: TStringList;
     procedure AddExtend(const AValue: TValue; const AErrorMessage: String; const AValidator: TAnonymousExtendValidator);
@@ -168,6 +169,15 @@ begin
   InternalValidateExtend(AExitOnFirstError);
   FFails := FErrorList.Count > 0;
 
+  Result := Self;
+end;
+
+
+
+function TValidator<T>.MakeAttribute(const AModelAttribute: Pointer;
+  const AExitOnFirstError: Boolean): IValidator<T>;
+begin
+  { TODO -oDev -cDesenvolver : Falta desenvolver a validação passando um único atributo do modelo }
   Result := Self;
 end;
 
