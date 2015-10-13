@@ -114,6 +114,14 @@
         <DCCReference Include="..\..\Framework\Libs\DDC.Validate.MaxValue.pas"/>
         <DCCReference Include="DDC.Validate.MinLength.Test.pas"/>
         <DCCReference Include="..\..\Framework\Libs\DDC.Validate.MinLength.pas"/>
+        <DCCReference Include="DDC.Validate.MinValue.Test.pas"/>
+        <DCCReference Include="..\..\Framework\Libs\DDC.Validate.MinValue.pas"/>
+        <DCCReference Include="DDC.Validate.Regex.Test.pas"/>
+        <DCCReference Include="..\..\Framework\Libs\DDC.Validate.Regex.pas"/>
+        <DCCReference Include="DDC.Validate.Required.Test.pas"/>
+        <DCCReference Include="..\..\Framework\Libs\DDC.Validate.Required.pas"/>
+        <DCCReference Include="DDC.Validate.ValidEmail.Test.pas"/>
+        <DCCReference Include="..\..\Framework\Libs\DDC.Validate.ValidEmail.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -189,6 +197,7 @@
                 <TestFramework>DUnit / Delphi Win32</TestFramework>
                 <TestRunner>GUI</TestRunner>
                 <SourceProjectName>D:\Meus Documentos\Users\Eurides\Documents\RAD Studio\Projects\consultoria-delphi-github\tds\Modelo1\Modelo1.dproj</SourceProjectName>
+                <TestProjectName/>
             </UnitTesting>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>

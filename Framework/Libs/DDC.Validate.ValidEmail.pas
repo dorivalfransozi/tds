@@ -50,7 +50,7 @@ end;
 
 function TValidEmail.isValid(const AValue: TValue): Boolean;
 const
-  EMAIL_REGEX: String = '^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$';
+  EMAIL_REGEX: String = '^[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]@[\w-\.]*[a-zA-Z0-9]\.[a-zA-Z]{2,7}$';
 begin
   try
     Result := TRegEx.IsMatch(AValue.AsString, EMAIL_REGEX);

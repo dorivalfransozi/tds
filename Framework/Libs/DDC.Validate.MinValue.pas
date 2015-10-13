@@ -12,7 +12,7 @@ type
   TMinValue = class(TValidateCustomAttribute, IValidate)
   private
     const
-    ERROR_MESSAGE: String = TResourceStrings.RSValidation_RegexValidate;
+    ERROR_MESSAGE: String = TResourceStrings.RSValidation_MinValue;
   private
     FMinValue: Integer;
   public

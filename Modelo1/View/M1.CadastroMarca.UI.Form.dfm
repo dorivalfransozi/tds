@@ -9,6 +9,7 @@ inherited FormCadastroMarca: TFormCadastroMarca
   inherited PnlArea: TPanel
     Width = 522
     Height = 153
+    ExplicitLeft = 5
     ExplicitWidth = 522
     ExplicitHeight = 153
   end

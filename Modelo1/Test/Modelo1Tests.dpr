@@ -32,7 +32,15 @@ uses
   DDC.Validate.MaxValue.Test in 'DDC.Validate.MaxValue.Test.pas',
   DDC.Validate.MaxValue in '..\..\Framework\Libs\DDC.Validate.MaxValue.pas',
   DDC.Validate.MinLength.Test in 'DDC.Validate.MinLength.Test.pas',
-  DDC.Validate.MinLength in '..\..\Framework\Libs\DDC.Validate.MinLength.pas';
+  DDC.Validate.MinLength in '..\..\Framework\Libs\DDC.Validate.MinLength.pas',
+  DDC.Validate.MinValue.Test in 'DDC.Validate.MinValue.Test.pas',
+  DDC.Validate.MinValue in '..\..\Framework\Libs\DDC.Validate.MinValue.pas',
+  DDC.Validate.Regex.Test in 'DDC.Validate.Regex.Test.pas',
+  DDC.Validate.Regex in '..\..\Framework\Libs\DDC.Validate.Regex.pas',
+  DDC.Validate.Required.Test in 'DDC.Validate.Required.Test.pas',
+  DDC.Validate.Required in '..\..\Framework\Libs\DDC.Validate.Required.pas',
+  DDC.Validate.ValidEmail.Test in 'DDC.Validate.ValidEmail.Test.pas',
+  DDC.Validate.ValidEmail in '..\..\Framework\Libs\DDC.Validate.ValidEmail.pas';
 
 {R *.RES}
 

@@ -38,7 +38,7 @@ type
     property DataManutencao: TDateTime read FDataManutencao write FDataManutencao;
 
     // [TFMCollumnName('USR'), TFMVisible(False)]
-    [TExists('sgrusr01', 'cod')]
+    [TExists('sgrusr01', 'cod'), TIsUnique('sgrusr01', 'cod')]
     property Usuario: integer read FUsuario write FUsuario;
 
     function New: TModelBase; override;
