@@ -8,6 +8,8 @@ uses
   System.Rtti,
   M1.ResourceStrings;
 
+{ TODO -oDev -cRefatorar : Criar um custom attribute apenas para títulos. }
+{ TODO -oDev -cRefatorar : Remover dos Validate os overload que recebem o título da coluna }
 type
   TExactLength = class(TValidateCustomAttribute, IValidate)
   private

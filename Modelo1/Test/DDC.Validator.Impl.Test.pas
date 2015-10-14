@@ -89,10 +89,11 @@ type
     procedure SetUp; override;
     procedure TearDown; override;
   published
-    procedure ModeloValido;
-    procedure ModeloInvalido;
-    procedure ErrorMessagesInvalido;
-    procedure ErrorMessagesValido;
+    procedure AttributeValid;
+    procedure ModelValid;
+    procedure ModelNotValid;
+    procedure ErrorMessagesNotValid;
+    procedure ErrorMessagesValid;
     procedure TestAddExtend;
   end;
 
@@ -151,7 +152,7 @@ end;
 
 
 
-procedure TestTValidator.ModeloValido;
+procedure TestTValidator.ModelValid;
 begin
   SetValueTrue;
   CheckFalse(FValidator.Make(FModel).Fails, 'Erro ao validar modelo');
@@ -159,7 +160,7 @@ end;
 
 
 
-procedure TestTValidator.ErrorMessagesValido;
+procedure TestTValidator.ErrorMessagesValid;
 begin
   SetValueTrue;
   FValidator.Make(FModel);
@@ -168,7 +169,7 @@ end;
 
 
 
-procedure TestTValidator.ModeloInvalido;
+procedure TestTValidator.ModelNotValid;
 begin
   SetValueFalse;
   CheckTrue(FValidator.Make(FModel).Fails, 'Erro ao validar modelo');
@@ -176,7 +177,14 @@ end;
 
 
 
-procedure TestTValidator.ErrorMessagesInvalido;
+procedure TestTValidator.AttributeValid;
+begin
+  CheckTrue(False, 'Erro ao validar modelo');
+end;
+
+
+
+procedure TestTValidator.ErrorMessagesNotValid;
 begin
   SetValueFalse;
   FValidator.Make(FModel);

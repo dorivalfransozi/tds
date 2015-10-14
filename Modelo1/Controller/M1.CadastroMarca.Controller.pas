@@ -140,7 +140,7 @@ begin
     end
     );
 
-//  result := oValidator.MakeAttribute(Pointer(FModel.Codigo)).Fails;
+  //result := oValidator.MakeAttribute(Pointer(FModel.Codigo)).Fails;
   result := oValidator.Make(FModel).Fails;
   if (result) then
     raise ExceptionValidationInfo.Create(oValidator.ErrorMessages.Text);
