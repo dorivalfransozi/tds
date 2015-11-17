@@ -15,7 +15,6 @@ uses
   TestFramework,
   DDC.Validate,
   DDC.Validate.CustomAttribute,
-  M1.ResourceStrings,
   DDC.Validate.IsNaturalNoZero,
   System.Rtti;
 
@@ -42,7 +41,8 @@ type
 implementation
 
 uses
-  System.SysUtils;
+  System.SysUtils,
+  DDC.Validator.ResourceStrings;
 
 
 
@@ -63,7 +63,7 @@ end;
 
 procedure TestTIsNaturalNoZero.GetErrorMessage;
 begin
-  CheckTrue(FIsNaturalNoZero.GetErrorMessage = Format(TResourceStrings.RSValidation_IsNaturalNoZero, [COLUMN_NAME]),
+  CheckTrue(FIsNaturalNoZero.GetErrorMessage = Format(TResourceStringsValidator.RSValidation_IsNaturalNoZero, [COLUMN_NAME]),
     'Erro ao formatar mensagem');
 end;
 

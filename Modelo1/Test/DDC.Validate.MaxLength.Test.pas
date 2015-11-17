@@ -15,7 +15,6 @@ uses
   TestFramework,
   DDC.Validate,
   DDC.Validate.CustomAttribute,
-  M1.ResourceStrings,
   DDC.Validate.MaxLength,
   System.Rtti;
 
@@ -44,7 +43,8 @@ type
 implementation
 
 uses
-  System.SysUtils;
+  System.SysUtils,
+  DDC.Validator.ResourceStrings;
 
 
 
@@ -65,7 +65,7 @@ end;
 
 procedure TestTMaxLength.GetErrorMessage;
 begin
-  CheckTrue(FMaxLength.GetErrorMessage = Format(TResourceStrings.RSValidation_MaxLength,
+  CheckTrue(FMaxLength.GetErrorMessage = Format(TResourceStringsValidator.RSValidation_MaxLength,
     [COLUMN_NAME, MAX_LENGTH.ToString]), 'Erro ao formatar mensagem');
 end;
 

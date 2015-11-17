@@ -5,14 +5,14 @@ interface
 uses
   DDC.Validate.CustomAttribute,
   DDC.Validate,
-  M1.ResourceStrings,
+  DDC.Validator.ResourceStrings,
   System.Rtti;
 
 type
   TIsInteger = class(TValidateCustomAttribute, IValidate)
   private
     const
-    ERROR_MESSAGE: String = TResourceStrings.RSValidation_IsInteger;
+    ERROR_MESSAGE: String = TResourceStringsValidator.RSValidation_IsInteger;
   public
     constructor Create(const AColumnTitle: String); overload;
     constructor Create(const AColumnTitle, ACustomErrorMessage: String); overload;
@@ -23,7 +23,9 @@ type
 implementation
 
 uses
-  System.SysUtils, System.StrUtils, System.TypInfo;
+  System.SysUtils,
+  System.StrUtils,
+  System.TypInfo;
 
 { TIsInteger }
 

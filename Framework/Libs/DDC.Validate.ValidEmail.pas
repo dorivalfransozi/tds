@@ -3,13 +3,16 @@ unit DDC.Validate.ValidEmail;
 interface
 
 uses
-  DDC.Validate.CustomAttribute, DDC.Validate, M1.ResourceStrings, System.Rtti;
+  DDC.Validate.CustomAttribute,
+  DDC.Validate,
+  DDC.Validator.ResourceStrings,
+  System.Rtti;
 
 type
   TValidEmail = class(TValidateCustomAttribute, IValidate)
   private
     const
-    ERROR_MESSAGE: String = TResourceStrings.RSValidation_ValidEmail;
+    ERROR_MESSAGE: String = TResourceStringsValidator.RSValidation_ValidEmail;
   public
     constructor Create(const AColumnTitle: String); overload;
     constructor Create(const AColumnTitle, ACustomErrorMessage: String); overload;
@@ -20,7 +23,9 @@ type
 implementation
 
 uses
-  System.SysUtils, System.StrUtils, System.RegularExpressions;
+  System.SysUtils,
+  System.StrUtils,
+  System.RegularExpressions;
 
 { TValidEmail }
 

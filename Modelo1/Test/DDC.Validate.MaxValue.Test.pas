@@ -15,7 +15,6 @@ uses
   TestFramework,
   DDC.Validate,
   DDC.Validate.CustomAttribute,
-  M1.ResourceStrings,
   DDC.Validate.MaxValue,
   System.Rtti;
 
@@ -46,7 +45,8 @@ type
 implementation
 
 uses
-  System.SysUtils;
+  System.SysUtils,
+  DDC.Validator.ResourceStrings;
 
 
 
@@ -67,7 +67,7 @@ end;
 
 procedure TestTMaxValue.GetErrorMessage;
 begin
-  CheckTrue(FMaxValue.GetErrorMessage = Format(TResourceStrings.RSValidation_MaxValue, [COLUMN_NAME, MAX_VALUE.ToString]
+  CheckTrue(FMaxValue.GetErrorMessage = Format(TResourceStringsValidator.RSValidation_MaxValue, [COLUMN_NAME, MAX_VALUE.ToString]
     ), 'Erro ao formatar mensagem');
 end;
 

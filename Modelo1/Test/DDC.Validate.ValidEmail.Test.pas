@@ -16,7 +16,6 @@ uses
   DDC.Validate,
   DDC.Validate.CustomAttribute,
   DDC.Validate.ValidEmail,
-  M1.ResourceStrings,
   System.Rtti;
 
 type
@@ -40,7 +39,8 @@ type
 implementation
 
 uses
-  System.SysUtils;
+  System.SysUtils,
+  DDC.Validator.ResourceStrings;
 
 
 
@@ -61,7 +61,7 @@ end;
 
 procedure TestTValidEmail.GetErrorMessage;
 begin
-  CheckTrue(FValidEmail.GetErrorMessage = Format(TResourceStrings.RSValidation_ValidEmail, [COLUMN_NAME]),
+  CheckTrue(FValidEmail.GetErrorMessage = Format(TResourceStringsValidator.RSValidation_ValidEmail, [COLUMN_NAME]),
     'Erro ao formatar mensagem');
 end;
 

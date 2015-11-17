@@ -15,7 +15,6 @@ uses
   TestFramework,
   DDC.Validate,
   DDC.Validate.MinValue,
-  M1.ResourceStrings,
   DDC.Validate.CustomAttribute,
   System.Rtti;
 
@@ -46,7 +45,8 @@ type
 implementation
 
 uses
-  System.SysUtils;
+  System.SysUtils,
+  DDC.Validator.ResourceStrings;
 
 
 
@@ -67,7 +67,7 @@ end;
 
 procedure TestTMinValue.GetErrorMessage;
 begin
-  CheckTrue(FMinValue.GetErrorMessage = Format(TResourceStrings.RSValidation_MinValue, [COLUMN_NAME, MIN_VALUE.ToString]), 'Erro ao formatar mensagem');
+  CheckTrue(FMinValue.GetErrorMessage = Format(TResourceStringsValidator.RSValidation_MinValue, [COLUMN_NAME, MIN_VALUE.ToString]), 'Erro ao formatar mensagem');
 end;
 
 

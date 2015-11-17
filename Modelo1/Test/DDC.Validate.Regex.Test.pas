@@ -15,7 +15,6 @@ uses
   TestFramework,
   DDC.Validate,
   DDC.Validate.CustomAttribute,
-  M1.ResourceStrings,
   DDC.Validate.Regex,
   System.Rtti;
 
@@ -45,7 +44,8 @@ type
 implementation
 
 uses
-  System.SysUtils;
+  System.SysUtils,
+  DDC.Validator.ResourceStrings;
 
 
 
@@ -66,7 +66,7 @@ end;
 
 procedure TestTRegexValidate.GetErrorMessage;
 begin
-  CheckTrue(FRegexValidate.GetErrorMessage = Format(TResourceStrings.RSValidation_RegexValidate, [COLUMN_NAME]),
+  CheckTrue(FRegexValidate.GetErrorMessage = Format(TResourceStringsValidator.RSValidation_RegexValidate, [COLUMN_NAME]),
     'Erro ao formatar mensagem');
 end;
 

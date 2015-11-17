@@ -41,8 +41,8 @@ type
 implementation
 
 uses
-  M1.ResourceStrings,
-  System.SysUtils;
+  System.SysUtils,
+  DDC.Validator.ResourceStrings;
 
 
 
@@ -63,7 +63,7 @@ end;
 
 procedure TestTIsNatural.GetErrorMessage;
 begin
-  CheckTrue(FIsNatural.GetErrorMessage = Format(TResourceStrings.RSValidation_IsNatural, [COLUMN_NAME]),
+  CheckTrue(FIsNatural.GetErrorMessage = Format(TResourceStringsValidator.RSValidation_IsNatural, [COLUMN_NAME]),
     'Erro ao formatar mensagem');
 end;
 

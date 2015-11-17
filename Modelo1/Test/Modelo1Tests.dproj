@@ -100,6 +100,7 @@
         <DCCReference Include="..\..\Framework\Models\FM.Model.Base.pas"/>
         <DCCReference Include="..\Core\M1.Exceptions.pas"/>
         <DCCReference Include="..\Core\M1.ResourceStrings.pas"/>
+        <DCCReference Include="..\..\Framework\Resource\DDC.Validator.ResourceStrings.pas"/>
         <DCCReference Include="..\..\Framework\Libs\DDC.Validate.pas"/>
         <DCCReference Include="..\..\Framework\Libs\DDC.Validator.pas"/>
         <DCCReference Include="..\..\Framework\Libs\DDC.Validate.CustomAttribute.pas"/>

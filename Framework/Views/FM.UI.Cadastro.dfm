@@ -2,7 +2,6 @@ inherited FormCadastro: TFormCadastro
   Caption = 'FormCadastro'
   ClientWidth = 655
   ExplicitWidth = 671
-  ExplicitHeight = 240
   PixelsPerInch = 96
   TextHeight = 13
   inherited PnlArea: TPanel

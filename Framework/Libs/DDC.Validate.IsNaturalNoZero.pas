@@ -5,14 +5,14 @@ interface
 uses
   DDC.Validate.CustomAttribute,
   DDC.Validate,
-  M1.ResourceStrings,
+  DDC.Validator.ResourceStrings,
   System.Rtti;
 
 type
   TIsNaturalNoZero = class(TValidateCustomAttribute, IValidate)
   private
     const
-    ERROR_MESSAGE: String = TResourceStrings.RSValidation_IsNaturalNoZero;
+    ERROR_MESSAGE: String = TResourceStringsValidator.RSValidation_IsNaturalNoZero;
   public
     constructor Create(const AColumnTitle: String); overload;
     constructor Create(const AColumnTitle, ACustomErrorMessage: String); overload;

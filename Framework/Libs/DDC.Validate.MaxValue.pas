@@ -5,14 +5,14 @@ interface
 uses
   DDC.Validate.CustomAttribute,
   DDC.Validate,
-  M1.ResourceStrings,
+  DDC.Validator.ResourceStrings,
   System.Rtti;
 
 type
   TMaxValue = class(TValidateCustomAttribute, IValidate)
   private
     const
-    ERROR_MESSAGE: String = TResourceStrings.RSValidation_MaxValue;
+    ERROR_MESSAGE: String = TResourceStringsValidator.RSValidation_MaxValue;
   private
     FMaxValue: Integer;
   public

@@ -16,7 +16,6 @@ uses
   DDC.Validate,
   DDC.Validate.CustomAttribute,
   DDC.Validate.Required,
-  M1.ResourceStrings,
   System.Rtti;
 
 type
@@ -42,7 +41,8 @@ type
 implementation
 
 uses
-  System.SysUtils;
+  System.SysUtils,
+  DDC.Validator.ResourceStrings;
 
 
 
@@ -63,7 +63,7 @@ end;
 
 procedure TestTRequired.GetErrorMessage;
 begin
-  CheckTrue(FRequired.GetErrorMessage = Format(TResourceStrings.RSValidation_Required, [COLUMN_NAME]),
+  CheckTrue(FRequired.GetErrorMessage = Format(TResourceStringsValidator.RSValidation_Required, [COLUMN_NAME]),
     'Erro ao formatar mensagem');
 end;
 

@@ -17,8 +17,6 @@ type
   end;
 
   TM1FormsRegister = class
-  private
-    class function CreateForm(FormClass: TFormClass): TForm;
   public
     class procedure Execute;
   end;
@@ -34,10 +32,6 @@ uses
 
 { TM1FormsRegister }
 
-class function TM1FormsRegister.CreateForm(FormClass: TFormClass): TForm;
-begin
-
-end;
 
 class procedure TM1FormsRegister.Execute;
 begin

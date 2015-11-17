@@ -41,7 +41,7 @@ implementation
 
 uses
   System.SysUtils,
-  M1.ResourceStrings;
+  DDC.Validator.ResourceStrings;
 
 
 
@@ -62,7 +62,7 @@ end;
 
 procedure TestTExactLength.GetErrorMessage;
 begin
-  CheckFalse(FExactLength.GetErrorMessage = Format(TResourceStrings.RSValidation_IsInteger, [COLUMN_NAME]),
+  CheckFalse(FExactLength.GetErrorMessage = Format(TResourceStringsValidator.RSValidation_IsInteger, [COLUMN_NAME]),
     'Erro ao formatar mensagem');
 end;
 

@@ -8,11 +8,11 @@ uses
 type
   TControllerBase = class(TInterfacedObject, IControllerBase)
   protected
-    function DoInternalValidate: boolean;
+    function DoInternalValidate(const AAttribute: string = ''): boolean;
     function GetModel: TModelBase; virtual; abstract;
   public
     constructor Create; virtual; abstract;
-    function Validate: boolean; virtual; abstract;
+    function Validate(const AAttribute: string = ''): boolean; virtual; abstract;
 
     property Model: TModelBase read GetModel;
   end;
@@ -28,7 +28,7 @@ uses
 
 
 
-function TControllerBase.DoInternalValidate: boolean;
+function TControllerBase.DoInternalValidate(const AAttribute: string = ''): boolean;
 begin
   Result := False;
   try

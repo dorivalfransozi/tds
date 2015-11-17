@@ -79,6 +79,9 @@ type
 type
   // Test methods for class TValidator
   TestTValidator = class(TTestCase)
+  public
+    const
+    PROP_NAME: String = 'RegexValidate';
   strict private
     FModel: TModelMock;
     FValidator: IValidator<TModelMock>;
@@ -89,16 +92,23 @@ type
     procedure SetUp; override;
     procedure TearDown; override;
   published
+    procedure AttributeNotFound;
     procedure AttributeValid;
+    procedure AttributeNotValid;
     procedure ModelValid;
     procedure ModelNotValid;
+    procedure ModelIsNil;
     procedure ErrorMessagesNotValid;
     procedure ErrorMessagesValid;
-    procedure TestAddExtend;
+    procedure TestAddExtendValidateModel;
+    procedure TestAddExtendValidateAttribute;
+    procedure TestAddExtendValidateAttributeNotFound;
   end;
 
 implementation
 
+uses
+  System.SysUtils, DDC.Validator.ResourceStrings;
 
 
 
@@ -155,7 +165,7 @@ end;
 procedure TestTValidator.ModelValid;
 begin
   SetValueTrue;
-  CheckFalse(FValidator.Make(FModel).Fails, 'Erro ao validar modelo');
+  CheckFalse(FValidator.MakeAll(FModel).Fails, 'Erro ao validar modelo');
 end;
 
 
@@ -163,8 +173,17 @@ end;
 procedure TestTValidator.ErrorMessagesValid;
 begin
   SetValueTrue;
-  FValidator.Make(FModel);
+  FValidator.MakeAll(FModel);
   CheckTrue(FValidator.ErrorMessages.Count = 0, 'Erro ao validar modelo');
+end;
+
+
+
+procedure TestTValidator.ModelIsNil;
+begin
+  StartExpectingException(Exception);
+  FValidator.MakeAll(nil);
+  StopExpectingException('Erro ao validar modelo');
 end;
 
 
@@ -172,14 +191,34 @@ end;
 procedure TestTValidator.ModelNotValid;
 begin
   SetValueFalse;
-  CheckTrue(FValidator.Make(FModel).Fails, 'Erro ao validar modelo');
+  CheckTrue(FValidator.MakeAll(FModel).Fails, 'Erro ao validar modelo');
+end;
+
+
+
+procedure TestTValidator.AttributeNotFound;
+begin
+  SetValueTrue;
+  FValidator.MakeAttribute(FModel, PROP_NAME + '_1');
+  CheckEqualsString(StringReplace(StringReplace(FValidator.ErrorMessages.Text, #10, EmptyStr, [rfReplaceAll]), #13,
+    EmptyStr, [rfReplaceAll]), StringReplace(StringReplace(Format(TResourceStringsValidator.RSValidator_AttrNotFound,
+    [FModel.ClassName, PROP_NAME + '_1']), #10, EmptyStr, [rfReplaceAll]), #13, EmptyStr, [rfReplaceAll]));
+end;
+
+
+
+procedure TestTValidator.AttributeNotValid;
+begin
+  SetValueFalse;
+  CheckTrue(FValidator.MakeAttribute(FModel, PROP_NAME).Fails, 'Erro ao validar modelo');
 end;
 
 
 
 procedure TestTValidator.AttributeValid;
 begin
-  CheckTrue(False, 'Erro ao validar modelo');
+  SetValueTrue;
+  CheckFalse(FValidator.MakeAttribute(FModel, PROP_NAME).Fails, 'Erro ao validar modelo');
 end;
 
 
@@ -187,23 +226,55 @@ end;
 procedure TestTValidator.ErrorMessagesNotValid;
 begin
   SetValueFalse;
-  FValidator.Make(FModel);
+  FValidator.MakeAll(FModel);
   CheckTrue(FValidator.ErrorMessages.Count = 10, 'Erro ao validar modelo');
 end;
 
 
 
-procedure TestTValidator.TestAddExtend;
+procedure TestTValidator.TestAddExtendValidateAttribute;
 begin
   SetValueTrue;
-  FValidator.AddExtend(1, 'Teste extend: valor informado %s  é igual a 1.',
+  FValidator.AddExtend(PROP_NAME, 1, 'Extend true',
+    function(const AValue: TValue): Boolean
+    begin
+      result := True;
+    end
+    );
+
+  FValidator.MakeAttribute(FModel, PROP_NAME);
+  CheckTrue(FValidator.ErrorMessages.Count = 0, 'Erro ao validar extend');
+end;
+
+
+
+procedure TestTValidator.TestAddExtendValidateAttributeNotFound;
+begin
+  SetValueTrue;
+  FValidator.AddExtend(PROP_NAME + '_1', 1, 'Extend true',
+    function(const AValue: TValue): Boolean
+    begin
+      result := True;
+    end
+    );
+
+  FValidator.MakeAttribute(FModel, PROP_NAME + '_1');
+  CheckTrue(FValidator.ErrorMessages.Count = 1, 'Erro ao validar extend');
+end;
+
+
+
+procedure TestTValidator.TestAddExtendValidateModel;
+begin
+  SetValueTrue;
+  FValidator.AddExtend(EmptyStr, 1, 'Teste extend: valor informado %s  é igual a 1.',
     function(const AValue: TValue): Boolean
     begin
       result := AValue.AsInteger <> 1;
     end
     );
 
-  FValidator.Make(FModel);
+  FValidator.MakeAll(FModel);
   CheckTrue(FValidator.ErrorMessages.Count = 1, 'Erro ao validar extend');
 end;
 

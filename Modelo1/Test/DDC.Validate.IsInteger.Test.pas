@@ -40,8 +40,8 @@ type
 implementation
 
 uses
-  M1.ResourceStrings,
-  System.SysUtils;
+  System.SysUtils,
+  DDC.Validator.ResourceStrings;
 
 
 
@@ -62,7 +62,7 @@ end;
 
 procedure TestTIsInteger.GetErrorMessage;
 begin
-  CheckTrue(FIsInteger.GetErrorMessage = Format(TResourceStrings.RSValidation_IsInteger, [COLUMN_NAME]),
+  CheckTrue(FIsInteger.GetErrorMessage = Format(TResourceStringsValidator.RSValidation_IsInteger, [COLUMN_NAME]),
     'Erro ao formatar mensagem');
 end;
 

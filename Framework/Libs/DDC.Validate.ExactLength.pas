@@ -6,7 +6,7 @@ uses
   DDC.Validate.CustomAttribute,
   DDC.Validate,
   System.Rtti,
-  M1.ResourceStrings;
+  DDC.Validator.ResourceStrings;
 
 { TODO -oDev -cRefatorar : Criar um custom attribute apenas para títulos. }
 { TODO -oDev -cRefatorar : Remover dos Validate os overload que recebem o título da coluna }
@@ -14,7 +14,7 @@ type
   TExactLength = class(TValidateCustomAttribute, IValidate)
   private
     const
-    ERROR_MESSAGE: String = TResourceStrings.RSValidation_ExactLength;
+    ERROR_MESSAGE: String = TResourceStringsValidator.RSValidation_ExactLength;
   private
     FExactLength: Integer;
   public

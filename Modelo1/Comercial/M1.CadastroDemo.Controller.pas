@@ -20,7 +20,7 @@ type
     procedure FindCadastroDemo(const Name: string);
     procedure ListCadastroDemo;
 
-    function Validate: Boolean; override;
+    function Validate(const AAttribute: string = ''): Boolean; override;
 
     procedure New; override;
     procedure Edit; override;
@@ -105,7 +105,7 @@ end;
 
 
 
-function TCadastroDemoController.Validate: Boolean;
+function TCadastroDemoController.Validate(const AAttribute: string = ''): Boolean;
 // Validara pelo BO usando DAO
   function GetValidAge: Integer;
   begin

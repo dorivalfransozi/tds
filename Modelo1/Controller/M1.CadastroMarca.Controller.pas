@@ -22,7 +22,7 @@ type
     procedure FindCadastroDemo(const Name: string);
     procedure ListCadastroDemo;
 
-    function Validate: Boolean; override;
+    function Validate(const AAttribute: string = ''): Boolean; override;
 
     procedure New; override;
     procedure Edit; override;
@@ -39,10 +39,12 @@ implementation
 uses
   M1.Marca.DAO,
   SysUtils,
+  System.TypInfo,
   M1.Exceptions,
   DDC.ValidationInfo,
   System.Rtti,
-  DDC.Validator.Impl, DDC.Validator;
+  DDC.Validator.Impl,
+  DDC.Validator;
 
 { TCadastroMarcaController }
 
@@ -119,30 +121,22 @@ procedure TCadastroMarcaController.Save;
 begin
   inherited;
   if DoInternalValidate then
-    FDAO.Save( FModel );
+    FDAO.Save(FModel);
 end;
 
 
 
-function TCadastroMarcaController.Validate: Boolean;
+function TCadastroMarcaController.Validate(const AAttribute: string = ''): Boolean;
 var
   oValidator: IValidator<TMarcaModel>;
 begin
-  {
-    TODO: definir se a validacao ficará aqui ou no modelo. ver TFindMarca
-  }
-
   oValidator := TValidator<TMarcaModel>.Create;
-  oValidator.AddExtend(FModel.Codigo, 'Teste extend: valor informado %s  é igual a 2.',
-    function(const AValue: TValue): Boolean
-    begin
-      result := AValue.AsInteger <> 2;
-    end
-    );
+  if (AAttribute <> EmptyStr) then
+    result := not oValidator.MakeAttribute(FModel, AAttribute).Fails
+  else
+    result := not oValidator.MakeAll(FModel).Fails;
 
-  //result := oValidator.MakeAttribute(Pointer(FModel.Codigo)).Fails;
-  result := oValidator.Make(FModel).Fails;
-  if (result) then
+  if not(result) then
     raise ExceptionValidationInfo.Create(oValidator.ErrorMessages.Text);
 end;
 

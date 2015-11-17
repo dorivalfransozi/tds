@@ -15,7 +15,7 @@ type
   public
     procedure Save(var AModel: TMarcaModel); override;
     procedure Delete(var AModel: TMarcaModel); override;
-    function Find(var AModel: TMarcaModel; const ASetModel: boolean=true): boolean; override;
+    function Find(var AModel: TMarcaModel; const ASetModel: boolean = true): boolean; override;
     function FindAll(var AListModel: TObjectList<TMarcaModel>): boolean; override;
   end;
 
@@ -31,11 +31,12 @@ uses
 const
   M1MarcaDAOFind = 'M1MarcaDAOFind';
 
-
-
   { TDAOMarca }
 
 {$IFDEF USE_SYSMO_LIBS}
+
+
+
 procedure TDAOMarca.Save(var AModel: TModelBase);
   procedure Update;
   begin
@@ -73,10 +74,16 @@ begin
     Insert;
 end;
 {$ELSE}
+
+
+
 procedure TDAOMarca.Save(var AModel: TMarcaModel);
 begin
 
 end;
+
+
+
 procedure TDAOMarca.SetModel(var AModel: TMarcaModel);
 begin
   inherited;
@@ -98,7 +105,7 @@ end;
 
 
 
-function TDAOMarca.Find(var AModel: TMarcaModel; const ASetModel: boolean=true): boolean;
+function TDAOMarca.Find(var AModel: TMarcaModel; const ASetModel: boolean = true): boolean;
 begin
   inherited;
 {$IFDEF USE_SYSMO_LIBS}
@@ -126,7 +133,7 @@ begin
   else
     FModel.Clear;
 {$ELSE}
-  Result := False;
+  result := false;
 {$ENDIF}
 end;
 
@@ -135,8 +142,7 @@ end;
 function TDAOMarca.FindAll(var AListModel: TObjectList<TMarcaModel>): boolean;
 begin
   { TODO: fazer o find all }
-  Result := False;
+  result := false;
 end;
-
 
 end.

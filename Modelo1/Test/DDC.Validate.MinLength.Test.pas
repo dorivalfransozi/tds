@@ -12,8 +12,11 @@ unit DDC.Validate.MinLength.Test;
 interface
 
 uses
-  TestFramework, DDC.Validate, DDC.Validate.CustomAttribute, M1.ResourceStrings,
-  DDC.Validate.MinLength, System.Rtti;
+  TestFramework,
+  DDC.Validate,
+  DDC.Validate.CustomAttribute,
+  DDC.Validate.MinLength,
+  System.Rtti;
 
 type
   // Test methods for class TMinLength
@@ -40,7 +43,8 @@ type
 implementation
 
 uses
-  System.SysUtils;
+  System.SysUtils,
+  DDC.Validator.ResourceStrings;
 
 
 
@@ -61,7 +65,7 @@ end;
 
 procedure TestTMinLength.GetErrorMessage;
 begin
-  CheckTrue(FMinLength.GetErrorMessage = Format(TResourceStrings.RSValidation_MinLength,
+  CheckTrue(FMinLength.GetErrorMessage = Format(TResourceStringsValidator.RSValidation_MinLength,
     [COLUMN_NAME, MIN_LENGTH.ToString]), 'Erro ao formatar mensagem');
 end;
 

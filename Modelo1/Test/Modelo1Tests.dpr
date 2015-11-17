@@ -20,6 +20,7 @@ uses
   FM.Model.Base in '..\..\Framework\Models\FM.Model.Base.pas',
   M1.Exceptions in '..\Core\M1.Exceptions.pas',
   M1.ResourceStrings in '..\Core\M1.ResourceStrings.pas',
+  DDC.Validator.ResourceStrings in '..\..\Framework\Resource\DDC.Validator.ResourceStrings.pas',
   DDC.Validate in '..\..\Framework\Libs\DDC.Validate.pas',
   DDC.Validator in '..\..\Framework\Libs\DDC.Validator.pas',
   DDC.Validate.CustomAttribute in '..\..\Framework\Libs\DDC.Validate.CustomAttribute.pas',

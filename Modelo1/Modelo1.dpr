@@ -57,7 +57,8 @@ uses
   DDC.Validator.Extend in '..\Framework\Libs\DDC.Validator.Extend.pas',
   DDC.Validate.IsInteger in '..\Framework\Libs\DDC.Validate.IsInteger.pas',
   DDC.Validate.Regex in '..\Framework\Libs\DDC.Validate.Regex.pas',
-  DDC.Validate.ValidEmail in '..\Framework\Libs\DDC.Validate.ValidEmail.pas';
+  DDC.Validate.ValidEmail in '..\Framework\Libs\DDC.Validate.ValidEmail.pas',
+  DDC.Validator.ResourceStrings in '..\Framework\Resource\DDC.Validator.ResourceStrings.pas';
 
 {$R *.res}
 

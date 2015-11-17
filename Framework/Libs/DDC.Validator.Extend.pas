@@ -7,9 +7,10 @@ uses
 
 type
   TExtendValidation = record
+    AttributeName: String;
     Value: TValue;
     ErrorMessage: string;
-    constructor Create(const AValue: TValue; const AErrorMessage: String);
+    constructor Create(const AAttributeName: string; const AValue: TValue; const AErrorMessage: String);
   end;
 
 implementation
@@ -19,9 +20,9 @@ implementation
 
 
 
-constructor TExtendValidation.Create(const AValue: TValue;
-  const AErrorMessage: String);
+constructor TExtendValidation.Create(const AAttributeName: string; const AValue: TValue; const AErrorMessage: String);
 begin
+  AttributeName := AAttributeName;
   Value        := AValue;
   ErrorMessage := AErrorMessage
 end;

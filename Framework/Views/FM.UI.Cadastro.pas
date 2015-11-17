@@ -1,5 +1,5 @@
 {
-Descrição: Padrão Visual do Sysmo S1 - Cadastro
+  Descrição: Padrão Visual do Sysmo S1 - Cadastro
 }
 
 unit FM.UI.Cadastro;
@@ -7,11 +7,16 @@ unit FM.UI.Cadastro;
 interface
 
 uses
-  Vcl.Forms, Vcl.Controls, Vcl.StdCtrls, Vcl.Buttons, Classes, Vcl.ExtCtrls, FM.UI.Consulta,
+  Vcl.Forms,
+  Vcl.Controls,
+  Vcl.StdCtrls,
+  Vcl.Buttons,
+  Classes,
+  Vcl.ExtCtrls,
+  FM.UI.Consulta,
   FM.Controller.CRUD;
 
 type
-
 
   TFormCadastro = class(TFormConsulta)
     BtnSalvar: TBitBtn;
@@ -19,11 +24,10 @@ type
     BtnRelatorio: TBitBtn;
     BtnEfetivar: TBitBtn;
     BtnEditar: TBitBtn;
+
     procedure BtnSalvarClick(Sender: TObject);
     procedure BtnExcluirClick(Sender: TObject);
     procedure BtnConfigurarClick(Sender: TObject);
-  public
-    function GetCRUDController: ICRUDController;
   end;
 
 implementation
@@ -33,29 +37,29 @@ implementation
 
 { TFormCadastro }
 
+
+
 procedure TFormCadastro.BtnConfigurarClick(Sender: TObject);
 begin
   inherited;
-  GetCRUDController.Delete;
+  (Controller as ICRUDController).Delete;
 end;
+
+
 
 procedure TFormCadastro.BtnExcluirClick(Sender: TObject);
 begin
   inherited;
-  GetCRUDController.Delete;
+  (Controller as ICRUDController).Delete;
 end;
+
+
 
 procedure TFormCadastro.BtnSalvarClick(Sender: TObject);
 begin
   inherited;
   DoUpdateModel;
-  GetCRUDController.Save;
-end;
-
-function TFormCadastro.GetCRUDController: ICRUDController;
-begin
-  result := Controller as ICRUDController;
+  (Controller as ICRUDController).Save;
 end;
 
 end.
-
