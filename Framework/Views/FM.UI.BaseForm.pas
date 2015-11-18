@@ -53,7 +53,7 @@ end;
 
 function TBaseFormView.DoControlCheck(Control: TWinControl): Boolean;
 begin
-  { TODO -oDev -cREver : Esse código que trata a exception esta duplicada, aqui e no controller.base. }
+  { TODO -oDev -cRever : Esse código que trata a exception esta duplicada, aqui e no controller.base. }
   Result := False;
   try
     Result := FController.Validate(Copy(Control.Name, 4, Length(Control.Name)));

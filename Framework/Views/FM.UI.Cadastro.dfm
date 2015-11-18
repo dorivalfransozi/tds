@@ -19,7 +19,6 @@ inherited FormCadastro: TFormCadastro
     inherited BtnConfigurar: TBitBtn
       Left = 390
       TabOrder = 4
-      OnClick = BtnConfigurarClick
       ExplicitLeft = 390
     end
     object BtnSalvar: TBitBtn

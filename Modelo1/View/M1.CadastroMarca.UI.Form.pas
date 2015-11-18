@@ -31,9 +31,7 @@ var
 implementation
 
 uses
-  M1.Marca.Model,
-  DDC.ValidationInfo,
-  M1.Exceptions;
+  M1.Marca.Model;
 
 {$IFDEF SYSMO}
 {$R M1.CadastroMarca.UI.Form_sysmo.dfm}
@@ -59,6 +57,8 @@ end;
 procedure TFormCadastroMarca.ControlChange(Sender: TObject);
 begin
   inherited;
+
+  {TODO -oDev -cRever : Não temos uma interface para as views, assim esse método controlchange pode não seguir um padrão....}
   DoControlChange(Sender);
 end;
 

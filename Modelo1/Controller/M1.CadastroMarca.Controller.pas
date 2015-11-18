@@ -61,7 +61,8 @@ constructor TCadastroMarcaController.Create;
 begin
   inherited;
   FModel := TMarcaModel.Create;
-  FDAO   := TDAOMarca.Create; { TODO -oDorival -cDI : Remover dependencia e colocar injeção de dependencia }
+  FDAO   := TDAOMarca.Create;
+  { TODO -oDorival -cDI : Remover dependencia e colocar injeção de dependencia }
 end;
 
 
@@ -112,7 +113,7 @@ end;
 procedure TCadastroMarcaController.New;
 begin
   inherited;
-
+  { TODO -oDev -cRever : Mesma coisa que o save }
 end;
 
 
@@ -120,6 +121,8 @@ end;
 procedure TCadastroMarcaController.Save;
 begin
   inherited;
+  { TODO -oDev -cRever : Acho que aqui poderiamos jogar essas chamadas para o controller CRUD,
+    mas pra isso temos que levar o FDao e FModel para o base }
   if DoInternalValidate then
     FDAO.Save(FModel);
 end;
@@ -130,6 +133,7 @@ function TCadastroMarcaController.Validate(const AAttribute: string = ''): Boole
 var
   oValidator: IValidator<TMarcaModel>;
 begin
+  { TODO -oDev -cRever : Ter um overload? ou esse if abaixo para testar se a validação é todal? }
   oValidator := TValidator<TMarcaModel>.Create;
   if (AAttribute <> EmptyStr) then
     result := not oValidator.MakeAttribute(FModel, AAttribute).Fails

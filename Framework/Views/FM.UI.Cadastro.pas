@@ -27,7 +27,6 @@ type
 
     procedure BtnSalvarClick(Sender: TObject);
     procedure BtnExcluirClick(Sender: TObject);
-    procedure BtnConfigurarClick(Sender: TObject);
   end;
 
 implementation
@@ -39,17 +38,10 @@ implementation
 
 
 
-procedure TFormCadastro.BtnConfigurarClick(Sender: TObject);
-begin
-  inherited;
-  (Controller as ICRUDController).Delete;
-end;
-
-
-
 procedure TFormCadastro.BtnExcluirClick(Sender: TObject);
 begin
   inherited;
+  DoUpdateModel;
   (Controller as ICRUDController).Delete;
 end;
 
