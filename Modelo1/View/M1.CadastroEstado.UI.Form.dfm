@@ -28,5 +28,8 @@ inherited FormCadastroEstado: TFormCadastroEstado
     inherited BtnSalvar: TBitBtn
       Enabled = True
     end
+    inherited BtnExcluir: TBitBtn
+      Enabled = True
+    end
   end
 end

@@ -33,11 +33,9 @@ const
 
   { TDAOMarca }
 
-{$IFDEF USE_SYSMO_LIBS}
 
 
-
-procedure TDAOMarca.Save(var AModel: TModelBase);
+procedure TDAOMarca.Save(var AModel: TMarcaModel);
   procedure Update;
   begin
     FUpdate.Limpar;
@@ -66,20 +64,10 @@ procedure TDAOMarca.Save(var AModel: TModelBase);
 
 
 begin
-  inherited;
-
   if Find(AModel, false) then
     Update
   else
     Insert;
-end;
-{$ELSE}
-
-
-
-procedure TDAOMarca.Save(var AModel: TMarcaModel);
-begin
-
 end;
 
 
@@ -90,17 +78,25 @@ begin
   FModel := AModel;
 end;
 
-{$ENDIF}
-
-
 
 
 procedure TDAOMarca.Delete(var AModel: TMarcaModel);
+  function InternalDelete: boolean;
+  begin
+    FDelete.Limpar;
+    FDelete.SetTabela('GCEMRC01');
+    FDelete.AddWhere('COD', FModel.Codigo);
+    FDelete.AddWhere('DSC', FModel.Descricao);
+    Result := FSqlConnection.Execute(FDelete.SQL, FDelete.Params) >= 0;
+  end;
+
+
+
 begin
   inherited;
-  { TODO: find se existe...
-    update set dtx
-  }
+  if Find(AModel, false) then
+    if (InternalDelete) then
+      FModel.Clear;
 end;
 
 
@@ -108,7 +104,6 @@ end;
 function TDAOMarca.Find(var AModel: TMarcaModel; const ASetModel: boolean = true): boolean;
 begin
   inherited;
-{$IFDEF USE_SYSMO_LIBS}
   { TODO -oDorival -cHelper : Trocar por um helper que abra o dataset }
   FSQLDataSet.Close;
 
@@ -116,12 +111,12 @@ begin
   FSQLDataSet.Params.ParamValues['COD'] := FModel.Codigo;
 
   FSQLDataSet.Open;
-  result := not(FSQLDataSet.IsEmpty);
+  Result := not(FSQLDataSet.IsEmpty);
 
   if not(ASetModel) then
     exit;
 
-  if result then
+  if Result then
   begin
     FModel.Codigo            := FSQLDataSet.FieldByName('COD').AsInteger;
     FModel.Descricao         := FSQLDataSet.FieldByName('DSC').AsString;
@@ -132,9 +127,6 @@ begin
   end
   else
     FModel.Clear;
-{$ELSE}
-  result := false;
-{$ENDIF}
 end;
 
 
@@ -142,7 +134,7 @@ end;
 function TDAOMarca.FindAll(var AListModel: TObjectList<TMarcaModel>): boolean;
 begin
   { TODO: fazer o find all }
-  result := false;
+  Result := false;
 end;
 
 end.

@@ -34,13 +34,14 @@ const
   { TDAOEstado }
 
 
+
 procedure TDAOEstado.Save(var AModel: TEstadoModel);
   procedure Update;
   begin
     FUpdate.Limpar;
-    FUpdate.Add('DSC', FModel.Descricao);
+    FUpdate.Add('DSC', AModel.Descricao);
     FUpdate.Add('DTM', now);
-    FUpdate.AddWhere('COD', FModel.Codigo);
+    FUpdate.AddWhere('COD', AModel.Codigo);
     FUpdate.SetTabela('TRSEST01');
     FSqlConnection.Execute(FUpdate.SQL, FUpdate.Params);
   end;
@@ -48,13 +49,15 @@ procedure TDAOEstado.Save(var AModel: TEstadoModel);
   procedure Insert;
   begin
     FInsert.Limpar;
-    FInsert.Add('COD', FModel.Codigo);
-    FInsert.Add('DSC', FModel.Descricao);
+    FInsert.Add('COD', AModel.Codigo);
+    FInsert.Add('DSC', AModel.Descricao);
     FInsert.Add('DTC', date);
     FInsert.Add('DTM', date);
     FInsert.SetTabela('TRSEST01');
     FSqlConnection.Execute(FInsert.SQL, FInsert.Params);
   end;
+
+
 
 begin
   inherited;
@@ -67,7 +70,6 @@ end;
 
 
 
-
 procedure TDAOEstado.SetModel(var AModel: TEstadoModel);
 begin
   inherited;
@@ -76,14 +78,23 @@ end;
 
 
 
-
-
 procedure TDAOEstado.Delete(var AModel: TEstadoModel);
+  function InternalDelete: boolean;
+  begin
+    FDelete.Limpar;
+    FDelete.SetTabela('TRSEST01');
+    FDelete.AddWhere('COD', FModel.Codigo);
+    FDelete.AddWhere('DSC', FModel.Descricao);
+    Result := FSqlConnection.Execute(FDelete.SQL, FDelete.Params) >= 0;
+  end;
+
+
+
 begin
   inherited;
-  { TODO: find se existe...
-    update set dtx
-  }
+  if Find(AModel, false) then
+    if (InternalDelete) then
+      FModel.Clear;
 end;
 
 
@@ -91,7 +102,6 @@ end;
 function TDAOEstado.Find(var AModel: TEstadoModel; const ASetModel: boolean = true): boolean;
 begin
   inherited;
-{$IFDEF USE_SYSMO_LIBS}
   { TODO -oDorival -cHelper : Trocar por um helper que abra o dataset }
   FSQLDataSet.Close;
 
@@ -99,25 +109,18 @@ begin
   FSQLDataSet.Params.ParamValues['COD'] := FModel.Codigo;
 
   FSQLDataSet.Open;
-  result := not(FSQLDataSet.IsEmpty);
+  Result := not(FSQLDataSet.IsEmpty);
 
   if not(ASetModel) then
     exit;
 
-  if result then
+  if Result then
   begin
-    FModel.Codigo            := FSQLDataSet.FieldByName('COD').AsInteger;
-    FModel.Descricao         := FSQLDataSet.FieldByName('DSC').AsString;
-    FModel.DescricaoReduzida := FSQLDataSet.FieldByName('DSR').AsString;
-    FModel.DataCadatro       := FSQLDataSet.FieldByName('DTC').AsDateTime;
-    FModel.DataManutencao    := FSQLDataSet.FieldByName('DTM').AsDateTime;
-    FModel.Usuario           := FSQLDataSet.FieldByName('USR').AsInteger;
+    FModel.Codigo    := FSQLDataSet.FieldByName('COD').AsString;
+    FModel.Descricao := FSQLDataSet.FieldByName('DSC').AsString;
   end
   else
     FModel.Clear;
-{$ELSE}
-  result := false;
-{$ENDIF}
 end;
 
 
@@ -125,8 +128,7 @@ end;
 function TDAOEstado.FindAll(var AListModel: TObjectList<TEstadoModel>): boolean;
 begin
   { TODO: fazer o find all }
-  result := false;
+  Result := false;
 end;
 
 end.
-

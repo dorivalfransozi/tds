@@ -38,7 +38,7 @@ implementation
 uses
   DDC.ValidationInfo,
   DDC.Notification.Service,
-  DDC.ViewMessages;
+  DDC.ViewMessages, System.Rtti;
 
 {$R *.dfm}
 
@@ -65,14 +65,21 @@ end;
 procedure TBaseFormView.DoInitialize;
 var
   i: SmallInt;
+  oRttiProp: TRttiProperty;
+  oRttiCtx: TRttiContext;
 begin
-
-  { TODO : validar se fica o codigo abaixo }
-  for i := 0 to pred(Self.ComponentCount) do
-  begin
-    if Self.Components[i] is TCustomEdit then
-      THackCustomEdit(Self.Components[i]).onChange := DoControlChange;
-    { TODO : fazer via rtti para ver ficar se tem o onchange }
+  { DONE : validar se fica o codigo abaixo }
+  { adicionado rtti para setar onchange }
+  oRttiCtx := TRttiContext.Create.Create;
+  try
+    for i := 0 to pred(Self.ComponentCount) do
+    begin
+      oRttiProp := oRttiCtx.GetType(Self.Components[i].ClassType).GetProperty('OnChange');
+      if (oRttiProp <> nil) then
+        oRttiProp.SetValue(Self.Components[i], TValue.From<TNotifyEvent>(DoControlChange));
+    end;
+  finally
+    oRttiCtx.Free;
   end;
 end;
 

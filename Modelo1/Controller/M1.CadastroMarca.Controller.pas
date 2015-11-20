@@ -68,7 +68,7 @@ end;
 
 procedure TCadastroMarcaController.Delete;
 begin
-
+  FDAO.Delete(FModel);
 end;
 
 

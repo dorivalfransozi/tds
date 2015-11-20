@@ -23,6 +23,7 @@ type
     FSqlDataSet: TPSQLDataSet;
     FInsert: TSQLBuilderInsert;
     FUpdate: TSQLBuilderUpdate;
+    FDelete: TSQLBuilderDelete;
     procedure SetModel(var AModel: T); virtual; abstract;
   public
     constructor Create; overload;
@@ -54,6 +55,7 @@ begin
 
   FInsert := TSQLBuilderInsert.Create(FSqlConnection);
   FUpdate := TSQLBuilderUpdate.Create(FSqlConnection);
+  FDelete := TSQLBuilderDelete.Create(FSqlConnection);
 
   FSqlDataSet               := TPSQLDataSet.Create(nil);
   FSqlDataSet.SQLConnection := FSqlConnection;
@@ -73,6 +75,7 @@ destructor TDAOBase<T>.Destroy;
 begin
   FUpdate.Free;
   FInsert.Free;
+  FDelete.Free;
   FSqlDataSet.Free;
   FSqlConnection.Free;
 

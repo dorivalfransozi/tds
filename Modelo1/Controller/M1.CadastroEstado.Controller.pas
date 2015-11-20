@@ -65,7 +65,7 @@ end;
 procedure TCadastroEstadoController.Delete;
 begin
   inherited;
-
+  FDAO.Delete(FModel);
 end;
 
 

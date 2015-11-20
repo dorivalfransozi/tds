@@ -37,7 +37,8 @@ uses
 function TFormCadastroMarca.DoUpdateModel: Boolean;
 begin
   // removida a exception pq se der erro ao setar o model deve cair no stack
-  { TODO : padronizar o nome do componente para que o updatemodel seja automatizado }
+  { DONE : padronizar o nome do componente para que o updatemodel seja automatizado }
+  { Padrão foi definido como sendo o profixo delimitado por um underline, após isso deve ser igual ao atributo do modelo }
   (FController.GetModel as TMarcaModel).Codigo            := StrToIntDef(Edt_Codigo.Text, 0);
   (FController.GetModel as TMarcaModel).Descricao         := Edt_Descricao.Text;
   (FController.GetModel as TMarcaModel).DescricaoReduzida := Edt_DescricaoReduzida.Text;
