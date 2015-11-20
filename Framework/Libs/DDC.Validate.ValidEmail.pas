@@ -14,8 +14,7 @@ type
     const
     ERROR_MESSAGE: String = TResourceStringsValidator.RSValidation_ValidEmail;
   public
-    constructor Create(const AColumnTitle: String); overload;
-    constructor Create(const AColumnTitle, ACustomErrorMessage: String); overload;
+    constructor Create(ACustomErrorMessage: String); overload;
     function GetErrorMessage: string;
     function isValid(const AValue: TValue): Boolean;
   end;
@@ -31,16 +30,8 @@ uses
 
 
 
-constructor TValidEmail.Create(const AColumnTitle: String);
+constructor TValidEmail.Create(ACustomErrorMessage: String);
 begin
-  ColumnTitle := AColumnTitle;
-end;
-
-
-
-constructor TValidEmail.Create(const AColumnTitle, ACustomErrorMessage: String);
-begin
-  ColumnTitle        := AColumnTitle;
   CustomErrorMessage := ACustomErrorMessage;
 end;
 
@@ -48,7 +39,7 @@ end;
 
 function TValidEmail.GetErrorMessage: string;
 begin
-  Result := Format(ifThen(CustomErrorMessage = EmptyStr, ERROR_MESSAGE, CustomErrorMessage), [ColumnTitle]);
+  Result := Format(ifThen(CustomErrorMessage = EmptyStr, ERROR_MESSAGE, CustomErrorMessage), [FORMAT_COLUMN_TITLE]);
 end;
 
 
@@ -58,6 +49,9 @@ const
   EMAIL_REGEX: String = '^[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]@[\w-\.]*[a-zA-Z0-9]\.[a-zA-Z]{2,7}$';
 begin
   try
+    if (AValue.AsString.Equals(EmptyStr)) then
+      Exit(True);
+
     Result := TRegEx.IsMatch(AValue.AsString, EMAIL_REGEX);
   Except
     Result := False;

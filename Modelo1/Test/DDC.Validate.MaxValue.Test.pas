@@ -52,7 +52,7 @@ uses
 
 procedure TestTMaxValue.SetUp;
 begin
-  FMaxValue := TMaxValue.Create(MAX_VALUE, COLUMN_NAME);
+  FMaxValue := TMaxValue.Create(MAX_VALUE);
 end;
 
 
@@ -67,7 +67,7 @@ end;
 
 procedure TestTMaxValue.GetErrorMessage;
 begin
-  CheckTrue(FMaxValue.GetErrorMessage = Format(TResourceStringsValidator.RSValidation_MaxValue, [COLUMN_NAME, MAX_VALUE.ToString]
+  CheckTrue(FMaxValue.GetErrorMessage = Format(TResourceStringsValidator.RSValidation_MaxValue, ['%s', MAX_VALUE.ToString]
     ), 'Erro ao formatar mensagem');
 end;
 

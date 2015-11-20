@@ -48,7 +48,7 @@ uses
 
 procedure TestTIsNaturalNoZero.SetUp;
 begin
-  FIsNaturalNoZero := TIsNaturalNoZero.Create(COLUMN_NAME);
+  FIsNaturalNoZero := TIsNaturalNoZero.Create;
 end;
 
 
@@ -63,7 +63,7 @@ end;
 
 procedure TestTIsNaturalNoZero.GetErrorMessage;
 begin
-  CheckTrue(FIsNaturalNoZero.GetErrorMessage = Format(TResourceStringsValidator.RSValidation_IsNaturalNoZero, [COLUMN_NAME]),
+  CheckTrue(FIsNaturalNoZero.GetErrorMessage = TResourceStringsValidator.RSValidation_IsNaturalNoZero,
     'Erro ao formatar mensagem');
 end;
 

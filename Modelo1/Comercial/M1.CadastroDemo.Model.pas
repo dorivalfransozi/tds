@@ -32,19 +32,7 @@ type
   public
     property Name: string read FName write SetName;
     property Age: Integer read FAge write SetAge;
-
-    function New: TModelBase; override;
   end;
-
-  // TModelPedido = class
-  // property ItensPedido: TList<TModelItensPedido>;
-  // end;
-  //
-  //
-  // TCadastroDemoComposto = class(TModelBase)
-  // property ModelPedido: TModelPedido;
-  // property ModelInformacoesAdcionais: TModelInformacoesAdicionais;
-  // end;
 
 implementation
 
@@ -53,13 +41,6 @@ uses
   DDC.Notification.Service;
 
 { TCadastroDemoModel }
-
-
-
-function TCadastroDemoModel.New: TModelBase;
-begin
-  Result := TCadastroDemoModel.Create;
-end;
 
 
 

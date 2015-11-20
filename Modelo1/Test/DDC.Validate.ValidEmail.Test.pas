@@ -46,7 +46,7 @@ uses
 
 procedure TestTValidEmail.SetUp;
 begin
-  FValidEmail := TValidEmail.Create(COLUMN_NAME);
+  FValidEmail := TValidEmail.Create;
 end;
 
 
@@ -61,7 +61,7 @@ end;
 
 procedure TestTValidEmail.GetErrorMessage;
 begin
-  CheckTrue(FValidEmail.GetErrorMessage = Format(TResourceStringsValidator.RSValidation_ValidEmail, [COLUMN_NAME]),
+  CheckTrue(FValidEmail.GetErrorMessage = TResourceStringsValidator.RSValidation_ValidEmail,
     'Erro ao formatar mensagem');
 end;
 

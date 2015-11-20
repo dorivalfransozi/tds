@@ -12,13 +12,9 @@ uses
 
 type
   TFormCadastroMarca = class(TFormCadastro)
-{$IFDEF SYSMO}
-    EdtCodigo: TEditNum;
-{$ELSE}
-    EdtCodigo: TLabeledEdit;
-{$ENDIF}
-    EdtDescricao: TLabeledEdit;
-    EdtDescricaoReduzida: TLabeledEdit;
+    Edt_Codigo: TLabeledEdit;
+    Edt_Descricao: TLabeledEdit;
+    Edt_DescricaoReduzida: TLabeledEdit;
 
     procedure ControlChange(Sender: TObject);
   protected
@@ -33,11 +29,7 @@ implementation
 uses
   M1.Marca.Model;
 
-{$IFDEF SYSMO}
-{$R M1.CadastroMarca.UI.Form_sysmo.dfm}
-{$ELSE}
 {$R *.dfm}
-{$ENDIF}
 
 
 
@@ -45,9 +37,10 @@ uses
 function TFormCadastroMarca.DoUpdateModel: Boolean;
 begin
   // removida a exception pq se der erro ao setar o model deve cair no stack
-  (FModel as TMarcaModel).Codigo            := StrToIntDef(EdtCodigo.Text, 0);
-  (FModel as TMarcaModel).Descricao         := EdtDescricao.Text;
-  (FModel as TMarcaModel).DescricaoReduzida := EdtDescricaoReduzida.Text;
+  { TODO : padronizar o nome do componente para que o updatemodel seja automatizado }
+  (FController.GetModel as TMarcaModel).Codigo            := StrToIntDef(Edt_Codigo.Text, 0);
+  (FController.GetModel as TMarcaModel).Descricao         := Edt_Descricao.Text;
+  (FController.GetModel as TMarcaModel).DescricaoReduzida := Edt_DescricaoReduzida.Text;
 
   Result := True;
 end;
@@ -58,7 +51,7 @@ procedure TFormCadastroMarca.ControlChange(Sender: TObject);
 begin
   inherited;
 
-  {TODO -oDev -cRever : Não temos uma interface para as views, assim esse método controlchange pode não seguir um padrão....}
+  { TODO -oDev -cRever : Não temos uma interface para as views, assim esse método controlchange pode não seguir um padrão.... }
   DoControlChange(Sender);
 end;
 

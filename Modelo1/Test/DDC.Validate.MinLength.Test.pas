@@ -50,7 +50,7 @@ uses
 
 procedure TestTMinLength.SetUp;
 begin
-  FMinLength := TMinLength.Create(MIN_LENGTH, COLUMN_NAME);
+  FMinLength := TMinLength.Create(MIN_LENGTH);
 end;
 
 
@@ -66,7 +66,7 @@ end;
 procedure TestTMinLength.GetErrorMessage;
 begin
   CheckTrue(FMinLength.GetErrorMessage = Format(TResourceStringsValidator.RSValidation_MinLength,
-    [COLUMN_NAME, MIN_LENGTH.ToString]), 'Erro ao formatar mensagem');
+    ['%s', MIN_LENGTH.ToString]), 'Erro ao formatar mensagem');
 end;
 
 

@@ -9,15 +9,15 @@ type
   TValidateCustomAttribute = class(TCustomAttribute, IInterface)
   private
     FCustomErrorMessage: String;
-    FColumnTitle: String;
     FValue: TValue;
+  protected
+    const FORMAT_COLUMN_TITLE: String = '%s';
   protected
     function QueryInterface(const IID: TGUID; out Obj): HResult; stdcall;
     function _AddRef: Integer; stdcall;
     function _Release: Integer; stdcall;
 
     property CustomErrorMessage: String read FCustomErrorMessage write FCustomErrorMessage;
-    property ColumnTitle: String read FColumnTitle write FColumnTitle;
     property Value: TValue read FValue write FValue;
   end;
 

@@ -7,12 +7,12 @@ uses
 
 type
   TControllerBase = class(TInterfacedObject, IControllerBase)
-  protected
-    function DoInternalValidate(const AAttribute: string = ''): boolean;
-    function GetModel: TModelBase; virtual; abstract;
   public
+    { TODO : COLOCAR PARA QUE RECEBA A CONEXAO POR REFERENCIA }
     constructor Create; virtual; abstract;
-    function Validate(const AAttribute: string = ''): boolean; virtual; abstract;
+
+    function Validate(const AAttribute: string = ''): boolean; virtual;
+    function GetModel: TModelBase; virtual; abstract;
 
     property Model: TModelBase read GetModel;
   end;
@@ -28,17 +28,18 @@ uses
 
 
 
-function TControllerBase.DoInternalValidate(const AAttribute: string = ''): boolean;
+function TControllerBase.Validate(const AAttribute: string): boolean;
 begin
   Result := False;
   try
-    Result := Validate;
+    Result := GetModel.IsValid(AAttribute);
   except
     on E: ExceptionValidationInfo do
-      TValidationInfo.New(Model, 'E.PropertyName', False, E.Message, MB_ICONEXCLAMATION);
+      TValidationInfo.New(GetModel, 'E.PropertyName', False, E.Message, MB_ICONEXCLAMATION);
     on E: ExceptionValidationError do
-      TValidationInfo.New(Model, 'E.PropertyName', False, E.Message, MB_ICONERROR);
+      TValidationInfo.New(GetModel, 'E.PropertyName', False, E.Message, MB_ICONERROR);
   end;
+
 end;
 
 end.

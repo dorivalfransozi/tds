@@ -17,8 +17,7 @@ type
     FMinValue: Integer;
   public
     constructor Create(const AMinValue: Integer); overload;
-    constructor Create(const AMinValue: Integer; const AColumnTitle: String); overload;
-    constructor Create(const AMinValue: Integer; const AColumnTitle, ACustomErrorMessage: String); overload;
+    constructor Create(const AMinValue: Integer; const ACustomErrorMessage: String); overload;
     function GetErrorMessage: string;
     function isValid(const AValue: TValue): Boolean;
   end;
@@ -41,18 +40,12 @@ end;
 
 
 
-constructor TMinValue.Create(const AMinValue: Integer; const AColumnTitle: String);
-begin
-  FMinValue   := AMinValue;
-  ColumnTitle := AColumnTitle;
-end;
 
 
 
-constructor TMinValue.Create(const AMinValue: Integer; const AColumnTitle, ACustomErrorMessage: String);
+constructor TMinValue.Create(const AMinValue: Integer; const ACustomErrorMessage: String);
 begin
   FMinValue          := AMinValue;
-  ColumnTitle        := AColumnTitle;
   CustomErrorMessage := ACustomErrorMessage;
 end;
 
@@ -61,7 +54,7 @@ end;
 function TMinValue.GetErrorMessage: string;
 begin
   Result := Format(ifThen(CustomErrorMessage = EmptyStr, ERROR_MESSAGE, CustomErrorMessage),
-    [ColumnTitle, FMinValue.ToString]);
+    [FORMAT_COLUMN_TITLE, FMinValue.ToString]);
 end;
 
 

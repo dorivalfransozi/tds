@@ -11,7 +11,7 @@ inherited FormCadastroMarca: TFormCadastroMarca
     Height = 153
     ExplicitWidth = 618
     ExplicitHeight = 153
-    object EdtCodigo: TLabeledEdit
+    object Edt_Codigo: TLabeledEdit
       Left = 16
       Top = 24
       Width = 64
@@ -22,7 +22,7 @@ inherited FormCadastroMarca: TFormCadastroMarca
       TabOrder = 0
       OnChange = ControlChange
     end
-    object EdtDescricao: TLabeledEdit
+    object Edt_Descricao: TLabeledEdit
       Left = 16
       Top = 65
       Width = 297
@@ -33,7 +33,7 @@ inherited FormCadastroMarca: TFormCadastroMarca
       TabOrder = 1
       OnChange = ControlChange
     end
-    object EdtDescricaoReduzida: TLabeledEdit
+    object Edt_DescricaoReduzida: TLabeledEdit
       Left = 16
       Top = 112
       Width = 297

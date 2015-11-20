@@ -48,7 +48,7 @@ uses
 
 procedure TestTRequired.SetUp;
 begin
-  FRequired := TRequired.Create(COLUMN_NAME);
+  FRequired := TRequired.Create;
 end;
 
 
@@ -63,8 +63,7 @@ end;
 
 procedure TestTRequired.GetErrorMessage;
 begin
-  CheckTrue(FRequired.GetErrorMessage = Format(TResourceStringsValidator.RSValidation_Required, [COLUMN_NAME]),
-    'Erro ao formatar mensagem');
+  CheckTrue(FRequired.GetErrorMessage = TResourceStringsValidator.RSValidation_Required, 'Erro ao formatar mensagem');
 end;
 
 

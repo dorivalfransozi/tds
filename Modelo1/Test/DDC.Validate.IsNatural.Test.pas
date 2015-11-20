@@ -48,7 +48,7 @@ uses
 
 procedure TestTIsNatural.SetUp;
 begin
-  FIsNatural := TIsNatural.Create(COLUMN_NAME);
+  FIsNatural := TIsNatural.Create;
 end;
 
 
@@ -63,8 +63,7 @@ end;
 
 procedure TestTIsNatural.GetErrorMessage;
 begin
-  CheckTrue(FIsNatural.GetErrorMessage = Format(TResourceStringsValidator.RSValidation_IsNatural, [COLUMN_NAME]),
-    'Erro ao formatar mensagem');
+  CheckTrue(FIsNatural.GetErrorMessage = TResourceStringsValidator.RSValidation_IsNatural, 'Erro ao formatar mensagem');
 end;
 
 

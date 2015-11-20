@@ -12,6 +12,8 @@ uses
   DDC.Validator.Extend,
   DDC.Validator,
 
+  DDC.Model.ColumnTitle,
+
   DDC.Validate,
   DDC.Validate.CustomAttribute,
   DDC.Validate.MinLength,
@@ -27,6 +29,8 @@ uses
   DDC.Validate.ValidEmail;
 
 type
+  TColumnTitle = DDC.Model.ColumnTitle.TColumnTitle;
+
   TExtendValidation = DDC.Validator.Extend.TExtendValidation;
   IValidate = DDC.Validate.IValidate;
 
@@ -50,6 +54,9 @@ type
     FErrorList: TStringList;
     FFails: Boolean;
 
+    procedure SetColumnTitle(const AColumnTitle: string);
+
+    procedure InternalMake(const AModel: T; const AAttributeName: String; const AExitOnFirstError: Boolean = False);
     procedure InternalValidateModel(const AModel: T; const AExitOnFirstError: Boolean; const AAttributeName: String = '');
     procedure InternalValidateExtend(const AExitOnFirstError: Boolean; const AAttributeName: String = '');
   public
@@ -74,8 +81,7 @@ uses
 
 
 
-procedure TValidator<T>.AddExtend(const AAttributeName: string; const AValue: TValue; const AErrorMessage: String;
-  const AValidator: TAnonymousExtendValidator);
+procedure TValidator<T>.AddExtend(const AAttributeName: string; const AValue: TValue; const AErrorMessage: String; const AValidator: TAnonymousExtendValidator);
 begin
   FExtendValidationList.Add(TExtendValidation.Create(AAttributeName, AValue, AErrorMessage), AValidator);
 end;
@@ -107,6 +113,23 @@ end;
 
 
 
+procedure TValidator<T>.InternalMake(const AModel: T; const AAttributeName: String; const AExitOnFirstError: Boolean);
+begin
+  FFails := False;
+  FErrorList.Clear;
+
+  InternalValidateModel(AModel, AExitOnFirstError, AAttributeName);
+  FFails := FErrorList.Count > 0;
+
+  if ((AExitOnFirstError) and (FFails)) then
+    Exit;
+
+  InternalValidateExtend(AExitOnFirstError, AAttributeName);
+  FFails := FErrorList.Count > 0;
+end;
+
+
+
 procedure TValidator<T>.InternalValidateExtend(const AExitOnFirstError: Boolean; const AAttributeName: String);
 var
   oExtendValidation: TExtendValidation;
@@ -116,11 +139,12 @@ var
 begin
   for oExtendValidation in FExtendValidationList.Keys do
   begin
-    if ((AAttributeName <> EmptyStr) and (oExtendValidation.AttributeName.ToLower.Trim <> AAttributeName.ToLower.Trim)) then
-        Continue;
+    if ((AAttributeName <> EmptyStr) and (oExtendValidation.AttributeName.ToLower.Trim <> AAttributeName.ToLower.Trim))
+    then
+      Continue;
 
     bAttrFound := True;
-    oSuccess := FExtendValidationList.Items[oExtendValidation](oExtendValidation.Value);
+    oSuccess   := FExtendValidationList.Items[oExtendValidation](oExtendValidation.Value);
     if (not(oSuccess)) then
     begin
       FErrorList.Add(Format(oExtendValidation.ErrorMessage, [oExtendValidation.Value.AsVariant]));
@@ -140,30 +164,46 @@ var
   oCstAttr: TCustomAttribute;
   oValidate: IValidate;
   bAttrFound: Boolean;
+  sColumnTitle: String;
 begin
   if (AModel = nil) then
     raise Exception.Create(TResourceStringsValidator.RSValidator_ModelIsNil);
 
   oRttiCtx := TRttiContext.Create.Create;
   try
-    oRttiTp := oRttiCtx.GetType(T);
+    oRttiTp := oRttiCtx.GetType(AModel.ClassType);
     for oRttiProp in oRttiTp.GetProperties do
     begin
+      if (oRttiProp.propertytype.typekind in [tkClass, tkRecord]) then
+      begin
+        InternalValidateModel(oRttiProp.GetValue(TObject(AModel)).AsObject, AExitOnFirstError, AAttributeName);
+        Continue;
+      end;
+
       if ((AAttributeName <> EmptyStr) and (oRttiProp.Name.ToLower.Trim <> AAttributeName.ToLower.Trim)) then
         Continue;
 
       bAttrFound := True;
-      for oCstAttr in oRttiProp.GetAttributes do
-      begin
-        if not(Supports(oCstAttr, IValidate, oValidate)) then
-          Continue;
-
-        if (not(oValidate.isValid(oRttiProp.GetValue(Pointer(AModel))))) then
+      try
+        sColumnTitle := EmptyStr;
+        for oCstAttr in oRttiProp.GetAttributes do
         begin
-          FErrorList.Add(oValidate.GetErrorMessage);
-          if (AExitOnFirstError) then
-            Exit;
+          if (oCstAttr is TColumnTitle) then
+            sColumnTitle := (oCstAttr as TColumnTitle).GetColumnTitle;
+
+          if not(Supports(oCstAttr, IValidate, oValidate)) then
+            Continue;
+
+          if (not(oValidate.isValid(oRttiProp.GetValue(Pointer(AModel))))) then
+          begin
+            FErrorList.Add(oValidate.GetErrorMessage);
+            if (AExitOnFirstError) then
+              Exit;
+          end;
         end;
+      finally
+        if(FErrorList.Count > 0) then
+          SetColumnTitle(sColumnTitle);
       end;
     end;
 
@@ -178,15 +218,7 @@ end;
 
 function TValidator<T>.MakeAll(const AModel: T; const AExitOnFirstError: Boolean = False): IValidator<T>;
 begin
-  InternalValidateModel(AModel, AExitOnFirstError);
-  FFails := FErrorList.Count > 0;
-
-  if ((AExitOnFirstError) and (FFails)) then
-    Exit(Self);
-
-  InternalValidateExtend(AExitOnFirstError);
-  FFails := FErrorList.Count > 0;
-
+  InternalMake(AModel, EmptyStr, AExitOnFirstError);
   Result := Self;
 end;
 
@@ -194,16 +226,18 @@ end;
 
 function TValidator<T>.MakeAttribute(const AModel: T; const AAttributeName: String; const AExitOnFirstError: Boolean): IValidator<T>;
 begin
-  InternalValidateModel(AModel, AExitOnFirstError, AAttributeName);
-  FFails := FErrorList.Count > 0;
-
-  if ((AExitOnFirstError) and (FFails)) then
-    Exit(Self);
-
-  InternalValidateExtend(AExitOnFirstError, AAttributeName);
-  FFails := FErrorList.Count > 0;
-
+  InternalMake(AModel, AAttributeName, AExitOnFirstError);
   Result := Self;
+end;
+
+
+
+procedure TValidator<T>.SetColumnTitle(const AColumnTitle: string);
+var
+  iIndex: Integer;
+begin
+  for iIndex := 0 to Pred(FErrorList.Count) do
+    FErrorList[iIndex] := Format(FErrorList[iIndex], [AColumnTitle]);
 end;
 
 

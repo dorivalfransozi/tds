@@ -6,12 +6,10 @@ uses
   M1.Marca.Model,
   FM.Controller.CRUD.Impl,
   FM.DAO.Base,
-  Classes;
+  Classes, FM.Model.Base;
 
 type
   TCadastroMarcaController = class(TCRUDController) // , ICRUDController, IFindController)
-  protected
-    function GetModel: TModelBase; override;
   private
     FModel: TMarcaModel;
     FDAO: IDAO<TMarcaModel>;
@@ -22,6 +20,7 @@ type
     procedure FindCadastroDemo(const Name: string);
     procedure ListCadastroDemo;
 
+    function GetModel: TModelBase; override;
     function Validate(const AAttribute: string = ''): Boolean; override;
 
     procedure New; override;
@@ -113,7 +112,7 @@ end;
 procedure TCadastroMarcaController.New;
 begin
   inherited;
-  { TODO -oDev -cRever : Mesma coisa que o save }
+  { DONE -oDev -cRever : Mesma coisa que o save }
 end;
 
 
@@ -121,27 +120,22 @@ end;
 procedure TCadastroMarcaController.Save;
 begin
   inherited;
-  { TODO -oDev -cRever : Acho que aqui poderiamos jogar essas chamadas para o controller CRUD,
-    mas pra isso temos que levar o FDao e FModel para o base }
-  if DoInternalValidate then
+  { DONE -oDev -cRever : Acho que aqui poderiamos jogar essas chamadas para o controller CRUD,
+    mas pra isso temos que levar o FDao e FModel para o base.
+    Comentado em fazer com que o controller tb receba um modelo (semelhante ao dao).
+  }
+
+  {não encontrei uma forma viável de jogar esses códigos para uma classe base}
+  if Validate then
     FDAO.Save(FModel);
 end;
 
 
 
 function TCadastroMarcaController.Validate(const AAttribute: string = ''): Boolean;
-var
-  oValidator: IValidator<TMarcaModel>;
 begin
-  { TODO -oDev -cRever : Ter um overload? ou esse if abaixo para testar se a validação é todal? }
-  oValidator := TValidator<TMarcaModel>.Create;
-  if (AAttribute <> EmptyStr) then
-    result := not oValidator.MakeAttribute(FModel, AAttribute).Fails
-  else
-    result := not oValidator.MakeAll(FModel).Fails;
-
-  if not(result) then
-    raise ExceptionValidationInfo.Create(oValidator.ErrorMessages.Text);
+  { DONEDO -oDev -cRever : Ter um overload? ou esse if abaixo para testar se a validação é todal? }
+  result := inherited Validate(AAttribute);
 end;
 
 end.

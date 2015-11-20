@@ -8,8 +8,8 @@ uses
   System.Rtti,
   DDC.Validator.ResourceStrings;
 
-{ TODO -oDev -cRefatorar : Criar um custom attribute apenas para títulos. }
-{ TODO -oDev -cRefatorar : Remover dos Validate os overload que recebem o título da coluna }
+{ DONE -oDev -cRefatorar : Criar um custom attribute apenas para títulos. }
+{ DONE -oDev -cRefatorar : Remover dos Validate os overload que recebem o título da coluna }
 type
   TExactLength = class(TValidateCustomAttribute, IValidate)
   private
@@ -19,8 +19,7 @@ type
     FExactLength: Integer;
   public
     constructor Create(const AExactLength: Integer); overload;
-    constructor Create(const AExactLength: Integer; const AColumnTitle: String); overload;
-    constructor Create(const AExactLength: Integer; const AColumnTitle, ACustomErrorMessage: String); overload;
+    constructor Create(const AExactLength: Integer; const ACustomErrorMessage: String); overload;
     function GetErrorMessage: string;
     function isValid(const AValue: TValue): Boolean;
   end;
@@ -43,18 +42,9 @@ end;
 
 
 
-constructor TExactLength.Create(const AExactLength: Integer; const AColumnTitle: String);
-begin
-  FExactLength := AExactLength;
-  ColumnTitle  := AColumnTitle;
-end;
-
-
-
-constructor TExactLength.Create(const AExactLength: Integer; const AColumnTitle, ACustomErrorMessage: String);
+constructor TExactLength.Create(const AExactLength: Integer; const ACustomErrorMessage: String);
 begin
   FExactLength       := AExactLength;
-  ColumnTitle        := AColumnTitle;
   CustomErrorMessage := ACustomErrorMessage;
 end;
 
@@ -63,7 +53,7 @@ end;
 function TExactLength.GetErrorMessage: string;
 begin
   Result := Format(ifThen(CustomErrorMessage = EmptyStr, ERROR_MESSAGE, CustomErrorMessage),
-    [ColumnTitle, FExactLength.ToString]);
+    [FORMAT_COLUMN_TITLE, FExactLength.ToString]);
 end;
 
 
@@ -73,7 +63,12 @@ begin
   Self.Value := AValue;
   case AValue.Kind of
     tkString, tkChar, tkWChar, tkLString, tkWString, tkUString:
-      Result := Length(AValue.AsString) = FExactLength;
+      begin
+        if (AValue.AsString.Equals(EmptyStr)) then
+          Exit(True);
+
+        Result := Length(AValue.AsString) = FExactLength;
+      end
   else
     // não aplica validação em outros tipos
     Result := False;

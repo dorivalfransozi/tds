@@ -40,40 +40,38 @@ type
     FIsInteger: Integer;
     FRegexValidate: string;
   public
-    [TIsInteger('IsInteger')]
+    [TColumnTitle('IsInteger'), TIsInteger]
     property IsInteger: Integer read FIsInteger write FIsInteger;
 
-    [TIsNatural('IsNatural')]
+    [TColumnTitle('IsNatural'), TIsNatural]
     property IsNatural: Integer read FIsNatural write FIsNatural;
 
-    [TIsNaturalNoZero('IsNaturalNoZero')]
+    [TColumnTitle('IsNaturalNoZero'), TIsNaturalNoZero]
     property IsNaturalNoZero: Integer read FIsNaturalNoZero write FIsNaturalNoZero;
 
-    [TMaxValue(1, 'MaxValue')]
+    [TColumnTitle('MaxValue'), TMaxValue(1)]
     property MaxValue: Integer read FMaxValue write FMaxValue;
 
-    [TMinValue(1, 'MinValue')]
+    [TColumnTitle('MinValue'), TMinValue(1)]
     property MinValue: Integer read FMinValue write FMinValue;
 
-    [TMinLength(1, 'MinLength')]
+    [TColumnTitle('MinLength'), TMinLength(2)]
     property MinLength: String read FMinLength write FMinLength;
 
-    [TMaxLength(1, 'MaxLength')]
+    [TColumnTitle('MaxLength'), TMaxLength(3)]
     property MaxLength: String read FMaxLength write FMaxLength;
 
-    [TExactLength(1, 'ExactLength')]
+    [TColumnTitle('ExactLength'), TExactLength(2)]
     property ExactLength: String read FExactLength write FExactLength;
 
-    [TValidEmail('ValidMail')]
+    [TColumnTitle('ValidEmail'), TValidEmail]
     property ValidMail: String read FValidMail write FValidMail;
 
-    [TRegexValidate('[A-Z]', 'RegexValidate')]
+    [TColumnTitle('RegexValidate'), TRegexValidate('[A-Z]')]
     property RegexValidate: string read FRegexValidate write FRegexValidate;
 
-    [TRequired('Required')]
+    [TColumnTitle('Required'), TRequired]
     property Required: string read FRequired write FRequired;
-
-    function New: TModelBase; override;
   end;
 
 type
@@ -127,9 +125,9 @@ begin
   (FModel as TModelMock).IsNaturalNoZero := 0;
   (FModel as TModelMock).MaxValue        := 11;
   (FModel as TModelMock).MinValue        := 0;
-  (FModel as TModelMock).MaxLength       := '11';
-  (FModel as TModelMock).MinLength       := '';
-  (FModel as TModelMock).ExactLength     := '11';
+  (FModel as TModelMock).MaxLength       := '1111';
+  (FModel as TModelMock).MinLength       := '1';
+  (FModel as TModelMock).ExactLength     := '1';
   (FModel as TModelMock).ValidMail       := 'eurides.sysmo.com.br';
   (FModel as TModelMock).RegexValidate   := 'abc';
   (FModel as TModelMock).Required        := '';
@@ -144,9 +142,9 @@ begin
   (FModel as TModelMock).IsNaturalNoZero := 1;
   (FModel as TModelMock).MaxValue        := 1;
   (FModel as TModelMock).MinValue        := 1;
-  (FModel as TModelMock).MaxLength       := '1';
-  (FModel as TModelMock).MinLength       := '1';
-  (FModel as TModelMock).ExactLength     := '1';
+  (FModel as TModelMock).MaxLength       := '11';
+  (FModel as TModelMock).MinLength       := '11';
+  (FModel as TModelMock).ExactLength     := '11';
   (FModel as TModelMock).ValidMail       := 'eurides@sysmo.com.br';
   (FModel as TModelMock).RegexValidate   := 'ABC';
   (FModel as TModelMock).Required        := '1';
@@ -278,14 +276,6 @@ begin
   CheckTrue(FValidator.ErrorMessages.Count = 1, 'Erro ao validar extend');
 end;
 
-{ TModelMock }
-
-
-
-function TModelMock.New: TModelBase;
-begin
-  result := TModelMock.Create;
-end;
 
 initialization
 

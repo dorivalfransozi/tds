@@ -17,8 +17,7 @@ type
     FRegex: String;
   public
     constructor Create(const ARegex: String); overload;
-    constructor Create(const ARegex: String; const AColumnTitle: String); overload;
-    constructor Create(const ARegex: String; const AColumnTitle, ACustomErrorMessage: String); overload;
+    constructor Create(const ARegex: String; const ACustomErrorMessage: String); overload;
     function GetErrorMessage: string;
     function isValid(const AValue: TValue): Boolean;
   end;
@@ -41,19 +40,9 @@ end;
 
 
 
-constructor TRegexValidate.Create(const ARegex, AColumnTitle: String);
-begin
-  FRegex      := ARegex;
-  ColumnTitle := AColumnTitle;
-end;
-
-
-
-constructor TRegexValidate.Create(const ARegex, AColumnTitle,
-  ACustomErrorMessage: String);
+constructor TRegexValidate.Create(const ARegex, ACustomErrorMessage: String);
 begin
   FRegex             := ARegex;
-  ColumnTitle        := AColumnTitle;
   CustomErrorMessage := ACustomErrorMessage;
 end;
 
@@ -61,7 +50,7 @@ end;
 
 function TRegexValidate.GetErrorMessage: string;
 begin
-  Result := Format(ifThen(CustomErrorMessage = EmptyStr, ERROR_MESSAGE, CustomErrorMessage), [ColumnTitle]);
+  Result := Format(ifThen(CustomErrorMessage = EmptyStr, ERROR_MESSAGE, CustomErrorMessage), [FORMAT_COLUMN_TITLE]);
 end;
 
 
@@ -69,6 +58,9 @@ end;
 function TRegexValidate.isValid(const AValue: TValue): Boolean;
 begin
   try
+    if (AValue.AsString.Equals(EmptyStr)) then
+      Exit(True);
+
     Result := TRegEx.IsMatch(AValue.AsString, FRegex);
   Except
     Result := False;

@@ -5,12 +5,10 @@ interface
 uses
   M1.CadastroDemo.Model,
   FM.Controller.CRUD, FM.Controller.CRUD.Impl,
-  Classes;
+  Classes, FM.Model.Base;
 
 type
   TCadastroDemoController = class(TCRUDController)
-  protected
-    function GetModel: TModelBase; override;
   private
     FModel: TCadastroDemoModel;
   public
@@ -25,8 +23,6 @@ type
     procedure New; override;
     procedure Edit; override;
     procedure Save; override;
-  public
-    property Model: TModelBase read GetModel;
   end;
 
 implementation
@@ -75,10 +71,6 @@ end;
 
 
 
-function TCadastroDemoController.GetModel: TModelBase;
-begin
-  Result := FModel as TModelBase;
-end;
 
 
 

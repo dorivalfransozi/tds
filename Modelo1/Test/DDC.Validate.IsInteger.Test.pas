@@ -47,7 +47,7 @@ uses
 
 procedure TestTIsInteger.SetUp;
 begin
-  FIsInteger := TIsInteger.Create(COLUMN_NAME);
+  FIsInteger := TIsInteger.Create;
 end;
 
 
@@ -62,8 +62,7 @@ end;
 
 procedure TestTIsInteger.GetErrorMessage;
 begin
-  CheckTrue(FIsInteger.GetErrorMessage = Format(TResourceStringsValidator.RSValidation_IsInteger, [COLUMN_NAME]),
-    'Erro ao formatar mensagem');
+  CheckTrue(FIsInteger.GetErrorMessage = TResourceStringsValidator.RSValidation_IsInteger, 'Erro ao formatar mensagem');
 end;
 
 

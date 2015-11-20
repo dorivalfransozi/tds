@@ -17,8 +17,7 @@ type
     FMinLength: Integer;
   public
     constructor Create(const AMinLength: Integer); overload;
-    constructor Create(const AMinLength: Integer; const AColumnTitle: String); overload;
-    constructor Create(const AMinLength: Integer; const AColumnTitle, ACustomErrorMessage: String); overload;
+    constructor Create(const AMinLength: Integer; const ACustomErrorMessage: String); overload;
     function GetErrorMessage: string;
     function isValid(const AValue: TValue): Boolean;
   end;
@@ -41,18 +40,9 @@ end;
 
 
 
-constructor TMinLength.Create(const AMinLength: Integer; const AColumnTitle: String);
-begin
-  FMinLength  := AMinLength;
-  ColumnTitle := AColumnTitle;
-end;
-
-
-
-constructor TMinLength.Create(const AMinLength: Integer; const AColumnTitle, ACustomErrorMessage: String);
+constructor TMinLength.Create(const AMinLength: Integer; const ACustomErrorMessage: String);
 begin
   FMinLength         := AMinLength;
-  ColumnTitle        := AColumnTitle;
   CustomErrorMessage := ACustomErrorMessage;
 end;
 
@@ -61,7 +51,7 @@ end;
 function TMinLength.GetErrorMessage: string;
 begin
   Result := Format(ifThen(CustomErrorMessage = EmptyStr, ERROR_MESSAGE, CustomErrorMessage),
-    [ColumnTitle, FMinLength.ToString]);
+    [FORMAT_COLUMN_TITLE, FMinLength.ToString]);
 end;
 
 
@@ -71,7 +61,12 @@ begin
   Self.Value := AValue;
   case AValue.Kind of
     tkString, tkChar, tkWChar, tkLString, tkWString, tkUString:
-      Result := Length(AValue.AsString) >= FMinLength;
+      begin
+        if (AValue.AsString.Equals(EmptyStr)) then
+          Exit(True);
+
+        Result := Length(AValue.AsString) >= FMinLength;
+      end
   else
     // não aplica validação em outros tipos
     Result := False;

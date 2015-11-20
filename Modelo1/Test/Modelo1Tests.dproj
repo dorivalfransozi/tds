@@ -129,6 +129,7 @@
         <DCCReference Include="..\..\Framework\Libs\DDC.Validate.ValidEmail.pas"/>
         <DCCReference Include="DDC.Validator.Impl.Test.pas"/>
         <DCCReference Include="..\..\Framework\Libs\DDC.Validator.Impl.pas"/>
+        <DCCReference Include="..\..\Framework\Libs\DDC.Model.ColumnTitle.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

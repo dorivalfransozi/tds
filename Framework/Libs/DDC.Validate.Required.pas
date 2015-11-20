@@ -14,8 +14,7 @@ type
     const
     ERROR_MESSAGE: String = TResourceStringsValidator.RSValidation_Required;
   public
-    constructor Create(const AColumnTitle: String); overload;
-    constructor Create(const AColumnTitle, ACustomErrorMessage: String); overload;
+    constructor Create(const ACustomErrorMessage: String); overload;
     function GetErrorMessage: string;
     function isValid(const AValue: TValue): Boolean;
   end;
@@ -31,16 +30,8 @@ uses
 
 
 
-constructor TRequired.Create(const AColumnTitle: String);
+constructor TRequired.Create(const ACustomErrorMessage: String);
 begin
-  ColumnTitle := AColumnTitle;
-end;
-
-
-
-constructor TRequired.Create(const AColumnTitle, ACustomErrorMessage: String);
-begin
-  ColumnTitle        := AColumnTitle;
   CustomErrorMessage := ACustomErrorMessage;
 end;
 
@@ -48,7 +39,7 @@ end;
 
 function TRequired.GetErrorMessage: string;
 begin
-  Result := Format(ifThen(CustomErrorMessage = EmptyStr, ERROR_MESSAGE, CustomErrorMessage), [ColumnTitle]);
+  Result := Format(ifThen(CustomErrorMessage = EmptyStr, ERROR_MESSAGE, CustomErrorMessage), [FORMAT_COLUMN_TITLE]);
 end;
 
 

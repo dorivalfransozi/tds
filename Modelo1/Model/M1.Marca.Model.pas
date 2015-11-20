@@ -20,15 +20,18 @@ type
     FUsuario: integer;
   public
     // [TFMCollumnName('COD'), TFMVisible(True)]
-    [TIsNaturalNoZero('Código'), TMaxValue(100, 'Código'), TMinValue(1, 'Código')] // <-- validações
+    [TColumnTitle('Código')]
+    [TIsNaturalNoZero, TMaxValue(100), TMinValue(1)] // <-- validações
     property Codigo: integer read FCodigo write FCodigo;
 
     // [TFMCollumnName('DSC'), TFMVisible(True)]
-    [TRequired('Descrição'), TMinLength(10, 'Descrição'), TMaxLength(30, 'Descrição')] // <-- validações
+    [TColumnTitle('Descrição')]
+    [TRequired, TMinLength(10), TMaxLength(30)] // <-- validações
     property Descricao: string read FDescricao write FDescricao;
 
     // [TFMCollumnName('DSR'), TFMVisible(True)]
-    [TRequired('Descrição reduzida'), TMinLength(5, 'Descrição reduzida'), TMaxLength(10, 'Descrição reduzida')] // <-- validações
+    [TColumnTitle('Descrição reduzida')]
+    [TRequired, TMinLength(5), TMaxLength(10)] // <-- validações
     property DescricaoReduzida: string read FDescricaoReduzida write FDescricaoReduzida;
 
     // [TFMCollumnName('DTC'), TFMVisible(True)]
@@ -40,22 +43,8 @@ type
     // [TFMCollumnName('USR'), TFMVisible(False)]
     //[TExists('sgrusr01', 'cod'), TIsUnique('sgrusr01', 'cod')]
     property Usuario: integer read FUsuario write FUsuario;
-
-    function New: TModelBase; override;
   end;
 
 implementation
-
-uses
-  SysUtils;
-
-{ TMarcaModel }
-
-
-
-function TMarcaModel.New: TModelBase;
-begin
-  Result := TMarcaModel.Create;
-end;
 
 end.

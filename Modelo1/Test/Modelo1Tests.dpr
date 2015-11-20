@@ -25,7 +25,6 @@ uses
   DDC.Validator in '..\..\Framework\Libs\DDC.Validator.pas',
   DDC.Validate.CustomAttribute in '..\..\Framework\Libs\DDC.Validate.CustomAttribute.pas',
   DDC.Validator.Extend in '..\..\Framework\Libs\DDC.Validator.Extend.pas',
-
   DDC.Validate.ExactLength.Test in 'DDC.Validate.ExactLength.Test.pas',
   DDC.Validate.ExactLength in '..\..\Framework\Libs\DDC.Validate.ExactLength.pas',
   DDC.Validate.IsInteger.Test in 'DDC.Validate.IsInteger.Test.pas',
@@ -49,7 +48,8 @@ uses
   DDC.Validate.ValidEmail.Test in 'DDC.Validate.ValidEmail.Test.pas',
   DDC.Validate.ValidEmail in '..\..\Framework\Libs\DDC.Validate.ValidEmail.pas',
   DDC.Validator.Impl.Test in 'DDC.Validator.Impl.Test.pas',
-  DDC.Validator.Impl in '..\..\Framework\Libs\DDC.Validator.Impl.pas';
+  DDC.Validator.Impl in '..\..\Framework\Libs\DDC.Validator.Impl.pas',
+  DDC.Model.ColumnTitle in '..\..\Framework\Libs\DDC.Model.ColumnTitle.pas';
 
 { R *.RES }
 

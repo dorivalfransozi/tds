@@ -17,8 +17,7 @@ type
     FMaxValue: Integer;
   public
     constructor Create(const AMaxValue: Integer); overload;
-    constructor Create(const AMaxValue: Integer; const AColumnTitle: String); overload;
-    constructor Create(const AMaxValue: Integer; const AColumnTitle, ACustomErrorMessage: String); overload;
+    constructor Create(const AMaxValue: Integer; const ACustomErrorMessage: String); overload;
     function GetErrorMessage: string;
     function isValid(const AValue: TValue): Boolean;
   end;
@@ -41,18 +40,9 @@ end;
 
 
 
-constructor TMaxValue.Create(const AMaxValue: Integer; const AColumnTitle: String);
-begin
-  FMaxValue   := AMaxValue;
-  ColumnTitle := AColumnTitle;
-end;
-
-
-
-constructor TMaxValue.Create(const AMaxValue: Integer; const AColumnTitle, ACustomErrorMessage: String);
+constructor TMaxValue.Create(const AMaxValue: Integer; const ACustomErrorMessage: String);
 begin
   FMaxValue          := AMaxValue;
-  ColumnTitle        := AColumnTitle;
   CustomErrorMessage := ACustomErrorMessage;
 end;
 
@@ -61,7 +51,7 @@ end;
 function TMaxValue.GetErrorMessage: string;
 begin
   Result := Format(ifThen(CustomErrorMessage = EmptyStr, ERROR_MESSAGE, CustomErrorMessage),
-    [ColumnTitle, FMaxValue.ToString]);
+    [FORMAT_COLUMN_TITLE, FMaxValue.ToString]);
 end;
 
 

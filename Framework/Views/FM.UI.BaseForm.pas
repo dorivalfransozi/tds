@@ -4,15 +4,17 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, FM.Model.Base, FM.Controller.Base;
+  Vcl.StdCtrls, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, FM.Model.Base, FM.Controller.Base;
 
 type
+  THackCustomEdit = class(TCustomEdit);
+
   TBaseFormView = class(TForm)
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
   protected
-    FModel: TModelBase;
+    // FModel: TModelBase;
     FController: IControllerBase;
     procedure SetController(const Value: IControllerBase); virtual;
   protected
@@ -53,24 +55,25 @@ end;
 
 function TBaseFormView.DoControlCheck(Control: TWinControl): Boolean;
 begin
-  { TODO -oDev -cRever : Esse código que trata a exception esta duplicada, aqui e no controller.base. }
-  Result := False;
-  try
-    Result := FController.Validate(Copy(Control.Name, 4, Length(Control.Name)));
-  except
-    on E: ExceptionValidationInfo do
-      TValidationInfo.New(FModel, 'E.PropertyName', False, E.Message, MB_ICONEXCLAMATION);
-    on E: ExceptionValidationError do
-      TValidationInfo.New(FModel, 'E.PropertyName', False, E.Message, MB_ICONERROR);
-  end;
+  { DONE -oDev -cRever : Esse código que trata a exception esta duplicada, aqui e no controller.base. }
+  { foi removido o dointernalvalidate, o model tem o método isvalid e o validate do controller passa a ser responsável por capturar a exception levantada }
+  Result := FController.Validate(Copy(Control.Name, pos('_', Control.Name) + 1, Length(Control.Name)));
 end;
 
 
 
 procedure TBaseFormView.DoInitialize;
+var
+  i: SmallInt;
 begin
-  if Assigned(FController) then
-    FModel := FController.Model;
+
+  { TODO : validar se fica o codigo abaixo }
+  for i := 0 to pred(Self.ComponentCount) do
+  begin
+    if Self.Components[i] is TCustomEdit then
+      THackCustomEdit(Self.Components[i]).onChange := DoControlChange;
+    { TODO : fazer via rtti para ver ficar se tem o onchange }
+  end;
 end;
 
 
@@ -114,7 +117,9 @@ var
 begin
   ValidationInfo := TValidationInfo(Sender);
 
-  if FModel = ValidationInfo.Model then
+  { DONE : PORQUÊ DESSE IF ABAIXO }
+  { pq a notificação pode ser enviada para a view mas o modelo que gerou a notificação é diferente }
+  if FController.Model = ValidationInfo.Model then
   begin
     if Assigned(ValidationInfo) then
     begin

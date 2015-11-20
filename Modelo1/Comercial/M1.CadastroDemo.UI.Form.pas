@@ -59,8 +59,8 @@ begin
   try
    //Usar RTTI para setar properties do Modelo
 
-   (FModel as TCadastroDemoModel).Name := VCName.Text;
-   (FModel as TCadastroDemoModel).Age  := StrToInt(VCAge.Text);
+   (FController.GetModel as TCadastroDemoModel).Name := VCName.Text;
+   (FController.GetModel as TCadastroDemoModel).Age  := StrToInt(VCAge.Text);
 
   except
    //Criar Exception base para validações que já contenha o validation info.

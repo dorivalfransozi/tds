@@ -51,7 +51,7 @@ uses
 
 procedure TestTRegexValidate.SetUp;
 begin
-  FRegexValidate := TRegexValidate.Create(Regex, COLUMN_NAME);
+  FRegexValidate := TRegexValidate.Create(Regex);
 end;
 
 
@@ -66,7 +66,7 @@ end;
 
 procedure TestTRegexValidate.GetErrorMessage;
 begin
-  CheckTrue(FRegexValidate.GetErrorMessage = Format(TResourceStringsValidator.RSValidation_RegexValidate, [COLUMN_NAME]),
+  CheckTrue(FRegexValidate.GetErrorMessage = TResourceStringsValidator.RSValidation_RegexValidate,
     'Erro ao formatar mensagem');
 end;
 
@@ -77,7 +77,7 @@ var
   AValue: TValue;
   oValidate: TRegexValidate;
 begin
-  oValidate := TRegexValidate.Create('^[a-zA-Z]*$', COLUMN_NAME);
+  oValidate := TRegexValidate.Create('^[a-zA-Z]*$');
   try
     AValue := 'ABBCASDU';
     CheckTrue(oValidate.isValid(AValue), 'Erro ao validar aplha ' + AValue.ToString);
@@ -93,7 +93,7 @@ var
   AValue: TValue;
   oValidate: TRegexValidate;
 begin
-  oValidate := TRegexValidate.Create('^[a-zA-Z]*$', COLUMN_NAME);
+  oValidate := TRegexValidate.Create('^[a-zA-Z]*$');
   try
     AValue := '9ABBCASDU';
     CheckFalse(oValidate.isValid(AValue), 'Erro ao validar aplha ' + AValue.ToString);
@@ -109,7 +109,7 @@ var
   AValue: TValue;
   oValidate: TRegexValidate;
 begin
-  oValidate := TRegexValidate.Create('^[a-zA-Z0-9]*$', COLUMN_NAME);
+  oValidate := TRegexValidate.Create('^[a-zA-Z0-9]*$');
   try
     AValue := 'A9a';
     CheckTrue(oValidate.isValid(AValue), 'Erro ao validar aplhanumeric ' + AValue.ToString);
@@ -125,7 +125,7 @@ var
   AValue: TValue;
   oValidate: TRegexValidate;
 begin
-  oValidate := TRegexValidate.Create('^[a-zA-Z0-9]*$', COLUMN_NAME);
+  oValidate := TRegexValidate.Create('^[a-zA-Z0-9]*$');
   try
     AValue := '()*&*(&kjasdASD';
     CheckFalse(oValidate.isValid(AValue), 'Erro ao validar aplhanumeric ' + AValue.ToString);
@@ -141,7 +141,7 @@ var
   AValue: TValue;
   oValidate: TRegexValidate;
 begin
-  oValidate := TRegexValidate.Create('^[0-9]*$', COLUMN_NAME);
+  oValidate := TRegexValidate.Create('^[0-9]*$');
   try
     AValue := '0123';
     CheckTrue(oValidate.isValid(AValue), 'Erro ao validar numeric ' + AValue.ToString);
@@ -157,7 +157,7 @@ var
   AValue: TValue;
   oValidate: TRegexValidate;
 begin
-  oValidate := TRegexValidate.Create('^[0-9]*$', COLUMN_NAME);
+  oValidate := TRegexValidate.Create('^[0-9]*$');
   try
     AValue := '0a123';
     CheckFalse(oValidate.isValid(AValue), 'Erro ao validar numeric ' + AValue.ToString);

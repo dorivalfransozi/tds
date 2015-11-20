@@ -52,7 +52,7 @@ uses
 
 procedure TestTMinValue.SetUp;
 begin
-  FMinValue := TMinValue.Create(MIN_VALUE, COLUMN_NAME);
+  FMinValue := TMinValue.Create(MIN_VALUE);
 end;
 
 
@@ -67,7 +67,8 @@ end;
 
 procedure TestTMinValue.GetErrorMessage;
 begin
-  CheckTrue(FMinValue.GetErrorMessage = Format(TResourceStringsValidator.RSValidation_MinValue, [COLUMN_NAME, MIN_VALUE.ToString]), 'Erro ao formatar mensagem');
+  CheckTrue(FMinValue.GetErrorMessage = Format(TResourceStringsValidator.RSValidation_MinValue,
+    ['%s', MIN_VALUE.ToString]), 'Erro ao formatar mensagem');
 end;
 
 

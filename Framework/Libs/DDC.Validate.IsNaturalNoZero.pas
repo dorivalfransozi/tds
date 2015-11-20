@@ -14,8 +14,7 @@ type
     const
     ERROR_MESSAGE: String = TResourceStringsValidator.RSValidation_IsNaturalNoZero;
   public
-    constructor Create(const AColumnTitle: String); overload;
-    constructor Create(const AColumnTitle, ACustomErrorMessage: String); overload;
+    constructor Create(const ACustomErrorMessage: String); overload;
     function GetErrorMessage: string;
     function isValid(const AValue: TValue): Boolean;
   end;
@@ -31,17 +30,8 @@ uses
 
 
 
-constructor TIsNaturalNoZero.Create(const AColumnTitle: String);
+constructor TIsNaturalNoZero.Create(const ACustomErrorMessage: String);
 begin
-  ColumnTitle := AColumnTitle;
-end;
-
-
-
-constructor TIsNaturalNoZero.Create(const AColumnTitle,
-  ACustomErrorMessage: String);
-begin
-  ColumnTitle        := AColumnTitle;
   CustomErrorMessage := ACustomErrorMessage;
 end;
 
@@ -49,7 +39,7 @@ end;
 
 function TIsNaturalNoZero.GetErrorMessage: string;
 begin
-  Result := Format(ifThen(CustomErrorMessage = EmptyStr, ERROR_MESSAGE, CustomErrorMessage), [ColumnTitle]);
+  Result := Format(ifThen(CustomErrorMessage = EmptyStr, ERROR_MESSAGE, CustomErrorMessage), [FORMAT_COLUMN_TITLE]);
 end;
 
 

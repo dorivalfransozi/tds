@@ -50,7 +50,7 @@ uses
 
 procedure TestTMaxLength.SetUp;
 begin
-  FMaxLength := TMaxLength.Create(MAX_LENGTH, COLUMN_NAME);
+  FMaxLength := TMaxLength.Create(MAX_LENGTH);
 end;
 
 
@@ -66,7 +66,7 @@ end;
 procedure TestTMaxLength.GetErrorMessage;
 begin
   CheckTrue(FMaxLength.GetErrorMessage = Format(TResourceStringsValidator.RSValidation_MaxLength,
-    [COLUMN_NAME, MAX_LENGTH.ToString]), 'Erro ao formatar mensagem');
+    ['%s', MAX_LENGTH.ToString]), 'Erro ao formatar mensagem');
 end;
 
 

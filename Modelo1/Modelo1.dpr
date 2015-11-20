@@ -4,6 +4,7 @@ program Modelo1;
 
 uses
   Vcl.Forms,
+  DBXDEVARTPOSTGRESQL,
   M1.Main.UI.Form in 'M1.Main.UI.Form.pas' {Form1},
   M1.CadastroDemo.UI.Form in 'Comercial\M1.CadastroDemo.UI.Form.pas' {ViewCadastroDemo},
   M1.CadastroDemo.Controller in 'Comercial\M1.CadastroDemo.Controller.pas',
@@ -58,7 +59,13 @@ uses
   DDC.Validate.IsInteger in '..\Framework\Libs\DDC.Validate.IsInteger.pas',
   DDC.Validate.Regex in '..\Framework\Libs\DDC.Validate.Regex.pas',
   DDC.Validate.ValidEmail in '..\Framework\Libs\DDC.Validate.ValidEmail.pas',
-  DDC.Validator.ResourceStrings in '..\Framework\Resource\DDC.Validator.ResourceStrings.pas';
+  DDC.Validator.ResourceStrings in '..\Framework\Resource\DDC.Validator.ResourceStrings.pas',
+  M1.CadastroEstado.UI.Form in 'View\M1.CadastroEstado.UI.Form.pas' {FormCadastroEstado},
+  M1.CadastroEstado.Controller in 'Controller\M1.CadastroEstado.Controller.pas',
+  M1.Estado.Model in 'Model\M1.Estado.Model.pas',
+  M1.Estado.DAO in 'DAO\M1.Estado.DAO.pas',
+  Helper.HRTTI in 'D:\dsv\projetos\framework\trunk\helpers\Helper.HRTTI.pas',
+  DDC.Model.ColumnTitle in '..\Framework\Libs\DDC.Model.ColumnTitle.pas';
 
 {$R *.res}
 
